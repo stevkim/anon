@@ -3,6 +3,7 @@ import { fetchPosts } from '../lib/fetch';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import { useRef } from 'react';
+import useThrottle from '../hooks/useThrottle';
 
 const Feed = () => {
 	const feedRef = useRef<HTMLDivElement>(null);
@@ -27,7 +28,7 @@ const Feed = () => {
 		<>
 			<div>Feed</div>
 			<div
-				className="flex flex-col gap-4 w-full h-[800px] overflow-auto px-[20%] no-scrollbar"
+				className="flex flex-col gap-4 w-full h-[90vh] overflow-auto px-[20%] no-scrollbar"
 				ref={feedRef}
 				onScroll={infiniteScroll}
 			>
@@ -41,8 +42,8 @@ const Feed = () => {
 						</div>
 					);
 				})}
+				{hasNextPage ? null : <div>No more posts</div>}
 			</div>
-			<button onClick={() => fetchNextPage()}>Get more</button>
 		</>
 	);
 };
