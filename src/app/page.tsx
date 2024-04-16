@@ -1,3 +1,9 @@
-export default function Home() {
-	return <main>test</main>;
+import Feed from './components/Feed';
+
+export default async function Home() {
+	return (
+		<main>
+			<Feed />
+		</main>
+	);
 }

@@ -6,8 +6,8 @@ const NAVS = [
 		link: '/',
 	},
 	{
-		name: 'feed',
-		link: '/feed',
+		name: 'write',
+		link: '/write',
 	},
 	{
 		name: 'account',
