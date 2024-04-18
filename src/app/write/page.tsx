@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { createPost } from '../lib/fetch';
-import Editor from './components/Editor';
+import { createPost } from '@/lib/fetch';
+import Editor from '@/components/Editor';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
