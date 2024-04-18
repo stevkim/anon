@@ -13,10 +13,13 @@ interface Props {
 }
 
 const useInfiniteScroll = ({ el, fn, more }: Props) => {
+	// throttles the passed in function by the delay amount
 	const throttledFn = useThrottle({ fn, delay: 100 });
 	const handleScroll = () => {
 		const { scrollTop, clientHeight, scrollHeight } =
 			el.current as ScrollableElement;
+
+		// calculate scroll position to be 300px from the bottom
 		if (scrollTop + clientHeight > scrollHeight - 300) {
 			throttledFn();
 		}

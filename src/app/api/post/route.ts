@@ -1,6 +1,9 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import prisma from '@/db/client';
+import { redirect } from 'next/navigation';
+import { createClient } from '@/utils/server';
+import { revalidatePath } from 'next/cache';
 
 export async function GET(request: NextRequest) {
 	const LIMIT = 50;
@@ -14,6 +17,32 @@ export async function GET(request: NextRequest) {
 		console.log(results);
 
 		return NextResponse.json({ data: results });
+	} catch (err) {
+		console.log(err);
+		return NextResponse.error();
+	} finally {
+		prisma.$disconnect();
+	}
+}
+
+export async function POST(request: NextRequest) {
+	const supabase = createClient();
+
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
+
+	const newPost = await request.json();
+
+	try {
+		await prisma.post.create({
+			data: {
+				...newPost,
+				authorId: user?.id,
+			},
+		});
+
+		return NextResponse.json({}, { status: 201 });
 	} catch (err) {
 		console.log(err);
 		return NextResponse.error();
