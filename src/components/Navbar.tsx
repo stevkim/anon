@@ -24,7 +24,6 @@ const Navbar = async () => {
 	const {
 		data: { user },
 	} = await supabase.auth.getUser();
-	console.log(user?.id);
 
 	return (
 		<nav className="flex flex-row px-4">

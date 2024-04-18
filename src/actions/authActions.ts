@@ -10,10 +10,9 @@ export async function passwordLogin(formData: FormData) {
 		email: formData.get('email') as string,
 		password: formData.get('password') as string,
 	});
-	console.log(data);
 
 	if (error) {
-		return { error };
+		return { error: error.message };
 	}
 
 	revalidatePath('/', 'layout');

@@ -7,7 +7,7 @@ const Login = () => {
 		const { error } = await passwordLogin(formData);
 
 		if (error) {
-			return toast.error(error.message);
+			return toast.error(error);
 		}
 	};
 
