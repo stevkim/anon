@@ -1,4 +1,7 @@
 import Link from 'next/link';
+import { createClient } from '@/utils/server';
+import LoginButton from './Buttons/LoginButton';
+import LogoutButton from './Buttons/LogoutButton';
 
 const NAVS = [
 	{
@@ -15,7 +18,14 @@ const NAVS = [
 	},
 ];
 
-const Navbar = () => {
+const Navbar = async () => {
+	const supabase = createClient();
+
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
+	console.log(user?.id);
+
 	return (
 		<nav className="flex flex-row px-4">
 			<Link
@@ -24,7 +34,7 @@ const Navbar = () => {
 			>
 				anon.
 			</Link>
-			<div className="flex gap-4">
+			<div className="flex gap-4 items-center">
 				{NAVS.map((nav) => {
 					return (
 						<Link
@@ -35,6 +45,7 @@ const Navbar = () => {
 						</Link>
 					);
 				})}
+				{user?.id ? <LogoutButton /> : <LoginButton />}
 			</div>
 		</nav>
 	);

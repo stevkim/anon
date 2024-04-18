@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 
+// calculate remaining time from last invocation
 const remainingTime = (last: number, delay: number) => {
 	const elapsed = Date.now() - last;
 	const remaining = delay - elapsed;
@@ -13,7 +14,7 @@ interface Props {
 }
 
 const useThrottle = ({ fn, delay }: Props) => {
-	const lastTrigger = useRef<number>(Date.now());
+	const lastTriggered = useRef<number>(Date.now());
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
 	const cancel = useCallback(() => {
@@ -24,18 +25,18 @@ const useThrottle = ({ fn, delay }: Props) => {
 	}, []);
 
 	const throttledFn = useCallback(() => {
-		let remaining = remainingTime(lastTrigger.current, delay);
+		let remaining = remainingTime(lastTriggered.current, delay);
 
 		if (remaining === 0) {
-			lastTrigger.current = Date.now();
+			lastTriggered.current = Date.now();
 			fn();
 			cancel();
 		} else if (!timeoutRef.current) {
 			timeoutRef.current = setTimeout(() => {
-				remaining = remainingTime(lastTrigger.current, delay);
+				remaining = remainingTime(lastTriggered.current, delay);
 
 				if (remaining === 0) {
-					lastTrigger.current = Date.now();
+					lastTriggered.current = Date.now();
 					fn();
 					cancel();
 				}
@@ -43,6 +44,7 @@ const useThrottle = ({ fn, delay }: Props) => {
 		}
 	}, [fn, cancel, delay]);
 
+	// invoke cancel and refresh is this hook is recalled
 	useEffect(() => cancel, [cancel]);
 
 	return throttledFn;

@@ -3,7 +3,6 @@ import { fetchPosts } from '../lib/fetch';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import useInfiniteScroll from '../hooks/useInfiniteScroll';
 import { useRef } from 'react';
-import useThrottle from '../hooks/useThrottle';
 
 const Feed = () => {
 	const feedRef = useRef<HTMLDivElement>(null);
