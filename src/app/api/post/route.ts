@@ -1,9 +1,8 @@
+'use server';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import prisma from '@/db/client';
-import { redirect } from 'next/navigation';
-import { createClient } from '@/utils/server';
-import { revalidatePath } from 'next/cache';
+import { createClient } from '@/utils/supabase/server';
 
 export async function GET(request: NextRequest) {
 	const LIMIT = 50;
