@@ -4,7 +4,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { useRef } from 'react';
 
-const Feed = () => {
+const Display = () => {
 	const feedRef = useRef<HTMLDivElement>(null);
 	const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
 		queryKey: ['posts'],
@@ -47,4 +47,4 @@ const Feed = () => {
 	);
 };
 
-export default Feed;
+export default Display;

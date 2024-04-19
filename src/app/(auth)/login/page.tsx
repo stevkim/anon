@@ -13,17 +13,25 @@ const Login = () => {
 	};
 
 	return (
-		<form className="flex gap-4">
-			<input
-				type="text"
-				name="email"
-			/>
-			<input
-				type="text"
-				name="password"
-			/>
-			<button formAction={loginWithPassword}>Log in</button>
-			<Link href={'/signup'}>Sign up</Link>
+		<form className="flex gap-4 flex-col">
+			<label>
+				Email:
+				<input
+					type="text"
+					name="email"
+				/>
+			</label>
+			<label>
+				Password:
+				<input
+					type="text"
+					name="password"
+				/>
+			</label>
+			<div className="flex gap-4">
+				<button formAction={loginWithPassword}>Log in</button>
+				<Link href={'/signup'}>Sign up</Link>
+			</div>
 		</form>
 	);
 };
