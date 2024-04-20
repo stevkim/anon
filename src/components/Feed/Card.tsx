@@ -10,7 +10,7 @@ interface Props {
 
 const Card = ({ post }: Props) => {
 	const { content, liked, likes, id } = post;
-	console.log(post);
+
 	return (
 		<div className="">
 			<ReactQuill

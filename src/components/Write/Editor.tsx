@@ -8,11 +8,12 @@ import { createPost } from '@/lib/fetch';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 const options = [
+	[{ font: [] }],
+	[{ size: ['small', false, 'large', 'huge'] }],
 	['bold', 'italic', 'underline', 'strike'],
 	['blockquote', 'code-block'],
-	[{ list: 'ordered' }, { list: 'bullet' }],
-	[{ indent: '-1' }, { indent: '+1' }],
-	[{ size: ['small', false, 'large', 'huge'] }],
+	[{ color: [] }, { background: [] }],
+	[{ list: 'ordered' }, { list: 'bullet' }, { align: [] }],
 ];
 
 const Editor = () => {
@@ -31,10 +32,12 @@ const Editor = () => {
 	};
 
 	return (
-		<>
+		<div className="flex flex-col justify-center items-center">
 			<ReactQuill
 				modules={{ toolbar: options }}
 				onChange={setContent}
+				className="max-w-[1500px] w-[90%] editor min-h-[400px]"
+				theme="snow"
 			/>
 			<button
 				type="button"
@@ -42,7 +45,7 @@ const Editor = () => {
 			>
 				Submit
 			</button>
-		</>
+		</div>
 	);
 };
 

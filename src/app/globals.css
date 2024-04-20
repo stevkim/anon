@@ -5,3 +5,8 @@
 .no-scrollbar::-webkit-scrollbar {
 	display: none;
 }
+
+.ql-container,
+.ql-editor {
+	min-height: inherit;
+}

@@ -31,6 +31,7 @@ export const likePost = async (path: string) => {
 	return results;
 };
 
+// unlike a post
 export const unlikePost = async (path: string, record: string) => {
 	const results = await fetch(`/api/post/${path}?record=${record}`, {
 		method: 'DELETE',
