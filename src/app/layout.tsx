@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import 'react-quill/dist/quill.snow.css';
 import Navbar from '@/components/Navbar';
 import Providers from './providers';
 import { Toaster } from 'react-hot-toast';
@@ -17,8 +18,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<Navbar />
-				<Providers>{children}</Providers>
+				<Providers>
+					<Navbar />
+					{children}
+				</Providers>
 				<Toaster position="bottom-right" />
 			</body>
 		</html>
