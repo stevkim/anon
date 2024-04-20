@@ -2,14 +2,18 @@
 import { toast } from 'react-hot-toast';
 import { passwordLogin } from '@/actions/authActions';
 import Link from 'next/link';
+import { useQueryClient } from '@tanstack/react-query';
 
 const Login = () => {
+	const queryClient = useQueryClient();
+
 	const loginWithPassword = async (formData: FormData) => {
 		const { error } = await passwordLogin(formData);
 
 		if (error) {
 			return toast.error(error);
 		}
+		queryClient.invalidateQueries({ queryKey: ['posts'] });
 	};
 
 	return (

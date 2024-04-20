@@ -1,34 +1,20 @@
-'use client';
-import { useState } from 'react';
-import { createPost } from '@/lib/fetch';
-import Editor from '@/components/Editor';
-import { toast } from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
+import Editor from '@/components/Write/Editor';
+import { redirect } from 'next/navigation';
+import { createClient } from '@/utils/supabase/server';
 
-const Write = () => {
-	const { push } = useRouter();
-	const [content, setContent] = useState('');
+const Write = async () => {
+	const supabase = createClient();
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
 
-	const submit = async () => {
-		const response = await createPost({ content: content });
-
-		if (!response.ok) {
-			toast.error('Internal server error');
-		}
-
-		toast.success('Post Created');
-		push('/');
-	};
+	if (!user?.id) {
+		redirect('/login');
+	}
 
 	return (
 		<>
-			<Editor setContent={setContent} />
-			<button
-				type="submit"
-				onClick={submit}
-			>
-				Submit
-			</button>
+			<Editor />
 		</>
 	);
 };

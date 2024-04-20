@@ -2,18 +2,20 @@
 import { fetchPosts } from '@/lib/fetch';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
+import Card from './Card';
 
 const Display = () => {
 	const feedRef = useRef<HTMLDivElement>(null);
-	const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
-		queryKey: ['posts'],
-		queryFn: ({ pageParam }) => fetchPosts(pageParam),
-		initialPageParam: 0,
-		getNextPageParam: (lastPage, allPages) => {
-			return lastPage.length ? allPages.length + 1 : undefined;
-		},
-	});
+	const { data, fetchNextPage, hasNextPage, status, isRefetching } =
+		useInfiniteQuery({
+			queryKey: ['posts'],
+			queryFn: ({ pageParam }) => fetchPosts(pageParam),
+			initialPageParam: 0,
+			getNextPageParam: (lastPage, allPages) => {
+				return lastPage.length ? allPages.length : undefined;
+			},
+		});
 
 	const infiniteScroll = useInfiniteScroll({
 		el: feedRef,
@@ -21,7 +23,24 @@ const Display = () => {
 		more: hasNextPage,
 	});
 
-	const test = new Array(100).fill('test');
+	const content = useMemo(
+		() =>
+			data?.pages.map((page) =>
+				page.map((post) => {
+					return (
+						<Card
+							key={post.id + post.liked}
+							post={post}
+						/>
+					);
+				})
+			),
+		[data]
+	);
+
+	if (status === 'pending' || isRefetching) {
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<>
@@ -31,16 +50,7 @@ const Display = () => {
 				ref={feedRef}
 				onScroll={infiniteScroll}
 			>
-				{test.map((t, i) => {
-					return (
-						<div
-							key={i}
-							className="h-[200px] border-2 w-full"
-						>
-							{i}. {t}
-						</div>
-					);
-				})}
+				{content}
 				{hasNextPage ? null : <div>No more posts</div>}
 			</div>
 		</>
