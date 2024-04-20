@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { createClient } from '@/utils/server';
+import { createClient } from '@/utils/supabase/server';
 import LoginButton from './Buttons/LoginButton';
 import LogoutButton from './Buttons/LogoutButton';
 
@@ -24,7 +24,6 @@ const Navbar = async () => {
 	const {
 		data: { user },
 	} = await supabase.auth.getUser();
-	console.log(user?.id);
 
 	return (
 		<nav className="flex flex-row px-4">

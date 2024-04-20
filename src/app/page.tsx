@@ -1,9 +1,9 @@
-import Feed from './components/Feed';
+import Display from '@/components/Feed/Display';
 
 export default async function Home() {
 	return (
 		<main>
-			<Feed />
+			<Display />
 		</main>
 	);
 }
