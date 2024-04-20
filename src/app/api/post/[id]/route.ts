@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server';
 import prisma from '@/db/client';
 import { createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
-import { UUID } from 'crypto';
 
 export async function POST(request: NextRequest) {
 	const supabase = createClient();
@@ -45,7 +44,6 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
 	const postId = request.nextUrl.pathname.split('/')[3];
 	const record = request.nextUrl.searchParams.get('record') as string;
-	console.log(postId, record);
 
 	try {
 		await prisma.post.update({
