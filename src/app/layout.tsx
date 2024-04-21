@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './prosemirror.css';
 import 'react-quill/dist/quill.snow.css';
 import Navbar from '@/components/Navbar';
 import Providers from './providers';
@@ -17,7 +18,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body>
+			<body className="antialiased">
 				<Providers>
 					<Navbar />
 					{children}

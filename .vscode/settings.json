@@ -3,6 +3,10 @@
 		"autoincrement",
 		"clsx",
 		"datasource",
+		"dropcursor",
+		"gapcursor",
+		"lucide",
+		"Lucide",
 		"NAVS",
 		"signout",
 		"signup"

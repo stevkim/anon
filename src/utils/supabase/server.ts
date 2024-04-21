@@ -15,9 +15,7 @@ export function createClient() {
 				set(name: string, value: string, options: CookieOptions) {
 					try {
 						cookieStore.set({ name, value, ...options });
-					} catch (error) {
-						console.log(error);
-					}
+					} catch (error) {}
 				},
 				remove(name: string, options: CookieOptions) {
 					cookieStore.set({ name, value: '', ...options });
