@@ -24,7 +24,7 @@ const Editor = () => {
 		const response = await createPost({ content: content });
 
 		if (!response.ok) {
-			toast.error('Internal server error');
+			return toast.error('Internal server error');
 		}
 
 		toast.success('Post Created');
