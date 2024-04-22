@@ -1,6 +1,6 @@
-import Editor from '@/components/Write/Editor';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
+import EditorContainer from '@/components/Editor/EditorContainer';
 
 const Write = async () => {
 	const supabase = createClient();
@@ -14,7 +14,7 @@ const Write = async () => {
 
 	return (
 		<>
-			<Editor />
+			<EditorContainer />
 		</>
 	);
 };

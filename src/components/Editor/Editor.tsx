@@ -9,13 +9,14 @@ import {
 	EditorBubble,
 	EditorCommandEmpty,
 } from 'novel';
+import { useState } from 'react';
 import { handleCommandNavigation } from 'novel/extensions';
 
 import { defaultExtensions } from './extensions';
 import { slashCommand, suggestionItems } from './slash-command';
 import TextButtons from './selectors/text-buttons';
 import { NodeSelector } from './selectors/node-selector';
-import { useState } from 'react';
+import { ColorSelector } from './selectors/color-selector';
 
 const extensions = [...defaultExtensions, slashCommand];
 
@@ -26,6 +27,7 @@ interface Props {
 
 const Editor = ({ initialContent, onChange }: Props) => {
 	const [openNode, setOpenNode] = useState(false);
+	const [openColor, setOpenColor] = useState(false);
 
 	return (
 		<EditorRoot>
@@ -81,6 +83,10 @@ const Editor = ({ initialContent, onChange }: Props) => {
 						onOpenChange={setOpenNode}
 					/>
 					<TextButtons />
+					<ColorSelector
+						open={openColor}
+						onOpenChange={setOpenColor}
+					/>
 				</EditorBubble>
 			</EditorContent>
 		</EditorRoot>

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import './prosemirror.css';
-import 'react-quill/dist/quill.snow.css';
 import Navbar from '@/components/Navbar';
 import Providers from './providers';
 import { Toaster } from 'react-hot-toast';

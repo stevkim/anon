@@ -15,6 +15,8 @@
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.42.4",
     "@tanstack/react-query": "^5.29.2",
+    "@tiptap/extension-highlight": "^2.3.0",
+    "@tiptap/extension-text-style": "^2.3.0",
     "@tiptap/pm": "^2.3.0",
     "@tiptap/react": "^2.3.0",
     "@tiptap/starter-kit": "^2.3.0",
@@ -27,7 +29,6 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
-    "react-quill": "^2.0.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
