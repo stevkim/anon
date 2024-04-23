@@ -2,6 +2,7 @@
 import { signout } from '@/actions/authActions';
 import { toast } from 'react-hot-toast';
 import { useQueryClient } from '@tanstack/react-query';
+import { Button } from '../ui/button';
 
 const LogoutButton = () => {
 	const queryClient = useQueryClient();

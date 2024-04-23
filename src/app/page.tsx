@@ -1,9 +1,9 @@
-import Display from '@/components/Feed/Display';
+import Display from '@/components/MainFeed/Display';
 
 export default async function Home() {
 	return (
-		<main>
+		<section className="page">
 			<Display />
-		</main>
+		</section>
 	);
 }

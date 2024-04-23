@@ -43,17 +43,14 @@ const Display = () => {
 	}
 
 	return (
-		<>
-			<div>Feed</div>
-			<div
-				className="flex flex-col gap-4 w-full h-[90vh] overflow-auto px-[20%] no-scrollbar"
-				ref={feedRef}
-				onScroll={infiniteScroll}
-			>
-				{content}
-				{hasNextPage ? null : <div>No more posts</div>}
-			</div>
-		</>
+		<div
+			className="flex flex-col gap-4 w-full h-[90vh] overflow-auto no-scrollbar"
+			ref={feedRef}
+			onScroll={infiniteScroll}
+		>
+			{content}
+			{hasNextPage ? null : <div>No more posts</div>}
+		</div>
 	);
 };
 

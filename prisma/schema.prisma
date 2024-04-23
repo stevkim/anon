@@ -11,7 +11,7 @@ datasource db {
 model Post {
   id        String    @id @unique @default(dbgenerated("gen_random_uuid()"))
   createdAt DateTime  @default(now())
-  content   String
+  content   Json
   likes     Int?      @default(0)
   reports   Int?      @default(0)
   authorId  String
@@ -20,18 +20,19 @@ model Post {
 }
 
 model Reports {
-  id     String @id @unique @default(dbgenerated("gen_random_uuid()"))
-  reason String
-  postId String
-  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade, map: "public_Reports_postId_fkey")
+  id        String   @id @unique @default(dbgenerated("gen_random_uuid()"))
+  reason    String
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, map: "public_Reports_postId_fkey")
+  createdAt DateTime @default(now())
 }
 
 model Likes {
-  created_at DateTime @default(now())
-  postId     String?
-  userId     String
-  id         String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  Post       Post?    @relation(fields: [postId], references: [id], onDelete: Cascade, map: "public_Likes_postId_fkey")
+  createdAt DateTime @default(now())
+  postId    String?
+  userId    String
+  id        String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade, map: "public_Likes_postId_fkey")
 
   @@id([id, userId])
   @@unique([postId, userId])
