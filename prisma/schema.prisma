@@ -20,11 +20,15 @@ model Post {
 }
 
 model Reports {
-  id        String   @id @unique @default(dbgenerated("gen_random_uuid()"))
+  id        String   @unique @default(dbgenerated("gen_random_uuid()"))
   reason    String
   postId    String
+  userId    String
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, map: "public_Reports_postId_fkey")
   createdAt DateTime @default(now())
+
+  @@id([id, userId])
+  @@unique([postId, userId])
 }
 
 model Likes {
