@@ -13,6 +13,7 @@ interface Props {
 const LikeButton = ({ liked, likes, postId }: Props) => {
 	const [like, setLike] = useState<string | null>(liked);
 	const [likeCount, setLikeCount] = useState<number>(likes);
+	const [loading, setLoading] = useState(false);
 
 	const handleLike = async (type: string) => {
 		const supabase = createClient();
@@ -23,28 +24,41 @@ const LikeButton = ({ liked, likes, postId }: Props) => {
 			return toast.error('Must be logged in to like posts');
 		}
 
+		setLoading(true);
 		if (type === 'like') {
-			setLike(postId);
+			setLike('loading...');
 			setLikeCount(likeCount + 1);
-			await likePost(postId);
+
+			await likePost(postId).then((res) => {
+				setLike(res.data.id);
+			});
 		} else {
 			setLike(null);
 			setLikeCount(likeCount - 1);
-			await unlikePost(postId, liked!);
+			await unlikePost(postId, like!);
 		}
+		setLoading(false);
 	};
 
 	return (
 		<div className="flex items-center">
 			{like ? (
-				<button onClick={() => handleLike('unlike')}>
+				<button
+					type="button"
+					disabled={loading}
+					onClick={() => handleLike('unlike')}
+				>
 					<Heart
 						size="16"
 						fill="currentColor"
 					/>
 				</button>
 			) : (
-				<button onClick={() => handleLike('like')}>
+				<button
+					type="button"
+					disabled={loading}
+					onClick={() => handleLike('like')}
+				>
 					<Heart size="16" />
 				</button>
 			)}

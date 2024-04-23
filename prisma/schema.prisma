@@ -33,11 +33,11 @@ model Reports {
 
 model Likes {
   createdAt DateTime @default(now())
-  postId    String?
+  postId    String
   userId    String
   id        String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   Post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade, map: "public_Likes_postId_fkey")
 
-  @@id([id, userId])
+  @@id([id, userId, postId])
   @@unique([postId, userId])
 }

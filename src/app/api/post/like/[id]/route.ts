@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 	const postId = request.nextUrl.pathname.split('/')[4];
 
 	try {
-		await prisma.likes.create({
+		const record = await prisma.likes.create({
 			data: {
 				postId,
 				userId: user?.id as string,
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
 
 		revalidatePath('/', 'layout');
 
-		return NextResponse.json({}, { status: 200 });
+		return NextResponse.json({ data: record }, { status: 200 });
 	} catch (error) {
 		console.log(error);
 		return NextResponse.error();

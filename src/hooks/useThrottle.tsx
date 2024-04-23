@@ -9,7 +9,7 @@ const remainingTime = (last: number, delay: number) => {
 };
 
 interface Props {
-	fn: () => void;
+	fn: (...args: any) => void;
 	delay: number;
 }
 
@@ -24,25 +24,28 @@ const useThrottle = ({ fn, delay }: Props) => {
 		}
 	}, []);
 
-	const throttledFn = useCallback(() => {
-		let remaining = remainingTime(lastTriggered.current, delay);
+	const throttledFn = useCallback(
+		(...args: any) => {
+			let remaining = remainingTime(lastTriggered.current, delay);
 
-		if (remaining === 0) {
-			lastTriggered.current = Date.now();
-			fn();
-			cancel();
-		} else if (!timeoutRef.current) {
-			timeoutRef.current = setTimeout(() => {
-				remaining = remainingTime(lastTriggered.current, delay);
+			if (remaining === 0) {
+				lastTriggered.current = Date.now();
+				fn();
+				cancel();
+			} else if (!timeoutRef.current) {
+				timeoutRef.current = setTimeout(() => {
+					remaining = remainingTime(lastTriggered.current, delay);
 
-				if (remaining === 0) {
-					lastTriggered.current = Date.now();
-					fn();
-					cancel();
-				}
-			}, remaining);
-		}
-	}, [fn, cancel, delay]);
+					if (remaining === 0) {
+						lastTriggered.current = Date.now();
+						fn(...args);
+						cancel();
+					}
+				}, remaining);
+			}
+		},
+		[fn, cancel, delay]
+	);
 
 	// invoke cancel and refresh is this hook is recalled
 	useEffect(() => cancel, [cancel]);

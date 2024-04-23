@@ -28,7 +28,7 @@ export const likePost = async (path: string) => {
 		},
 	});
 
-	return results;
+	return await results.json();
 };
 
 // unlike a post
