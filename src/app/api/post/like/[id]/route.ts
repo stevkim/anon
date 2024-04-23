@@ -1,5 +1,4 @@
-import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import prisma from '@/db/client';
 import { createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
@@ -10,7 +9,7 @@ export async function POST(request: NextRequest) {
 		data: { user },
 	} = await supabase.auth.getUser();
 
-	const postId = request.nextUrl.pathname.split('/')[3];
+	const postId = request.nextUrl.pathname.split('/')[4];
 
 	try {
 		await prisma.likes.create({
@@ -42,7 +41,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-	const postId = request.nextUrl.pathname.split('/')[3];
+	const postId = request.nextUrl.pathname.split('/')[4];
 	const record = request.nextUrl.searchParams.get('record') as string;
 
 	try {

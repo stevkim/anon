@@ -4,6 +4,7 @@ import { defaultExtensions } from '@/components/Editor/extensions';
 import TextStyle from '@tiptap/extension-text-style';
 import Highlight from '@tiptap/extension-highlight';
 import LikeButton from './LikeButton';
+import ReportButton from './ReportButton';
 
 interface Props {
 	post: any;
@@ -28,11 +29,14 @@ const Card = ({ post }: Props) => {
 				editor={editor}
 				className="prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full"
 			/>
-			<LikeButton
-				liked={liked}
-				likes={likes}
-				postId={id}
-			/>
+			<div className="flex gap-4 text-gray-400 items-center">
+				<LikeButton
+					liked={liked}
+					likes={likes}
+					postId={id}
+				/>
+				<ReportButton postId={id} />
+			</div>
 		</div>
 	);
 };

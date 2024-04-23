@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { likePost, unlikePost } from '@/lib/fetch';
-import toast from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import { createClient } from '@/utils/supabase/client';
 import { Heart } from 'lucide-react';
-import { Button } from '../ui/button';
 
 interface Props {
 	liked: string | null;
@@ -36,7 +35,7 @@ const LikeButton = ({ liked, likes, postId }: Props) => {
 	};
 
 	return (
-		<div className="flex items-center text-gray-400">
+		<div className="flex items-center">
 			{like ? (
 				<button onClick={() => handleLike('unlike')}>
 					<Heart
