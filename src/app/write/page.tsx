@@ -13,9 +13,9 @@ const Write = async () => {
 	}
 
 	return (
-		<>
+		<section className="page">
 			<EditorContainer />
-		</>
+		</section>
 	);
 };
 

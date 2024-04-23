@@ -17,6 +17,7 @@ import { slashCommand, suggestionItems } from './slash-command';
 import TextButtons from './selectors/text-buttons';
 import { NodeSelector } from './selectors/node-selector';
 import { ColorSelector } from './selectors/color-selector';
+import { Separator } from '@/components/ui/separator';
 
 const extensions = [...defaultExtensions, slashCommand];
 
@@ -82,7 +83,9 @@ const Editor = ({ initialContent, onChange }: Props) => {
 						open={openNode}
 						onOpenChange={setOpenNode}
 					/>
+					<Separator orientation="vertical" />
 					<TextButtons />
+					<Separator orientation="vertical" />
 					<ColorSelector
 						open={openColor}
 						onOpenChange={setOpenColor}

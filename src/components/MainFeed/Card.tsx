@@ -1,5 +1,4 @@
 'use client';
-// import type { JSONContent } from 'novel';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { defaultExtensions } from '@/components/Editor/extensions';
 import TextStyle from '@tiptap/extension-text-style';
