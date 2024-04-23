@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/server';
-import LoginButton from '../Buttons/LoginButton';
-import LogoutButton from '../Buttons/LogoutButton';
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
 
 const NAVS = [
 	{
