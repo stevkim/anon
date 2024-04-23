@@ -11,12 +11,13 @@ export async function POST(request: NextRequest) {
 
 	const postId = request.nextUrl.pathname.split('/')[4];
 	const reason = await request.json();
+	console.log(reason);
 
 	try {
 		await prisma.reports.create({
 			data: {
 				postId,
-				reason,
+				...reason,
 				userId: user?.id as string,
 			},
 		});
