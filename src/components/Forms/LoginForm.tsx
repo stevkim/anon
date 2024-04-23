@@ -1,28 +1,22 @@
 'use client';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
+import { Button } from '../ui/button';
 import toast from 'react-hot-toast';
 import { passwordLogin } from '@/actions/authActions';
-import { Button } from '../ui/button';
-import { useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-
-const formSchema = z.object({
-	email: z.string().email(),
-	password: z.string(),
-});
+import { loginSchema } from '@/lib/validateSchema';
+import PasswordField from './Fields/PasswordField';
 
 const LoginForm = () => {
-	const [visible, setVisible] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const { push } = useRouter();
 
 	const { register } = useForm({
-		resolver: zodResolver(formSchema),
+		resolver: zodResolver(loginSchema),
 		defaultValues: {
 			email: '',
 			password: '',
@@ -48,31 +42,7 @@ const LoginForm = () => {
 				placeholder="email"
 				{...register('email')}
 			/>
-			<fieldset>
-				<Label htmlFor="password">Password:</Label>
-				<Input
-					type={visible ? 'text' : 'password'}
-					id="password"
-					placeholder="password"
-					{...register('password')}
-				/>
-				<span
-					onClick={() => setVisible(!visible)}
-					className="relative float-right block top-[-1.7em] right-[.8em] cursor-pointer"
-				>
-					{visible ? (
-						<EyeOff
-							size={16}
-							color="gray"
-						/>
-					) : (
-						<Eye
-							size={16}
-							color="gray"
-						/>
-					)}
-				</span>
-			</fieldset>
+			<PasswordField register={register} />
 			<div className="w-full flex gap-2">
 				<Button
 					className="w-[50%]"

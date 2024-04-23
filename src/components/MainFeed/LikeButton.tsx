@@ -3,6 +3,7 @@ import { likePost, unlikePost } from '@/lib/fetch';
 import toast from 'react-hot-toast';
 import { createClient } from '@/utils/supabase/client';
 import { Heart } from 'lucide-react';
+import { Button } from '../ui/button';
 
 interface Props {
 	liked: string | null;

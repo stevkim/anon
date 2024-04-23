@@ -58,20 +58,22 @@ const EditorContainer = () => {
 	};
 
 	return (
-		<section>
+		<>
 			<Editor
 				initialContent={content}
 				onChange={setContent}
 			/>
-			{loading ? (
-				<Button disabled>
-					<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-					Posting
-				</Button>
-			) : (
-				<Button onClick={submit}>Submit</Button>
-			)}
-		</section>
+			<div className="mt-4 float-right">
+				{loading ? (
+					<Button disabled>
+						<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+						Posting
+					</Button>
+				) : (
+					<Button onClick={submit}>Submit</Button>
+				)}
+			</div>
+		</>
 	);
 };
 
