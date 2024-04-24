@@ -4,6 +4,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { useRef, useMemo } from 'react';
 import Card from './Card';
+import MainFeedLoader from '../Loaders/MainFeedLoader';
 
 const Display = () => {
 	const feedRef = useRef<HTMLDivElement>(null);
@@ -39,7 +40,7 @@ const Display = () => {
 	);
 
 	if (status === 'pending' || isRefetching) {
-		return <div>Loading...</div>;
+		return <MainFeedLoader />;
 	}
 
 	return (

@@ -4,6 +4,8 @@ import './prosemirror.css';
 import Navbar from '@/components/Navbar/Navbar';
 import Providers from './providers';
 import { Toaster } from '@/components/ui/toaster';
+import { Suspense } from 'react';
+import ComponentLoader from '@/components/Loaders/ComponentLoader';
 
 export const metadata: Metadata = {
 	title: 'anon.',
@@ -20,7 +22,7 @@ export default function RootLayout({
 			<body className="antialiased">
 				<Providers>
 					<Navbar />
-					{children}
+					<Suspense fallback={<ComponentLoader />}>{children}</Suspense>
 				</Providers>
 				<Toaster />
 			</body>
