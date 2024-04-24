@@ -5,6 +5,7 @@ import TextStyle from '@tiptap/extension-text-style';
 import Highlight from '@tiptap/extension-highlight';
 import LikeButton from './LikeButton';
 import ReportButton from './ReportButton';
+import ShareButton from './ShareButton';
 
 interface Props {
 	post: any;
@@ -36,6 +37,7 @@ const Card = ({ post }: Props) => {
 					postId={id}
 				/>
 				<ReportButton postId={id} />
+				<ShareButton postId={id} />
 			</div>
 		</div>
 	);

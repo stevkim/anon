@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
 		console.log(err);
 		return NextResponse.error();
 	} finally {
-		prisma.$disconnect();
+		await prisma.$disconnect();
 	}
 }
 
@@ -78,6 +78,6 @@ export async function POST(request: NextRequest) {
 		console.log(err);
 		return NextResponse.error();
 	} finally {
-		prisma.$disconnect();
+		await prisma.$disconnect();
 	}
 }
