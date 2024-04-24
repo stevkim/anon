@@ -1,14 +1,15 @@
 'use client';
 import { signout } from '@/actions/authActions';
-import { toast } from 'react-hot-toast';
+import { useToast } from '../ui/use-toast';
 import { useQueryClient } from '@tanstack/react-query';
 
 const LogoutButton = () => {
 	const queryClient = useQueryClient();
+	const { toast } = useToast();
 
 	const logout = async () => {
 		await signout();
-		toast.success('Successfully Logged out');
+		toast({ title: 'Successfully Logged out' });
 
 		queryClient.invalidateQueries({ queryKey: ['posts'] });
 	};

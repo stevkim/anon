@@ -8,7 +8,6 @@ import {
 	type JSONContent,
 	EditorBubble,
 	EditorCommandEmpty,
-	useEditor,
 } from 'novel';
 import { useState } from 'react';
 import { handleCommandNavigation } from 'novel/extensions';
@@ -19,7 +18,6 @@ import TextButtons from './selectors/text-buttons';
 import { NodeSelector } from './selectors/node-selector';
 import { ColorSelector } from './selectors/color-selector';
 import { Separator } from '@/components/ui/separator';
-import { Button } from '../ui/button';
 
 const extensions = [...defaultExtensions, slashCommand];
 

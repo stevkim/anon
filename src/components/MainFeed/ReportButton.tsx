@@ -1,5 +1,4 @@
 import { reportPost } from '@/lib/fetch';
-import { toast } from 'react-hot-toast';
 import { createClient } from '@/utils/supabase/client';
 import { Flag } from 'lucide-react';
 import {
@@ -15,6 +14,7 @@ import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Button } from '../ui/button';
 import { FormEvent, useState } from 'react';
+import { useToast } from '../ui/use-toast';
 
 interface Props {
 	postId: string;
@@ -23,6 +23,7 @@ interface Props {
 const ReportButton = ({ postId }: Props) => {
 	const [input, setInput] = useState('');
 	const [open, setOpen] = useState(false);
+	const { toast } = useToast();
 
 	const handleReport = async (e: FormEvent) => {
 		e.preventDefault();
@@ -31,7 +32,7 @@ const ReportButton = ({ postId }: Props) => {
 		const { error } = await supabase.auth.getUser();
 
 		if (error) {
-			return toast.error('Must be logged in to report posts');
+			return toast({ description: 'Must be logged in to report posts' });
 		}
 
 		const data = { reason: input };
@@ -39,9 +40,9 @@ const ReportButton = ({ postId }: Props) => {
 		const response = await reportPost(postId, data);
 
 		if (!response.ok) {
-			toast.error('Internal server error');
+			toast({ title: 'Internal server error', variant: 'destructive' });
 		} else {
-			toast.success('Thank you for your report.');
+			toast({ description: 'Thank you for your report.' });
 		}
 		setOpen(false);
 	};

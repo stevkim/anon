@@ -1,4 +1,6 @@
-import { Share2, Copy } from 'lucide-react';
+import { useState } from 'react';
+import { Share2, Copy, Check } from 'lucide-react';
+import { useToast } from '../ui/use-toast';
 import {
 	Dialog,
 	DialogContent,
@@ -16,11 +18,18 @@ interface Props {
 }
 
 const ShareButton = ({ postId }: Props) => {
+	const [copied, setCopied] = useState(false);
+	const { toast } = useToast();
+
 	const url = `${process.env.URL}/post?id=${postId}`;
 
 	// TODO: toast a message that the url has been copied
 	const copyLink = () => {
 		navigator.clipboard.writeText(url);
+		setCopied(true);
+		toast({
+			title: 'Link Copied',
+		});
 	};
 
 	return (
@@ -56,7 +65,7 @@ const ShareButton = ({ postId }: Props) => {
 						onClick={copyLink}
 						size={'icon'}
 					>
-						<Copy size={16} />
+						{copied ? <Check size={16} /> : <Copy size={16} />}
 					</Button>
 				</div>
 			</DialogContent>

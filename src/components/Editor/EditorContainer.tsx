@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Editor from './Editor';
 import { createPost } from '@/lib/fetch';
 import { Button } from '../ui/button';
-import toast from 'react-hot-toast';
+import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { Loader2 } from 'lucide-react';
@@ -41,6 +41,7 @@ const defaultContent = {
 const EditorContainer = () => {
 	const [content, setContent] = useLocalStorage('content', defaultContent);
 	const [loading, setLoading] = useState(false);
+	const { toast } = useToast();
 	const { push } = useRouter();
 
 	const submit = async () => {
@@ -49,11 +50,18 @@ const EditorContainer = () => {
 
 		setLoading(false);
 		if (!response.ok) {
-			return toast.error('Internal server Error');
+			return toast({
+				title: 'Internal server Error',
+				description: 'There was a problem creating your post.',
+				variant: 'destructive',
+			});
 		}
 
 		localStorage.removeItem('content');
-		toast.success('Post Created');
+		toast({
+			title: 'Post Created',
+			description: 'Redirecting you to the main page',
+		});
 		push('/');
 	};
 

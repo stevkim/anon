@@ -20,7 +20,7 @@ const Display = () => {
 	const infiniteScroll = useInfiniteScroll({
 		el: feedRef,
 		fn: fetchNextPage,
-		more: hasNextPage,
+		nextPage: hasNextPage,
 	});
 
 	const content = useMemo(

@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import toast from 'react-hot-toast';
+import { useToast } from '../ui/use-toast';
 import { passwordLogin } from '@/actions/authActions';
 import { useRouter } from 'next/navigation';
 import { loginSchema } from '@/lib/validateSchema';
@@ -14,6 +14,7 @@ import PasswordField from './Fields/PasswordField';
 const LoginForm = () => {
 	const [loading, setLoading] = useState(false);
 	const { push } = useRouter();
+	const { toast } = useToast();
 
 	const { register } = useForm({
 		resolver: zodResolver(loginSchema),
@@ -29,7 +30,7 @@ const LoginForm = () => {
 
 		setLoading(false);
 		if (error) {
-			return toast.error(error);
+			return toast({ description: error, variant: 'destructive' });
 		}
 	};
 

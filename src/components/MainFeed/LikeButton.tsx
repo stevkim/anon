@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { likePost, unlikePost } from '@/lib/fetch';
-import { toast } from 'react-hot-toast';
 import { createClient } from '@/utils/supabase/client';
 import { Heart } from 'lucide-react';
+import { useToast } from '../ui/use-toast';
 
 interface Props {
 	liked: string | null;
@@ -14,6 +14,7 @@ const LikeButton = ({ liked, likes, postId }: Props) => {
 	const [like, setLike] = useState<string | null>(liked);
 	const [likeCount, setLikeCount] = useState<number>(likes);
 	const [loading, setLoading] = useState(false);
+	const { toast } = useToast();
 
 	const handleLike = async (type: string) => {
 		const supabase = createClient();
@@ -21,7 +22,7 @@ const LikeButton = ({ liked, likes, postId }: Props) => {
 		const { error } = await supabase.auth.getUser();
 
 		if (error) {
-			return toast.error('Must be logged in to like posts');
+			return toast({ description: 'Must be logged in to like posts' });
 		}
 
 		setLoading(true);

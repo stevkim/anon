@@ -1,5 +1,5 @@
 import { signup } from '@/actions/authActions';
-import toast from 'react-hot-toast';
+import { useToast } from '../ui/use-toast';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Button } from '../ui/button';
@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 
 const SignupForm = () => {
 	const { push } = useRouter();
+	const { toast } = useToast();
 
 	const { register } = useForm({
 		resolver: zodResolver(signupSchema),
@@ -25,12 +26,18 @@ const SignupForm = () => {
 
 	const passwordSignUp = async (formData: FormData) => {
 		if (formData.get('password') !== formData.get('confirmPassword')) {
-			return toast.error('Passwords must match');
+			return toast({
+				description: 'Passwords must match',
+				variant: 'destructive',
+			});
 		}
 		const { error } = await signup(formData);
 
 		if (error) {
-			toast.error(error);
+			return toast({
+				description: error,
+				variant: 'destructive',
+			});
 		}
 	};
 

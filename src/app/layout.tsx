@@ -3,7 +3,7 @@ import './globals.css';
 import './prosemirror.css';
 import Navbar from '@/components/Navbar/Navbar';
 import Providers from './providers';
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
 	title: 'anon.',
@@ -22,7 +22,7 @@ export default function RootLayout({
 					<Navbar />
 					{children}
 				</Providers>
-				<Toaster position="bottom-right" />
+				<Toaster />
 			</body>
 		</html>
 	);
