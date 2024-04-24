@@ -1,7 +1,7 @@
-import { ReactNode, Suspense } from 'react';
+import { Suspense, ReactNode } from 'react';
 import ComponentLoader from '@/components/Loaders/ComponentLoader';
 
-const PostLayout = async ({ children }: { children: ReactNode }) => {
+const WriteLayout = ({ children }: { children: ReactNode }) => {
 	return (
 		<>
 			<Suspense fallback={<ComponentLoader />}>{children}</Suspense>
@@ -9,4 +9,4 @@ const PostLayout = async ({ children }: { children: ReactNode }) => {
 	);
 };
 
-export default PostLayout;
+export default WriteLayout;

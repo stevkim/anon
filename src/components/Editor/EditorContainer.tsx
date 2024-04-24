@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Editor from './Editor';
-import { createPost } from '@/lib/fetch';
+import { createPost } from '@/lib/postFetch';
 import { Button } from '../ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';

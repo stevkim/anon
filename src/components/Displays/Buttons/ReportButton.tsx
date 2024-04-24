@@ -1,4 +1,4 @@
-import { reportPost } from '@/lib/fetch';
+import { reportPost } from '@/lib/postFetch';
 import { createClient } from '@/utils/supabase/client';
 import { Flag } from 'lucide-react';
 import {
@@ -9,12 +9,12 @@ import {
 	DialogDescription,
 	DialogHeader,
 	DialogFooter,
-} from '../ui/dialog';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
-import { Button } from '../ui/button';
+} from '../../ui/dialog';
+import { Input } from '../../ui/input';
+import { Label } from '../../ui/label';
+import { Button } from '../../ui/button';
 import { FormEvent, useState } from 'react';
-import { useToast } from '../ui/use-toast';
+import { useToast } from '../../ui/use-toast';
 
 interface Props {
 	postId: string;
@@ -53,11 +53,9 @@ const ReportButton = ({ postId }: Props) => {
 			onOpenChange={setOpen}
 		>
 			<DialogTrigger asChild>
-				<button>
-					<Flag
-						size={16}
-						fill="currentColor"
-					/>
+				<button className="flex flex-row items-center">
+					<Flag size={16} />
+					<span className="whitespace-nowrap ml-2">Report Post</span>
 				</button>
 			</DialogTrigger>
 			<DialogContent>

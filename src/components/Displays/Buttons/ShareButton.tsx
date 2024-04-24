@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Share2, Copy, Check } from 'lucide-react';
-import { useToast } from '../ui/use-toast';
+import { useToast } from '../../ui/use-toast';
 import {
 	Dialog,
 	DialogContent,
@@ -8,10 +8,10 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogDescription,
-} from '../ui/dialog';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
+} from '../../ui/dialog';
+import { Button } from '../../ui/button';
+import { Input } from '../../ui/input';
+import { Label } from '../../ui/label';
 
 interface Props {
 	postId: string;
@@ -35,11 +35,9 @@ const ShareButton = ({ postId }: Props) => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<button>
-					<Share2
-						size={16}
-						fill="currentColor"
-					/>
+				<button className="flex flex-row items-center">
+					<Share2 size={16} />
+					<span className="whitespace-nowrap ml-2">Share Post</span>
 				</button>
 			</DialogTrigger>
 			<DialogContent>

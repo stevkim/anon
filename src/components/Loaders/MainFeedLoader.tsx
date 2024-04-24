@@ -1,4 +1,4 @@
-import { Heart, Flag, Share2 } from 'lucide-react';
+import { Heart, Flag, Share2, EllipsisVertical } from 'lucide-react';
 
 const CardSkeleton = () => {
 	return (
@@ -17,14 +17,7 @@ const CardSkeleton = () => {
 					/>
 					<span className="ml-1">{'0'}</span>
 				</div>
-				<Flag
-					size={16}
-					fill="currentColor"
-				/>
-				<Share2
-					size={16}
-					fill="currentColor"
-				/>
+				<EllipsisVertical size={16} />
 			</div>
 		</div>
 	);

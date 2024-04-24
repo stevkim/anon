@@ -13,8 +13,8 @@ const NAVS = [
 		link: '/write',
 	},
 	{
-		name: 'account',
-		link: '/account',
+		name: 'saved',
+		link: '/saved',
 	},
 ];
 

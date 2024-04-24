@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation';
-import Card from '@/components/MainFeed/Card';
 import { createClient } from '@/utils/supabase/server';
 import prisma from '@/db/client';
 import { type TPost } from '@/types/posts';
+import PageCard from '@/components/Displays/PageCard';
 
 const getData = async (id: string) => {
 	const supabase = createClient();
@@ -11,9 +11,17 @@ const getData = async (id: string) => {
 	} = await supabase.auth.getUser();
 
 	let liked;
+	let saved;
 
 	if (user?.id) {
 		liked = await prisma.likes.findFirst({
+			where: {
+				userId: user.id,
+				postId: id,
+			},
+		});
+
+		saved = await prisma.saved.findFirst({
 			where: {
 				userId: user.id,
 				postId: id,
@@ -29,6 +37,7 @@ const getData = async (id: string) => {
 
 	if (data) {
 		data['liked'] = liked?.id || null;
+		data['saved'] = saved?.id || null;
 
 		return data;
 	} else {
@@ -36,11 +45,11 @@ const getData = async (id: string) => {
 	}
 };
 
-const Post = async ({
-	searchParams: { id },
-}: {
+interface Props {
 	searchParams: { id: string };
-}) => {
+}
+
+const Post = async ({ searchParams: { id } }: Props) => {
 	if (!id) {
 		redirect('/');
 	}
@@ -52,7 +61,7 @@ const Post = async ({
 
 	return (
 		<section className="page">
-			<Card post={data} />
+			<PageCard post={data} />
 		</section>
 	);
 };

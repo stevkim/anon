@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { likePost, unlikePost } from '@/lib/fetch';
+import { likePost, unlikePost } from '@/lib/postFetch';
 import { createClient } from '@/utils/supabase/client';
 import { Heart } from 'lucide-react';
-import { useToast } from '../ui/use-toast';
+import { useToast } from '../../ui/use-toast';
 
 interface Props {
 	liked: string | null;

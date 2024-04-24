@@ -1,18 +1,20 @@
 'use client';
-import { useEditor, EditorContent } from '@tiptap/react';
+import type { TPost } from '@/types/posts';
+import { useEditor, EditorContent, type Content } from '@tiptap/react';
 import { defaultExtensions } from '@/components/Editor/extensions';
 import TextStyle from '@tiptap/extension-text-style';
 import Highlight from '@tiptap/extension-highlight';
-import LikeButton from './LikeButton';
-import ReportButton from './ReportButton';
-import ShareButton from './ShareButton';
+import LikeButton from './Buttons/LikeButton';
+import ButtonWrapper from './ButtonWrapper';
+import { useState } from 'react';
 
 interface Props {
-	post: any;
+	post: TPost;
 }
 
-const Card = ({ post }: Props) => {
-	const { content, liked, likes, id } = post;
+const PageCard = ({ post }: Props) => {
+	const [open, setOpen] = useState(false);
+	const { content, liked, likes, id, saved, authorId } = post;
 
 	const editor = useEditor({
 		extensions: [
@@ -20,7 +22,7 @@ const Card = ({ post }: Props) => {
 			TextStyle,
 			Highlight.configure({ multicolor: true }),
 		],
-		content: content,
+		content: content as Content,
 		editable: false,
 	});
 
@@ -32,15 +34,20 @@ const Card = ({ post }: Props) => {
 			/>
 			<div className="flex gap-4 text-gray-400 items-center">
 				<LikeButton
-					liked={liked}
-					likes={likes}
+					liked={liked!}
+					likes={likes!}
 					postId={id}
 				/>
-				<ReportButton postId={id} />
-				<ShareButton postId={id} />
+				<ButtonWrapper
+					postId={id}
+					authorId={authorId}
+					saved={saved!}
+					open={open}
+					toggle={() => setOpen(!open)}
+				/>
 			</div>
 		</div>
 	);
 };
 
-export default Card;
+export default PageCard;

@@ -1,10 +1,16 @@
-import Display from '@/components/MainFeed/Display';
-import MainFeedLoader from '@/components/Loaders/MainFeedLoader';
+'use client';
+import Display from '@/components/Displays/Display';
+import { fetchPosts } from '@/lib/postFetch';
 
-export default async function Home() {
+const Home = () => {
 	return (
 		<section className="page">
-			<Display />
+			<Display
+				qKey={'posts'}
+				fetchFn={fetchPosts}
+			/>
 		</section>
 	);
-}
+};
+
+export default Home;

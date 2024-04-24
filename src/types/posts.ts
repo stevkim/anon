@@ -8,4 +8,5 @@ export type TPost = {
 	reports: number | null;
 	authorId: string;
 	liked?: string | null;
+	saved?: string | null;
 };

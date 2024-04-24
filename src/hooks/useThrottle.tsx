@@ -8,12 +8,7 @@ const remainingTime = (last: number, delay: number) => {
 	return remaining < 0 ? 0 : remaining;
 };
 
-interface Props {
-	fn: (...args: any) => void;
-	delay: number;
-}
-
-const useThrottle = ({ fn, delay }: Props) => {
+const useThrottle = (fn: (...args: any) => void, delay: number) => {
 	const lastTriggered = useRef<number>(Date.now());
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 

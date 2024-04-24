@@ -17,27 +17,39 @@ model Post {
   authorId  String
   Likes     Likes[]
   Reports   Reports[]
+  Saved     Saved[]
 }
 
 model Reports {
   id        String   @unique @default(dbgenerated("gen_random_uuid()"))
   reason    String
   postId    String
+  createdAt DateTime @default(now())
   userId    String
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, map: "public_Reports_postId_fkey")
-  createdAt DateTime @default(now())
 
   @@id([id, userId])
   @@unique([postId, userId])
 }
 
 model Likes {
-  createdAt DateTime @default(now())
   postId    String
   userId    String
   id        String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now())
   Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, map: "public_Likes_postId_fkey")
 
   @@id([id, userId, postId])
+  @@unique([postId, userId])
+}
+
+model Saved {
+  id        String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId    String
+  postId    String
+  Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, map: "public_Saved_posts_fkey")
+  createdAt DateTime @default(now())
+
+  @@id([id, userId])
   @@unique([postId, userId])
 }
