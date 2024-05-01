@@ -77,7 +77,7 @@
 
 @layer components {
 	.page {
-		@apply w-full px-[20%] mt-4;
+		@apply w-full px-[5%] md:px-[20%] mt-4;
 	}
 
 	.gradient-loader {

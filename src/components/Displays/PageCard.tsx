@@ -35,7 +35,7 @@ const PageCard = ({ post }: Props) => {
 			<div className="flex gap-4 text-gray-400 items-center">
 				<LikeButton
 					liked={liked!}
-					likes={likes!}
+					likes={likes}
 					postId={id}
 				/>
 				<ButtonWrapper

@@ -1,6 +1,6 @@
 'use client';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { useRef, useMemo, useState } from 'react';
+import { useRef, useMemo, useState, useCallback } from 'react';
 import Card from './Card';
 import MainFeedLoader from '../Loaders/MainFeedLoader';
 import useThrottle from '@/hooks/useThrottle';
@@ -26,20 +26,23 @@ const Display = ({ qKey, fetchFn }: Props) => {
 	);
 	const throttled = useThrottle(infiniteScroll, 200);
 
-	const toggleMenu = (id: string) => {
-		if (id === menuId) {
-			setMenuId('');
-		} else {
-			setMenuId(id);
-		}
-	};
+	const toggleMenu = useCallback(
+		(id: string) => {
+			if (id === menuId) {
+				setMenuId('');
+			} else {
+				setMenuId(id);
+			}
+		},
+		[menuId]
+	);
 
 	const content = useMemo(() => {
 		if (posts.length) {
 			return posts.map((post) => {
 				return (
 					<Card
-						key={post.id}
+						key={post.id + post.liked}
 						post={post}
 						menuId={menuId}
 						toggle={toggleMenu}
@@ -49,7 +52,7 @@ const Display = ({ qKey, fetchFn }: Props) => {
 		} else {
 			return <div>No posts</div>;
 		}
-	}, [posts, menuId]);
+	}, [posts, menuId, toggleMenu]);
 
 	if (isLoading) {
 		return <MainFeedLoader />;

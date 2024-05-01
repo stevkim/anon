@@ -2,7 +2,10 @@ import { NextResponse, type NextRequest } from 'next/server';
 import prisma from '@/db/client';
 import { createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
+import { createReport, updatePostReports } from '@/db/methods';
 
+// creates a report for a post
+// TODO: validation for reports
 export async function POST(request: NextRequest) {
 	const supabase = createClient();
 	const {
@@ -10,28 +13,13 @@ export async function POST(request: NextRequest) {
 	} = await supabase.auth.getUser();
 
 	const postId = request.nextUrl.pathname.split('/')[4];
-	const reason = await request.json();
-	console.log(reason);
+	const data = await request.json();
 
 	try {
-		await prisma.reports.create({
-			data: {
-				postId,
-				...reason,
-				userId: user?.id as string,
-			},
-		});
-
-		await prisma.post.update({
-			where: {
-				id: postId,
-			},
-			data: {
-				reports: {
-					increment: 1,
-				},
-			},
-		});
+		await Promise.all([
+			createReport(postId, data, user!.id),
+			updatePostReports(postId),
+		]);
 
 		revalidatePath('/', 'layout');
 

@@ -3,6 +3,9 @@ import { createClient } from '@/utils/supabase/server';
 import prisma from '@/db/client';
 import { revalidatePath } from 'next/cache';
 
+// saves a post for a user
+// postId comes from the path - /api/saved/{postId}
+// userId is authenticated from the supabase auth middleware
 export async function POST(request: NextRequest) {
 	const supabase = createClient();
 
@@ -30,6 +33,8 @@ export async function POST(request: NextRequest) {
 	}
 }
 
+// removes a saved post from the user's list
+// expects a record id (id of the row for saved posts) in searchParams - /api/saved/{postId}?record={record}
 export async function DELETE(request: NextRequest) {
 	const record = request.nextUrl.searchParams.get('record') as string;
 

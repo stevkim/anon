@@ -1,8 +1,10 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import prisma from '@/db/client';
 import { createClient } from '@/utils/supabase/server';
-import type { TPost } from '@/types/posts';
+import { getSavedPosts, getLikes } from '@/db/methods';
 
+// get Posts that the user has saved
+// expects the pages from searchParams - /api/saved?page={PAGE}
 export async function GET(request: NextRequest) {
 	const supabase = createClient();
 	const LIMIT = 50;
@@ -15,30 +17,13 @@ export async function GET(request: NextRequest) {
 	try {
 		const userLikes = new Map();
 
-		if (user?.id) {
-			const likes = await prisma.likes.findMany({
-				where: {
-					userId: user.id,
-				},
-			});
-			likes.forEach((row) => {
-				userLikes.set(row.postId, row.id);
-			});
-		}
+		const [likes, posts] = await Promise.all([
+			getLikes(user!.id),
+			getSavedPosts(user!.id, LIMIT, PAGE),
+		]);
 
-		const posts = await prisma.saved.findMany({
-			where: {
-				userId: user?.id,
-			},
-			take: LIMIT,
-			skip: LIMIT * PAGE,
-			orderBy: {
-				createdAt: 'desc',
-			},
-			select: {
-				id: true,
-				Post: true,
-			},
+		likes.forEach((row) => {
+			userLikes.set(row.postId, row.id);
 		});
 
 		let results: any[] = posts;

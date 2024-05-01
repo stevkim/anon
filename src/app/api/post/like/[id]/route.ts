@@ -2,7 +2,17 @@ import { NextResponse, type NextRequest } from 'next/server';
 import prisma from '@/db/client';
 import { createClient } from '@/utils/supabase/server';
 import { revalidatePath } from 'next/cache';
+import {
+	createLikeRecord,
+	updatePostLikes,
+	deleteLikeRecord,
+} from '@/db/methods';
 
+/*
+	POST request - like a post, tied to the user
+	-- only authenticated users can like a post --
+	postId is from path - /api/post/like/{postId}
+*/
 export async function POST(request: NextRequest) {
 	const supabase = createClient();
 	const {
@@ -12,22 +22,10 @@ export async function POST(request: NextRequest) {
 	const postId = request.nextUrl.pathname.split('/')[4];
 
 	try {
-		const record = await prisma.likes.create({
-			data: {
-				postId,
-				userId: user?.id as string,
-			},
-		});
-		await prisma.post.update({
-			where: {
-				id: postId,
-			},
-			data: {
-				likes: {
-					increment: 1,
-				},
-			},
-		});
+		const [record] = await Promise.all([
+			createLikeRecord(postId, user!.id),
+			updatePostLikes(postId, 'increment'),
+		]);
 
 		revalidatePath('/', 'layout');
 
@@ -40,26 +38,17 @@ export async function POST(request: NextRequest) {
 	}
 }
 
+// unlike a post - decrement the likes column for the post and deletes record of like
+// postId is from the path, record is from the searchParams - /api/post/like/{postId}?record={record}
 export async function DELETE(request: NextRequest) {
 	const postId = request.nextUrl.pathname.split('/')[4];
 	const record = request.nextUrl.searchParams.get('record') as string;
 
 	try {
-		await prisma.post.update({
-			where: {
-				id: postId,
-			},
-			data: {
-				likes: {
-					decrement: 1,
-				},
-			},
-		});
-		await prisma.likes.delete({
-			where: {
-				id: record,
-			},
-		});
+		await Promise.all([
+			updatePostLikes(postId, 'decrement'),
+			deleteLikeRecord(record),
+		]);
 
 		return NextResponse.json({}, { status: 200 });
 	} catch (error) {

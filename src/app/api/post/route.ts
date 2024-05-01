@@ -1,36 +1,11 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import prisma from '@/db/client';
 import { createClient } from '@/utils/supabase/server';
+import { getPosts, getLikes, getSaved } from '@/db/methods';
 
-const getPosts = (LIMIT: number, PAGE: number) => {
-	return prisma.post.findMany({
-		skip: LIMIT * PAGE,
-		take: LIMIT,
-		where: {
-			reports: { lt: 5 },
-		},
-		orderBy: {
-			createdAt: 'desc',
-		},
-	});
-};
-
-const getLikes = (id: string) => {
-	return prisma.likes.findMany({
-		where: {
-			userId: id,
-		},
-	});
-};
-
-const getSaves = (id: string) => {
-	return prisma.saved.findMany({
-		where: {
-			userId: id,
-		},
-	});
-};
-
+// get latest posts -
+// expects a page # in searchParams - /api/post?page={PAGE}
+// maps liked and saved posts if an authenticated user is connected
 export async function GET(request: NextRequest) {
 	const supabase = createClient();
 	const LIMIT = 50;
@@ -48,16 +23,21 @@ export async function GET(request: NextRequest) {
 			const [posts, likes, saved] = await Promise.all([
 				getPosts(LIMIT, PAGE),
 				getLikes(user.id),
-				getSaves(user.id),
+				getSaved(user.id),
 			]);
 
+			// keeping track of the post that the user has liked
+			// set postId (key) to the id of the row
 			likes.forEach((row) => {
 				userLikes.set(row.postId, row.id);
 			});
+			// keeping track of the post that the user has saved
+			// set postId (key) to the id of the row
 			saved.forEach((row) => {
 				userSaved.set(row.postId, row.id);
 			});
 
+			// if the post's author is the user, reset the authorId to 'author'
 			let results = posts.map((post) => {
 				if (post.authorId === user.id) {
 					return { ...post, authorId: 'author' };
@@ -66,6 +46,7 @@ export async function GET(request: NextRequest) {
 				}
 			});
 
+			// if user has liked any of the current page of posts, add a flag
 			if (userLikes.size) {
 				results = results.map((post) => {
 					if (userLikes.has(post.id)) {
@@ -75,6 +56,7 @@ export async function GET(request: NextRequest) {
 				});
 			}
 
+			// if user has saved any of the current page of posts, add a flag
 			if (userSaved.size) {
 				results = results.map((post) => {
 					if (userSaved.has(post.id)) {
@@ -98,6 +80,14 @@ export async function GET(request: NextRequest) {
 	}
 }
 
+/*
+	POST request: adds a Post to the database
+	-- only authenticated users can post --
+	newPost (req.body) =
+	{
+		content: JSONVALUE
+	}
+*/
 export async function POST(request: NextRequest) {
 	const supabase = createClient();
 
@@ -124,6 +114,9 @@ export async function POST(request: NextRequest) {
 	}
 }
 
+// DELETE a post
+// expects a specific postId from searchParams - /api/post?id={postId}
+// verified on the frontend that the user sending this request is the author
 export async function DELETE(request: NextRequest) {
 	const postId = request.nextUrl.searchParams.get('id') as string;
 

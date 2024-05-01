@@ -10,9 +10,11 @@ import { passwordLogin } from '@/actions/authActions';
 import { useRouter } from 'next/navigation';
 import { loginSchema } from '@/lib/validateSchema';
 import PasswordField from './Fields/PasswordField';
+import { useQueryClient } from '@tanstack/react-query';
 
 const LoginForm = () => {
 	const [loading, setLoading] = useState(false);
+	const queryClient = useQueryClient();
 	const { push } = useRouter();
 	const { toast } = useToast();
 
@@ -32,6 +34,7 @@ const LoginForm = () => {
 		if (error) {
 			return toast({ description: error, variant: 'destructive' });
 		}
+		queryClient.invalidateQueries({ queryKey: ['posts'] });
 	};
 
 	return (

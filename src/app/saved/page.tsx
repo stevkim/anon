@@ -1,13 +1,13 @@
 'use client';
 import Display from '@/components/Displays/Display';
-import { fetchUserPosts } from '@/lib/userFetch';
+import { fetchSavedPosts } from '@/lib/savedFetch';
 
 const SavedPage = () => {
 	return (
 		<section className="page">
 			<Display
 				qKey="userPosts"
-				fetchFn={fetchUserPosts}
+				fetchFn={fetchSavedPosts}
 			/>
 		</section>
 	);

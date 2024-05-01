@@ -55,7 +55,7 @@ const ReportButton = ({ postId }: Props) => {
 			<DialogTrigger asChild>
 				<button className="flex flex-row items-center">
 					<Flag size={16} />
-					<span className="whitespace-nowrap ml-2">Report Post</span>
+					<span className="whitespace-nowrap ml-1">Report Post</span>
 				</button>
 			</DialogTrigger>
 			<DialogContent>

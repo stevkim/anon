@@ -12,8 +12,8 @@ model Post {
   id        String    @id @unique @default(dbgenerated("gen_random_uuid()"))
   createdAt DateTime  @default(now())
   content   Json
-  likes     Int?      @default(0)
-  reports   Int?      @default(0)
+  likes     Int       @default(0)
+  reports   Int       @default(0)
   authorId  String
   Likes     Likes[]
   Reports   Reports[]
