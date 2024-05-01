@@ -44,7 +44,7 @@ const Navbar = async () => {
 						</Link>
 					);
 				})}
-				{user?.id ? <LogoutButton /> : <LoginButton />}
+				{user ? <LogoutButton /> : <LoginButton />}
 			</div>
 		</nav>
 	);

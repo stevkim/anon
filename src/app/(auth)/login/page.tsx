@@ -1,6 +1,7 @@
 'use client';
 import LoginForm from '@/components/Forms/LoginForm';
 import { Separator } from '@/components/ui/separator';
+import GoogleLogin from '@/components/Forms/GoogleLogin';
 
 const Login = () => {
 	return (
@@ -8,6 +9,7 @@ const Login = () => {
 			<h1>Login to anon.</h1>
 			<LoginForm />
 			<Separator />
+			<GoogleLogin />
 		</section>
 	);
 };
