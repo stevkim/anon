@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 
-const SavedLayout = async ({ children }: { children: ReactNode }) => {
+const AccountLayout = async ({ children }: { children: ReactNode }) => {
 	const supabase = createClient();
 
 	const {
@@ -16,4 +16,4 @@ const SavedLayout = async ({ children }: { children: ReactNode }) => {
 	return <>{children}</>;
 };
 
-export default SavedLayout;
+export default AccountLayout;

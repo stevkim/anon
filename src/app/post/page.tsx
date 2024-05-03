@@ -49,7 +49,7 @@ interface Props {
 	searchParams: { id: string };
 }
 
-const Post = async ({ searchParams: { id } }: Props) => {
+const PostPage = async ({ searchParams: { id } }: Props) => {
 	if (!id) {
 		redirect('/');
 	}
@@ -66,4 +66,4 @@ const Post = async ({ searchParams: { id } }: Props) => {
 	);
 };
 
-export default Post;
+export default PostPage;

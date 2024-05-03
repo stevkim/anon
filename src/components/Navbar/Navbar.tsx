@@ -13,8 +13,8 @@ const NAVS = [
 		link: '/write',
 	},
 	{
-		name: 'saved',
-		link: '/saved',
+		name: 'account',
+		link: '/account',
 	},
 ];
 
@@ -26,7 +26,7 @@ const Navbar = async () => {
 	} = await supabase.auth.getUser();
 
 	return (
-		<nav className="flex flex-row px-4">
+		<nav className="flex flex-row px-[10%]">
 			<Link
 				href={'/'}
 				className="mr-auto text-xl"

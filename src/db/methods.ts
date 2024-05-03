@@ -102,3 +102,16 @@ export const updatePostReports = (postId: string) => {
 		},
 	});
 };
+
+export const getUserPosts = (authorId: string, LIMIT: number, PAGE: number) => {
+	return prisma.post.findMany({
+		where: {
+			authorId,
+		},
+		take: LIMIT,
+		skip: LIMIT * PAGE,
+		orderBy: {
+			createdAt: 'desc',
+		},
+	});
+};

@@ -7,6 +7,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { Loader2 } from 'lucide-react';
+import { useQueryClient } from '@tanstack/react-query';
 
 const defaultContent = {
 	type: 'doc',
@@ -41,6 +42,7 @@ const defaultContent = {
 const EditorContainer = () => {
 	const [content, setContent] = useLocalStorage('content', defaultContent);
 	const [loading, setLoading] = useState(false);
+	const queryClient = useQueryClient();
 	const { toast } = useToast();
 	const { push } = useRouter();
 
@@ -62,6 +64,7 @@ const EditorContainer = () => {
 			title: 'Post Created',
 			description: 'Redirecting you to the main page',
 		});
+		queryClient.invalidateQueries({ queryKey: ['userPosts'] });
 		push('/');
 	};
 

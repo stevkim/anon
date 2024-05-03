@@ -9,6 +9,7 @@ const LogoutButton = () => {
 
 	const logout = async () => {
 		await signout();
+		queryClient.removeQueries({ queryKey: ['userPosts', 'savedPosts'] });
 		queryClient.invalidateQueries({ queryKey: ['posts'] });
 		toast({ title: 'Successfully Logged out' });
 	};

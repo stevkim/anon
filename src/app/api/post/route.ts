@@ -38,33 +38,23 @@ export async function GET(request: NextRequest) {
 			});
 
 			// if the post's author is the user, reset the authorId to 'author'
+			// create flags for liked and saved posts - will be undefined if not exists
 			let results = posts.map((post) => {
 				if (post.authorId === user.id) {
-					return { ...post, authorId: 'author' };
+					return {
+						...post,
+						authorId: 'author',
+						liked: userLikes.get(post.id),
+						saved: userSaved.get(post.id),
+					};
 				} else {
-					return post;
+					return {
+						...post,
+						liked: userLikes.get(post.id),
+						saved: userSaved.get(post.id),
+					};
 				}
 			});
-
-			// if user has liked any of the current page of posts, add a flag
-			if (userLikes.size) {
-				results = results.map((post) => {
-					if (userLikes.has(post.id)) {
-						return { ...post, liked: userLikes.get(post.id) };
-					}
-					return { ...post, liked: null };
-				});
-			}
-
-			// if user has saved any of the current page of posts, add a flag
-			if (userSaved.size) {
-				results = results.map((post) => {
-					if (userSaved.has(post.id)) {
-						return { ...post, saved: userSaved.get(post.id) };
-					}
-					return { ...post, saved: null };
-				});
-			}
 
 			return NextResponse.json({ data: results }, { status: 200 });
 		} else {

@@ -53,7 +53,7 @@ const ReportButton = ({ postId }: Props) => {
 			onOpenChange={setOpen}
 		>
 			<DialogTrigger asChild>
-				<button className="flex flex-row items-center">
+				<button className="flex flex-row items-center justify-between">
 					<Flag size={16} />
 					<span className="whitespace-nowrap ml-1">Report Post</span>
 				</button>

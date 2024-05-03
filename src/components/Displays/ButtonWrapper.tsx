@@ -23,7 +23,7 @@ const ButtonWrapper = ({ postId, saved, authorId, open, toggle }: Props) => {
 				/>
 			</button>
 			{open ? (
-				<div className="absolute bottom-[16px] left-[16px] bg-white p-2 border flex flex-col gap-1 rounded-md">
+				<div className="absolute bottom-[20px] right-[-1rem] p-2 flex flex-col gap-1 z-[100]">
 					<ShareButton postId={postId} />
 					<SaveButton
 						postId={postId}

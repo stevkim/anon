@@ -35,7 +35,7 @@ const ShareButton = ({ postId }: Props) => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<button className="flex flex-row items-center">
+				<button className="flex flex-row items-center justify-between">
 					<Share2 size={16} />
 					<span className="whitespace-nowrap ml-1">Share Post</span>
 				</button>

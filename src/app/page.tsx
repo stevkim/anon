@@ -2,7 +2,7 @@
 import Display from '@/components/Displays/Display';
 import { fetchPosts } from '@/lib/postFetch';
 
-const Home = () => {
+const HomePage = () => {
 	return (
 		<section className="page">
 			<Display
@@ -13,4 +13,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default HomePage;

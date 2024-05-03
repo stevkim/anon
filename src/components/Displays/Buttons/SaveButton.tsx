@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { useToast } from '../../ui/use-toast';
-import { savePost, unsavePost } from '@/lib/savedFetch';
+import { savePost, unsavePost } from '@/lib/userFetch';
 import { Bookmark, BookmarkX } from 'lucide-react';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -36,7 +36,7 @@ const SaveButton = ({ postId, saved }: Props) => {
 			await unsavePost(postId, save!);
 			toast({ title: 'Removed from your list' });
 		}
-		queryClient.invalidateQueries({ queryKey: ['userPosts'] });
+		queryClient.invalidateQueries({ queryKey: ['savedPosts'] });
 		setLoading(false);
 	};
 
@@ -46,16 +46,16 @@ const SaveButton = ({ postId, saved }: Props) => {
 				<button
 					disabled={loading}
 					onClick={() => handleSave('unsave')}
-					className="flex flex-row items-center"
+					className="flex flex-row items-center justify-between"
 				>
 					<BookmarkX size={16} />
-					<span className="whitespace-nowrap ml-1">Remove from List</span>
+					<span className="whitespace-nowrap ml-1">Remove List</span>
 				</button>
 			) : (
 				<button
 					disabled={loading}
 					onClick={() => handleSave('save')}
-					className="flex flex-row items-center"
+					className="flex flex-row items-center justify-between"
 				>
 					<Bookmark size={16} />
 					<span className="whitespace-nowrap ml-1">Save to List</span>

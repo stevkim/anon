@@ -21,6 +21,7 @@ export const createPost = async (data: { content: JSON }) => {
 	return results;
 };
 
+// delete a post -- only author can delete
 export const deletePost = async (postId: string) => {
 	const results = await fetch(`/api/post?id=${postId}`, {
 		method: 'DELETE',

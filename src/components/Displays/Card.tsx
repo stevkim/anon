@@ -1,4 +1,5 @@
 'use client';
+import { useMemo } from 'react';
 import { useEditor, EditorContent, type Content } from '@tiptap/react';
 import { defaultExtensions } from '@/components/Editor/extensions';
 import TextStyle from '@tiptap/extension-text-style';
@@ -14,7 +15,17 @@ interface Props {
 }
 
 const Card = ({ post, menuId, toggle }: Props) => {
-	const { content, liked, likes, id, saved, authorId } = post;
+	const { content, liked, likes, id, saved, authorId, createdAt } = post;
+	const date = useMemo(() => {
+		const time = new Date(createdAt);
+		return time.toLocaleString([], {
+			year: 'numeric',
+			month: 'numeric',
+			day: 'numeric',
+			hour: '2-digit',
+			minute: '2-digit',
+		});
+	}, [createdAt]);
 
 	const editor = useEditor({
 		extensions: [
@@ -27,12 +38,13 @@ const Card = ({ post, menuId, toggle }: Props) => {
 	});
 
 	return (
-		<div>
+		<div className="border border-secondary p-4 rounded-md">
 			<EditorContent
 				editor={editor}
 				className="prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full"
 			/>
 			<div className="flex gap-4 items-center">
+				<div className="text-[gray] text-xs mr-auto">{date}</div>
 				<LikeButton
 					liked={liked!}
 					likes={likes!}
@@ -49,5 +61,6 @@ const Card = ({ post, menuId, toggle }: Props) => {
 		</div>
 	);
 };
+// 2024-05-03T22:38:42.360Z
 
 export default Card;

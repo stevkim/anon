@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
 		data: { user },
 	} = await supabase.auth.getUser();
 
-	const postId = request.nextUrl.pathname.split('/')[3];
+	const postId = request.nextUrl.pathname.split('/')[4];
 
 	try {
 		const record = await prisma.saved.create({
