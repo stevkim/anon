@@ -1,21 +1,27 @@
 'use client';
 import { useTheme } from 'next-themes';
 import { MoonIcon, SunIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const ThemeToggle = () => {
-	const { theme, setTheme } = useTheme();
+	const [docTheme, setDocTheme] = useState('light');
+	const { setTheme } = useTheme();
 
 	const toggleTheme = () => {
-		if (theme === 'light') {
-			setTheme('dark');
+		if (docTheme === 'light') {
+			setDocTheme('dark');
 		} else {
-			setTheme('light');
+			setDocTheme('light');
 		}
 	};
 
+	useEffect(() => {
+		setTheme(docTheme);
+	}, [docTheme, setTheme]);
+
 	return (
 		<button onClick={toggleTheme}>
-			{theme === 'light' ? <MoonIcon size={16} /> : <SunIcon size={16} />}
+			{docTheme === 'light' ? <MoonIcon size={16} /> : <SunIcon size={16} />}
 		</button>
 	);
 };

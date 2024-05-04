@@ -12,10 +12,7 @@ const CardSkeleton = () => {
 			<div className="w-full flex items-center text-gray-400 gap-4 mt-auto">
 				<span className="mr-auto text-xs">x/x/xxxx, xx:xx xx</span>
 				<div className="flex items-center">
-					<Heart
-						size={16}
-						fill=""
-					/>
+					<Heart size={16} />
 					<span className="ml-1">{'0'}</span>
 				</div>
 				<EllipsisVertical size={16} />

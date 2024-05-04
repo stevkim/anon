@@ -46,9 +46,9 @@ const DeleteButton = ({ postId }: Props) => {
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild>
-				<button className="flex flex-row items-center justify-between">
-					<Trash2 size={16} />
-					<span className="whitespace-nowrap ml-1">Delete Post</span>
+				<button className="flex flex-row items-center">
+					<Trash2 size={12} />
+					<span className="whitespace-nowrap ml-2">Delete Post</span>
 				</button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>

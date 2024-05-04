@@ -42,25 +42,18 @@ const SaveButton = ({ postId, saved }: Props) => {
 
 	return (
 		<>
-			{save ? (
-				<button
-					disabled={loading}
-					onClick={() => handleSave('unsave')}
-					className="flex flex-row items-center justify-between"
-				>
-					<BookmarkX size={16} />
-					<span className="whitespace-nowrap ml-1">Remove List</span>
-				</button>
-			) : (
-				<button
-					disabled={loading}
-					onClick={() => handleSave('save')}
-					className="flex flex-row items-center justify-between"
-				>
-					<Bookmark size={16} />
-					<span className="whitespace-nowrap ml-1">Save to List</span>
-				</button>
-			)}
+			<button
+				disabled={loading}
+				onClick={() => {
+					save ? handleSave('unsave') : handleSave('save');
+				}}
+				className="flex flex-row items-center"
+			>
+				{save ? <BookmarkX size={12} /> : <Bookmark size={12} />}
+				<span className="whitespace-nowrap ml-2">
+					{save ? 'Remove from List' : 'Save to List'}
+				</span>
+			</button>
 		</>
 	);
 };

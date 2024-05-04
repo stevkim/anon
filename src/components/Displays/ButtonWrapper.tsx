@@ -1,9 +1,10 @@
-import { useState } from 'react';
 import ShareButton from './Buttons/ShareButton';
 import { EllipsisVertical } from 'lucide-react';
 import ReportButton from './Buttons/ReportButton';
 import SaveButton from './Buttons/SaveButton';
 import DeleteButton from './Buttons/DeleteButton';
+import { useContext } from 'react';
+import { MenuContext } from '@/app/providers';
 
 interface Props {
 	postId: string;
@@ -12,18 +13,31 @@ interface Props {
 }
 
 const ButtonWrapper = ({ postId, saved, authorId }: Props) => {
-	const [open, toggleOpen] = useState(false);
+	const { menu, setMenu } = useContext(MenuContext);
+
+	const handleToggle = () => {
+		if (menu === postId) {
+			setMenu('');
+		} else {
+			setMenu(postId);
+		}
+	};
 
 	return (
-		<div className="relative flex items-center text-sm">
-			<button onClick={() => toggleOpen((prev) => !prev)}>
+		<div
+			className="relative flex items-center text-sm"
+			onClick={(e) => e.stopPropagation()}
+		>
+			<button onClick={handleToggle}>
 				<EllipsisVertical
 					size={16}
-					className={`transition-all ${open ? 'rotate-180' : 'rotate-0'}`}
+					className={`transition-all ${
+						menu === postId ? 'rotate-90' : 'rotate-0'
+					}`}
 				/>
 			</button>
-			{open ? (
-				<div className="absolute bottom-[20px] right-[-1rem] p-2 flex flex-col gap-1 z-[100]">
+			{menu === postId ? (
+				<div className="absolute bottom-[20px] right-[-1rem] p-2 flex flex-col gap-1 z-[100] text-xs">
 					<ShareButton postId={postId} />
 					<SaveButton
 						postId={postId}

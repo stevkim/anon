@@ -23,7 +23,6 @@ const ShareButton = ({ postId }: Props) => {
 
 	const url = `${process.env.URL}/post?id=${postId}`;
 
-	// TODO: toast a message that the url has been copied
 	const copyLink = () => {
 		navigator.clipboard.writeText(url);
 		setCopied(true);
@@ -35,9 +34,12 @@ const ShareButton = ({ postId }: Props) => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<button className="flex flex-row items-center justify-between">
-					<Share2 size={16} />
-					<span className="whitespace-nowrap ml-1">Share Post</span>
+				<button
+					className="flex flex-row items-center"
+					data-name="test"
+				>
+					<Share2 size={12} />
+					<span className="whitespace-nowrap ml-2">Share Post</span>
 				</button>
 			</DialogTrigger>
 			<DialogContent>

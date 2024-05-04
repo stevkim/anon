@@ -13,6 +13,9 @@ const usePosts = (
 				return lastPage && lastPage.length ? allPages.length : null;
 			},
 			retry: 2,
+			retryDelay: (attempts) => {
+				return Math.min(attempts * 1000, 3000);
+			},
 		});
 
 	return {
