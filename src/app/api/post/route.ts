@@ -26,16 +26,17 @@ export async function GET(request: NextRequest) {
 				getSaved(user.id),
 			]);
 
-			// keeping track of the post that the user has liked
-			// set postId (key) to the id of the row
-			likes.forEach((row) => {
-				userLikes.set(row.postId, row.id);
-			});
-			// keeping track of the post that the user has saved
-			// set postId (key) to the id of the row
-			saved.forEach((row) => {
-				userSaved.set(row.postId, row.id);
-			});
+			const maxLength = Math.max(likes.length, saved.length);
+
+			// keeping track of the post that the user has liked/saved
+			for (let i = 0; i < maxLength; i++) {
+				if (likes[i]) {
+					userLikes.set(likes[i].postId, likes[i].id);
+				}
+				if (saved[i]) {
+					userSaved.set(saved[i].postId, saved[i].id);
+				}
+			}
 
 			// if the post's author is the user, reset the authorId to 'author'
 			// create flags for liked and saved posts - will be undefined if not exists

@@ -2,8 +2,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Display from '@/components/Displays/Display';
 import { fetchSavedPosts, fetchUserPosts } from '@/lib/userFetch';
-import { Suspense } from 'react';
-import ComponentLoader from '@/components/Loaders/ComponentLoader';
 
 const AccountPage = () => {
 	return (
@@ -16,20 +14,16 @@ const AccountPage = () => {
 				<TabsTrigger value="saved">Saved Posts</TabsTrigger>
 			</TabsList>
 			<TabsContent value="user">
-				<Suspense fallback={<ComponentLoader />}>
-					<Display
-						qKey="userPosts"
-						fetchFn={fetchUserPosts}
-					/>
-				</Suspense>
+				<Display
+					qKey="userPosts"
+					fetchFn={fetchUserPosts}
+				/>
 			</TabsContent>
 			<TabsContent value="saved">
-				<Suspense fallback={<ComponentLoader />}>
-					<Display
-						qKey="savedPosts"
-						fetchFn={fetchSavedPosts}
-					/>
-				</Suspense>
+				<Display
+					qKey="savedPosts"
+					fetchFn={fetchSavedPosts}
+				/>
 			</TabsContent>
 		</Tabs>
 	);

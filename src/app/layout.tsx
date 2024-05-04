@@ -18,13 +18,16 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html
+			suppressHydrationWarning
+			lang="en"
+		>
 			<body className="antialiased">
 				<Providers>
 					<Navbar />
 					<Suspense fallback={<ComponentLoader />}>{children}</Suspense>
+					<Toaster />
 				</Providers>
-				<Toaster />
 			</body>
 		</html>
 	);

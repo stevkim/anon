@@ -10,12 +10,12 @@ import type { TPost } from '@/types/posts';
 
 interface Props {
 	post: TPost;
-	menuId: string;
-	toggle: (id: string) => void;
 }
 
-const Card = ({ post, menuId, toggle }: Props) => {
+const Card = ({ post }: Props) => {
 	const { content, liked, likes, id, saved, authorId, createdAt } = post;
+
+	// format the date
 	const date = useMemo(() => {
 		const time = new Date(createdAt);
 		return time.toLocaleString([], {
@@ -27,6 +27,7 @@ const Card = ({ post, menuId, toggle }: Props) => {
 		});
 	}, [createdAt]);
 
+	// content to be displayed - not editable
 	const editor = useEditor({
 		extensions: [
 			...defaultExtensions,
@@ -44,7 +45,7 @@ const Card = ({ post, menuId, toggle }: Props) => {
 				className="prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full"
 			/>
 			<div className="flex gap-4 items-center">
-				<div className="text-[gray] text-xs mr-auto">{date}</div>
+				<span className="text-[gray] text-xs mr-auto">{date}</span>
 				<LikeButton
 					liked={liked!}
 					likes={likes!}
@@ -54,8 +55,6 @@ const Card = ({ post, menuId, toggle }: Props) => {
 					postId={id}
 					authorId={authorId}
 					saved={saved!}
-					open={menuId === id}
-					toggle={toggle}
 				/>
 			</div>
 		</div>

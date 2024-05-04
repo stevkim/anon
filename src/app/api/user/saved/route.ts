@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import prisma from '@/db/client';
 import { createClient } from '@/utils/supabase/server';
 import { getSavedPosts, getLikes } from '@/db/methods';
+import type { TPost } from '@/types/posts';
 
 // get Posts that the user has saved
 // expects the pages from searchParams - /api/saved?page={PAGE}
@@ -27,7 +28,7 @@ export async function GET(request: NextRequest) {
 		});
 
 		// create flags for saved and liked posts
-		let results: any[] = posts.map((post) => ({
+		let results: TPost[] = posts.map((post) => ({
 			...post.Post,
 			liked: userLikes.get(post.Post.id),
 			saved: post.id,

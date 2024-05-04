@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import prisma from '@/db/client';
 import { type TPost } from '@/types/posts';
-import PageCard from '@/components/Displays/PageCard';
+import Card from '@/components/Displays/Card';
 
 const getData = async (id: string) => {
 	const supabase = createClient();
@@ -10,39 +10,42 @@ const getData = async (id: string) => {
 		data: { user },
 	} = await supabase.auth.getUser();
 
-	let liked;
-	let saved;
-
-	if (user?.id) {
-		liked = await prisma.likes.findFirst({
-			where: {
-				userId: user.id,
-				postId: id,
-			},
-		});
-
-		saved = await prisma.saved.findFirst({
-			where: {
-				userId: user.id,
-				postId: id,
-			},
-		});
-	}
-
-	const data: TPost | null = await prisma.post.findFirst({
+	const data = await prisma.post.findFirst({
 		where: {
 			id,
 		},
 	});
 
-	if (data) {
-		data['liked'] = liked?.id || null;
-		data['saved'] = saved?.id || null;
-
-		return data;
-	} else {
-		return null;
+	if (!data) {
+		redirect('/');
 	}
+
+	let withFlags: TPost = data;
+
+	if (user?.id) {
+		const [liked, saved] = await Promise.all([
+			prisma.likes.findFirst({
+				where: {
+					userId: user?.id,
+					postId: id,
+				},
+			}),
+			prisma.saved.findFirst({
+				where: {
+					userId: user?.id,
+					postId: id,
+				},
+			}),
+		]);
+
+		withFlags = {
+			...data,
+			liked: liked?.id,
+			saved: saved?.id,
+		};
+	}
+
+	return withFlags;
 };
 
 interface Props {
@@ -55,13 +58,9 @@ const PostPage = async ({ searchParams: { id } }: Props) => {
 	}
 	const data = await getData(id);
 
-	if (!data) {
-		redirect('/');
-	}
-
 	return (
 		<section className="page">
-			<PageCard post={data} />
+			<Card post={data} />
 		</section>
 	);
 };

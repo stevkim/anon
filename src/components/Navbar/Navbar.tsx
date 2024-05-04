@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { createClient } from '@/utils/supabase/server';
 import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
+import ThemeToggle from './ThemeToggle';
 
 const NAVS = [
 	{
@@ -26,14 +27,14 @@ const Navbar = async () => {
 	} = await supabase.auth.getUser();
 
 	return (
-		<nav className="flex flex-row px-[10%]">
+		<nav className="flex flex-row px-[10%] bg-secondary">
 			<Link
 				href={'/'}
 				className="mr-auto text-xl"
 			>
 				anon.
 			</Link>
-			<div className="flex gap-4 items-center">
+			<div className="flex gap-4 items-center mr-4">
 				{NAVS.map((nav) => {
 					return (
 						<Link
@@ -46,6 +47,7 @@ const Navbar = async () => {
 				})}
 				{user ? <LogoutButton /> : <LoginButton />}
 			</div>
+			<ThemeToggle />
 		</nav>
 	);
 };

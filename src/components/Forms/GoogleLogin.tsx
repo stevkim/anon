@@ -26,7 +26,7 @@ const GoogleLogin = () => {
 				src={google_logo}
 				alt="google logo"
 			/>
-			Sign in with google
+			Sign in with Google
 		</Button>
 	);
 };

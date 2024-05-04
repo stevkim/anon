@@ -9,17 +9,17 @@ interface Props {
 	postId: string;
 	saved: string;
 	authorId: string;
-	open: boolean;
-	toggle: (id: string) => void;
 }
 
-const ButtonWrapper = ({ postId, saved, authorId, open, toggle }: Props) => {
+const ButtonWrapper = ({ postId, saved, authorId }: Props) => {
+	const [open, toggleOpen] = useState(false);
+
 	return (
 		<div className="relative flex items-center text-sm">
-			<button onClick={() => toggle(postId)}>
+			<button onClick={() => toggleOpen((prev) => !prev)}>
 				<EllipsisVertical
 					size={16}
-					className={`transition-all ${open ? 'rotate-90' : 'rotate-0'}`}
+					className={`transition-all ${open ? 'rotate-180' : 'rotate-0'}`}
 				/>
 			</button>
 			{open ? (

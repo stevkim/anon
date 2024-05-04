@@ -1,12 +1,10 @@
 'use client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
+import { ThemeProvider } from 'next-themes';
+import { type ThemeProviderProps } from 'next-themes/dist/types';
 
-interface Props {
-	children: React.ReactNode;
-}
-
-const Providers = ({ children }: Props) => {
+const Providers = ({ children, ...props }: ThemeProviderProps) => {
 	const [queryClient] = useState(
 		() =>
 			new QueryClient({
@@ -14,13 +12,22 @@ const Providers = ({ children }: Props) => {
 					queries: {
 						refetchOnWindowFocus: false,
 						refetchOnReconnect: false,
+						retry: 2,
 					},
 				},
 			})
 	);
 
 	return (
-		<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+		<ThemeProvider
+			defaultTheme="light"
+			attribute="class"
+			enableSystem
+			disableTransitionOnChange
+			{...props}
+		>
+			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+		</ThemeProvider>
 	);
 };
 

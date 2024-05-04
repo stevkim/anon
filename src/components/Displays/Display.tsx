@@ -5,6 +5,7 @@ import Card from './Card';
 import MainFeedLoader from '../Loaders/MainFeedLoader';
 import useThrottle from '@/hooks/useThrottle';
 import usePosts from '@/hooks/usePosts';
+import ComponentLoader from '../Loaders/ComponentLoader';
 
 interface Props {
 	qKey: string;
@@ -12,47 +13,31 @@ interface Props {
 }
 
 const Display = ({ qKey, fetchFn }: Props) => {
-	const [menuId, setMenuId] = useState('');
 	const contentRef = useRef<HTMLDivElement>(null);
-	const { posts, getNextPage, hasNextPage, isLoading } = usePosts(
+	const { posts, getNextPage, hasNextPage, isLoading, isFetching } = usePosts(
 		qKey,
 		fetchFn
 	);
 
+	//
 	const infiniteScroll = useInfiniteScroll(
 		contentRef,
 		getNextPage,
 		hasNextPage
 	);
+	// throttles the infinite scroll to every 200ms
 	const throttled = useThrottle(infiniteScroll, 200);
 
-	const toggleMenu = useCallback(
-		(id: string) => {
-			if (id === menuId) {
-				setMenuId('');
-			} else {
-				setMenuId(id);
-			}
-		},
-		[menuId]
-	);
-
 	const content = useMemo(() => {
-		if (posts.length) {
-			return posts.map((post) => {
-				return (
-					<Card
-						key={post.id + post.liked}
-						post={post}
-						menuId={menuId}
-						toggle={toggleMenu}
-					/>
-				);
-			});
-		} else {
-			return <div>No posts</div>;
-		}
-	}, [posts, menuId, toggleMenu]);
+		return posts.map((post) => {
+			return (
+				<Card
+					key={post.id + post.liked}
+					post={post}
+				/>
+			);
+		});
+	}, [posts]);
 
 	if (isLoading) {
 		return <MainFeedLoader />;
@@ -65,7 +50,7 @@ const Display = ({ qKey, fetchFn }: Props) => {
 			onScroll={throttled}
 		>
 			{content}
-			{hasNextPage || posts.length === 0 ? null : <div>No more posts</div>}
+			<div>{isFetching ? <ComponentLoader /> : 'No more posts to load'}</div>
 		</div>
 	);
 };

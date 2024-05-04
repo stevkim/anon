@@ -43,27 +43,19 @@ const LikeButton = ({ liked, likes, postId }: Props) => {
 
 	return (
 		<div className="flex items-center">
-			{like ? (
-				<button
-					type="button"
-					disabled={loading}
-					onClick={() => handleLike('unlike')}
-				>
-					<Heart
-						size="16"
-						fill="currentColor"
-					/>
-				</button>
-			) : (
-				<button
-					type="button"
-					disabled={loading}
-					onClick={() => handleLike('like')}
-				>
-					<Heart size="16" />
-				</button>
-			)}
-			<span className="ml-1">{likeCount}</span>
+			<button
+				type="button"
+				disabled={loading}
+				onClick={() => {
+					like ? handleLike('unlike') : handleLike('like');
+				}}
+			>
+				<Heart
+					size="16"
+					fill={like ? 'currentColor' : ''}
+				/>
+			</button>
+			<span className="ml-2">{likeCount}</span>
 		</div>
 	);
 };

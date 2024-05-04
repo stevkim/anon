@@ -8,7 +8,7 @@ const Login = () => {
 		<section className="page flex flex-col gap-4 items-center">
 			<h1>Login to anon.</h1>
 			<LoginForm />
-			<Separator />
+			<Separator className="max-w-[600px]" />
 			<GoogleLogin />
 		</section>
 	);

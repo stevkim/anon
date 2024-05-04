@@ -35,9 +35,7 @@ const ReportButton = ({ postId }: Props) => {
 			return toast({ description: 'Must be logged in to report posts' });
 		}
 
-		const data = { reason: input };
-
-		const response = await reportPost(postId, data);
+		const response = await reportPost(postId, { reason: input });
 
 		if (!response.ok) {
 			toast({ title: 'Internal server error', variant: 'destructive' });
