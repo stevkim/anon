@@ -21,6 +21,8 @@
 <div id='about'></div>
 Anon is a platform designed for anonymous sharing of literature. It allows users to share their work without revealing their identity, creating a safe and open environment for writers to express themselves freely.
 
+Anon is a platform that provides features similar to those of social media platforms. It allows its users to like, save, and share posts, just like they can on other social media platforms.
+
 ## Tech Stack
 <div id='tech'></div>
 
