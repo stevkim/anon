@@ -11,6 +11,9 @@
          <a href='#tech'>tech stack</a>
       </li>
       <li>
+         <a href='#features'>features</a>
+      </li>
+      <li>
          <a href='#endpoints'>endpoint design</a>
       </li>
    </ol>
@@ -42,6 +45,7 @@ Anon is a platform that provides features similar to those of social media platf
 - <a href='https://tanstack.com/' target='_blank'>Tanstack</a> for React-Query (infinite query)
 
 ## Features
+<div id='features'></div>
 TODO
 
 ## Endpoint Design
