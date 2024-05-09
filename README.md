@@ -1,10 +1,26 @@
 <h1 align='center'>Anon</h1>
-<br/>
+
+## Table of Contents
+<details>
+   <summary>Table of Contents</summary>
+   <ol>
+      <li>
+         <a href='#about'>about</a>
+      </li>
+      <li>
+         <a href='#tech'>tech stack</a>
+      </li>
+   </ol>
+</details>
+
 
 ## About
-
+<div id='about'></div>
+Anon is a platform designed for anonymous sharing of literature. It allows users to share their work without revealing their identity, creating a safe and open environment for writers to express themselves freely.
 
 ## Tech Stack
+<div id='tech'></div>
+
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
