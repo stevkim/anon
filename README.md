@@ -39,6 +39,9 @@ Anon is a platform designed for anonymous sharing of literature. It allows users
    - Shadcn uses <a href='https://react-hook-form.com/' target='_blank'>React-hook-form</a> and <a href='https://www.radix-ui.com/' target='_blank'>Radix-UI</a> under the hood
 - <a href='https://tanstack.com/' target='_blank'>Tanstack</a> for React-Query (infinite query)
 
+## Features
+TODO
+
 ## Endpoint Design
 <div id='endpoints'></div>
 
