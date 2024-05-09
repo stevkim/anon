@@ -2,7 +2,7 @@
 <br/>
 
 ## About
-
+Anon is a platform designed for anonymous sharing of literature. It allows users to share their work without revealing their identity, creating a safe and open environment for writers to express themselves freely.
 
 ## Tech Stack
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
