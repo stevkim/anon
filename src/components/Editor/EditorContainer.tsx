@@ -8,39 +8,10 @@ import { useRouter } from 'next/navigation';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { Loader2 } from 'lucide-react';
 import { useQueryClient } from '@tanstack/react-query';
-
-const defaultContent = {
-	type: 'doc',
-	content: [
-		{
-			type: 'heading',
-			attrs: {
-				level: 1,
-			},
-			content: [
-				{
-					type: 'text',
-					text: 'Header!',
-				},
-			],
-		},
-		{
-			type: 'paragraph',
-			content: [
-				{
-					type: 'text',
-					text: 'Current message',
-				},
-			],
-		},
-		{
-			type: 'paragraph',
-		},
-	],
-};
+import defaultValue from './defaultValue';
 
 const EditorContainer = () => {
-	const [content, setContent] = useLocalStorage('content', defaultContent);
+	const [content, setContent] = useLocalStorage('content', defaultValue);
 	const [loading, setLoading] = useState(false);
 	const queryClient = useQueryClient();
 	const { toast } = useToast();
@@ -59,7 +30,7 @@ const EditorContainer = () => {
 			});
 		}
 
-		localStorage.removeItem('content');
+		localStorage.setItem('content', JSON.stringify(defaultValue));
 		toast({
 			title: 'Post Created',
 			description: 'Redirecting you to the main page',

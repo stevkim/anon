@@ -4,6 +4,7 @@ import { useEditor, EditorContent, type Content } from '@tiptap/react';
 import { defaultExtensions } from '@/components/Editor/extensions';
 import TextStyle from '@tiptap/extension-text-style';
 import Highlight from '@tiptap/extension-highlight';
+import Underline from '@tiptap/extension-underline';
 import LikeButton from './Buttons/LikeButton';
 import ButtonWrapper from './ButtonWrapper';
 import type { TPost } from '@/types/posts';
@@ -14,7 +15,6 @@ interface Props {
 
 const Card = ({ post }: Props) => {
 	const { content, liked, likes, id, saved, authorId, createdAt } = post;
-
 	// format the date
 	const date = useMemo(() => {
 		const time = new Date(createdAt);
@@ -33,6 +33,7 @@ const Card = ({ post }: Props) => {
 			...defaultExtensions,
 			TextStyle,
 			Highlight.configure({ multicolor: true }),
+			Underline,
 		],
 		content: content as Content,
 		editable: false,

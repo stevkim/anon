@@ -50,10 +50,14 @@ const LikeButton = ({ liked, likes, postId }: Props) => {
 					like ? handleLike('unlike') : handleLike('like');
 				}}
 			>
-				<Heart
-					size="16"
-					fill={like ? 'currentColor' : ''}
-				/>
+				{like ? (
+					<Heart
+						size="16"
+						fill=""
+					/>
+				) : (
+					<Heart size="16" />
+				)}
 			</button>
 			<span className="ml-2">{likeCount}</span>
 		</div>
