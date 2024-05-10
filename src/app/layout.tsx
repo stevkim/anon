@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar/Navbar';
 import Providers from './providers';
 import { Toaster } from '@/components/ui/toaster';
 import { Suspense } from 'react';
-import ComponentLoader from '@/components/Loaders/ComponentLoader';
+import ComponentLoader from '@/components/Utilities/ComponentLoader';
 
 export const metadata: Metadata = {
 	title: 'anon.',

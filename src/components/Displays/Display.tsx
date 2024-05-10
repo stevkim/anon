@@ -1,11 +1,12 @@
 'use client';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { useRef, useMemo, useState, useCallback } from 'react';
+import { useRef, useMemo } from 'react';
 import Card from './Card';
-import MainFeedLoader from '../Loaders/MainFeedLoader';
+import MainFeedLoader from '../Utilities/MainFeedLoader';
 import useThrottle from '@/hooks/useThrottle';
 import usePosts from '@/hooks/usePosts';
-import ComponentLoader from '../Loaders/ComponentLoader';
+import ComponentLoader from '../Utilities/ComponentLoader';
+import NoMorePosts from '../Utilities/NoMorePosts';
 
 interface Props {
 	qKey: string;
@@ -50,7 +51,7 @@ const Display = ({ qKey, fetchFn }: Props) => {
 			onScroll={throttled}
 		>
 			{content}
-			<div>{isFetching ? <ComponentLoader /> : 'No more posts to load'}</div>
+			<div>{isFetching ? <ComponentLoader /> : <NoMorePosts />}</div>
 		</div>
 	);
 };

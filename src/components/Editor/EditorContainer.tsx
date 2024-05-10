@@ -9,6 +9,7 @@ import useLocalStorage from '@/hooks/useLocalStorage';
 import { Loader2 } from 'lucide-react';
 import { useQueryClient } from '@tanstack/react-query';
 import defaultValue from './defaultValue';
+import validateContent from '@/lib/validateContent';
 
 const EditorContainer = () => {
 	const [content, setContent] = useLocalStorage('content', defaultValue);
@@ -18,6 +19,15 @@ const EditorContainer = () => {
 	const { push } = useRouter();
 
 	const submit = async () => {
+		console.log(content);
+		if (!validateContent(content)) {
+			return toast({
+				title: 'Error Posting',
+				description:
+					'Please make sure your writing is in your own words and is longer than 2 lines.',
+				variant: 'destructive',
+			});
+		}
 		setLoading(true);
 		const response = await createPost({ content: content });
 

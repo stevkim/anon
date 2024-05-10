@@ -37,7 +37,7 @@ const ButtonWrapper = ({ postId, saved, authorId }: Props) => {
 				/>
 			</button>
 			{menu === postId ? (
-				<div className="absolute bottom-[20px] right-[-1rem] p-2 flex flex-col gap-1 z-[100] text-xs">
+				<div className="absolute bottom-[20px] right-[-1rem] p-2 flex flex-col gap-1 z-[100] text-xs bg-white">
 					<ShareButton postId={postId} />
 					<SaveButton
 						postId={postId}

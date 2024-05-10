@@ -30,6 +30,7 @@ export async function GET(request: NextRequest) {
 		// create flags for saved and liked posts
 		let results: TPost[] = posts.map((post) => ({
 			...post.Post,
+			authorId: post.Post.authorId === user?.id ? 'author' : post.Post.authorId,
 			liked: userLikes.get(post.Post.id),
 			saved: post.id,
 		}));

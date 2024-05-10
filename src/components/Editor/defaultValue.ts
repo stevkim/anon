@@ -8,21 +8,21 @@ const defaultValue = {
 			},
 			content: [
 				{
-					text: 'Welcome to ',
 					type: 'text',
+					text: 'Welcome to ',
 				},
 				{
-					text: 'anon',
 					type: 'text',
 					marks: [
 						{
 							type: 'italic',
 						},
 					],
+					text: 'anon',
 				},
 				{
-					text: '!',
 					type: 'text',
+					text: '!',
 				},
 			],
 		},
@@ -33,21 +33,21 @@ const defaultValue = {
 			},
 			content: [
 				{
-					text: 'Rules to Contribute',
 					type: 'text',
 					marks: [
 						{
 							type: 'underline',
 						},
 					],
+					text: 'Rules to Contribute',
 				},
 			],
 		},
 		{
 			type: 'orderedList',
 			attrs: {
-				start: 1,
 				tight: true,
+				start: 1,
 			},
 			content: [
 				{
@@ -57,8 +57,17 @@ const defaultValue = {
 							type: 'paragraph',
 							content: [
 								{
-									text: 'Respect: Be kind and refrain from offensive language',
 									type: 'text',
+									marks: [
+										{
+											type: 'italic',
+										},
+									],
+									text: 'Respect',
+								},
+								{
+									type: 'text',
+									text: ': Be kind and refrain from offensive language',
 								},
 							],
 						},
@@ -71,8 +80,17 @@ const defaultValue = {
 							type: 'paragraph',
 							content: [
 								{
-									text: 'Original Content: Share your own writing; no plagiarism',
 									type: 'text',
+									marks: [
+										{
+											type: 'italic',
+										},
+									],
+									text: 'Original Content',
+								},
+								{
+									type: 'text',
+									text: ': Share your own writing; no plagiarism',
 								},
 							],
 						},
@@ -85,8 +103,17 @@ const defaultValue = {
 							type: 'paragraph',
 							content: [
 								{
-									text: 'Stay Appropriate: Follow legal and community standards',
 									type: 'text',
+									marks: [
+										{
+											type: 'italic',
+										},
+									],
+									text: 'Stay Appropriate',
+								},
+								{
+									type: 'text',
+									text: ': Follow legal and community standards',
 								},
 							],
 						},
@@ -99,8 +126,17 @@ const defaultValue = {
 							type: 'paragraph',
 							content: [
 								{
-									text: 'No Spamming: Keep posts relevant and avoid self-promotion',
 									type: 'text',
+									marks: [
+										{
+											type: 'italic',
+										},
+									],
+									text: 'No Spamming',
+								},
+								{
+									type: 'text',
+									text: ': Keep posts relevant and avoid self-promotion',
 								},
 							],
 						},
@@ -113,8 +149,17 @@ const defaultValue = {
 							type: 'paragraph',
 							content: [
 								{
-									text: "Honor Copyrights: Respect others' creative work",
 									type: 'text',
+									marks: [
+										{
+											type: 'italic',
+										},
+									],
+									text: 'Honor Copyrights',
+								},
+								{
+									type: 'text',
+									text: ": Respect others' creative work",
 								},
 							],
 						},
@@ -127,8 +172,17 @@ const defaultValue = {
 							type: 'paragraph',
 							content: [
 								{
-									text: 'Embrace Anonymity: No names, no identities, ever',
 									type: 'text',
+									marks: [
+										{
+											type: 'italic',
+										},
+									],
+									text: 'Embrace Anonymity',
+								},
+								{
+									type: 'text',
+									text: ': No names, no identities, ever',
 								},
 							],
 						},
@@ -141,8 +195,17 @@ const defaultValue = {
 							type: 'paragraph',
 							content: [
 								{
-									text: 'Enjoy Sharing: Inspire and be inspired by the community!',
 									type: 'text',
+									marks: [
+										{
+											type: 'italic',
+										},
+									],
+									text: 'Enjoy Sharing',
+								},
+								{
+									type: 'text',
+									text: ': Inspire and be inspired by the community!',
 								},
 							],
 						},
@@ -152,19 +215,5 @@ const defaultValue = {
 		},
 	],
 };
-
-export const validateDefault = [
-	'Welcome to ',
-	'anon',
-	'!',
-	'Rules to Contribute',
-	'Respect: Be kind and refrain from offensive language',
-	'Original Content: Share your own writing; no plagiarism',
-	'Stay Appropriate: Follow legal and community standards',
-	'No Spamming: Keep posts relevant and avoid self-promotion',
-	"Honor Copyrights: Respect others' creative work",
-	'Embrace Anonymity: No names, no identities, ever',
-	'Enjoy Sharing: Inspire and be inspired by the community!',
-];
 
 export default defaultValue;

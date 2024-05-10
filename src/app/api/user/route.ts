@@ -3,7 +3,7 @@ import prisma from '@/db/client';
 import { createClient } from '@/utils/supabase/server';
 import { getUserPosts, getLikes } from '@/db/methods';
 
-// get Posts that the user has saved
+// get Posts that the user has written
 // expects the pages from searchParams - /api/saved?page={PAGE}
 export async function GET(request: NextRequest) {
 	const supabase = createClient();

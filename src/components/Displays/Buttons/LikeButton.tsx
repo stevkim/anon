@@ -53,7 +53,7 @@ const LikeButton = ({ liked, likes, postId }: Props) => {
 				{like ? (
 					<Heart
 						size="16"
-						fill=""
+						fill="currentColor"
 					/>
 				) : (
 					<Heart size="16" />
