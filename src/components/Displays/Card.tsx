@@ -6,7 +6,7 @@ import TextStyle from '@tiptap/extension-text-style';
 import Highlight from '@tiptap/extension-highlight';
 import Underline from '@tiptap/extension-underline';
 import LikeButton from './Buttons/LikeButton';
-import ButtonWrapper from './ButtonWrapper';
+import ButtonMenu from './ButtonMenu';
 import type { TPost } from '@/types/posts';
 
 interface Props {
@@ -52,7 +52,7 @@ const Card = ({ post }: Props) => {
 					likes={likes!}
 					postId={id}
 				/>
-				<ButtonWrapper
+				<ButtonMenu
 					postId={id}
 					authorId={authorId}
 					saved={saved!}
@@ -61,6 +61,5 @@ const Card = ({ post }: Props) => {
 		</div>
 	);
 };
-// 2024-05-03T22:38:42.360Z
 
 export default Card;

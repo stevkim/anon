@@ -12,7 +12,7 @@ interface Props {
 	authorId: string;
 }
 
-const ButtonWrapper = ({ postId, saved, authorId }: Props) => {
+const ButtonMenu = ({ postId, saved, authorId }: Props) => {
 	const { menu, setMenu } = useContext(MenuContext);
 
 	const handleToggle = () => {
@@ -51,4 +51,4 @@ const ButtonWrapper = ({ postId, saved, authorId }: Props) => {
 	);
 };
 
-export default ButtonWrapper;
+export default ButtonMenu;
