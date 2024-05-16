@@ -101,7 +101,8 @@ TODO
    </p>
 </details>
 
---- Below endpoints are only accessible to authenticated users --- Request will error if authenticated user does not exist ---
+<i>Below endpoints are only accessible to authenticated users</i> <br/>
+<i>Request will error if authenticated user does not exist</i>
 
 <details>
    <summary>/api/post</summary>
