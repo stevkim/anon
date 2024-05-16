@@ -4,6 +4,7 @@ import { useToast } from "../../ui/use-toast";
 import { savePost, unsavePost } from "@/lib/userFetch";
 import { Bookmark, BookmarkX } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
+import ButtonLoader from "@/components/Utilities/ButtonLoader";
 
 interface Props {
   postId: string;
@@ -40,6 +41,17 @@ const SaveButton = ({ postId, saved }: Props) => {
     setLoading(false);
   };
 
+  const SaveButtonContent = () => {
+    return (
+      <>
+        {save ? <BookmarkX size={12} /> : <Bookmark size={12} />}
+        <span className="ml-2 whitespace-nowrap">
+          {save ? "Remove from List" : "Save to List"}
+        </span>
+      </>
+    );
+  };
+
   return (
     <>
       <button
@@ -49,10 +61,7 @@ const SaveButton = ({ postId, saved }: Props) => {
         }}
         className="flex flex-row items-center text-[#717E8E] hover:text-popover-foreground"
       >
-        {save ? <BookmarkX size={12} /> : <Bookmark size={12} />}
-        <span className="ml-2 whitespace-nowrap">
-          {save ? "Remove from List" : "Save to List"}
-        </span>
+        {loading ? <ButtonLoader /> : <SaveButtonContent />}
       </button>
     </>
   );

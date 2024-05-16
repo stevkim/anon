@@ -35,10 +35,8 @@ const NavMenu = ({ children }: Props) => {
   };
 
   return (
-    <div>
-      <div className="text-[1.2rem]" suppressHydrationWarning>
-        <MenuIcon open={open} setOpen={handleClick} />
-      </div>
+    <>
+      <MenuIcon open={open} setOpen={handleClick} />
       {open ? (
         <div
           className="absolute left-[5%] top-[50px] z-[10] flex w-full flex-col gap-2 rounded-[--radius] border bg-popover p-4 text-lg shadow-md md:left-[9%] md:w-[200px]"
@@ -60,7 +58,7 @@ const NavMenu = ({ children }: Props) => {
           {children}
         </div>
       ) : null}
-    </div>
+    </>
   );
 };
 
