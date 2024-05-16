@@ -1,0 +1,67 @@
+"use client";
+import { ReactNode, useState } from "react";
+import Link from "next/link";
+import { Home, Pencil, CircleUser } from "lucide-react";
+import MenuIcon from "./MenuIcon";
+import { Separator } from "../ui/separator";
+
+const NAVS = [
+  {
+    name: "Home",
+    link: "/",
+    icon: Home,
+  },
+  {
+    name: "Publish",
+    link: "/publish",
+    icon: Pencil,
+  },
+  {
+    name: "Account",
+    link: "/account",
+    icon: CircleUser,
+  },
+];
+
+interface Props {
+  children: ReactNode;
+}
+
+const NavMenu = ({ children }: Props) => {
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
+  return (
+    <div>
+      <div className="text-[1.2rem]" suppressHydrationWarning>
+        <MenuIcon open={open} setOpen={handleClick} />
+      </div>
+      {open ? (
+        <div
+          className="absolute left-[5%] top-[50px] z-[10] flex w-full flex-col gap-2 rounded-[--radius] border bg-popover p-4 text-lg shadow-md md:left-[9%] md:w-[200px]"
+          onClick={handleClick}
+        >
+          {NAVS.map((nav) => {
+            return (
+              <Link
+                key={nav.name}
+                href={nav.link}
+                className="flex flex-row items-center text-[#717E8E] hover:text-popover-foreground "
+              >
+                <nav.icon size={16} className="mr-2" />
+                {nav.name}
+              </Link>
+            );
+          })}
+          <Separator />
+          {children}
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+export default NavMenu;

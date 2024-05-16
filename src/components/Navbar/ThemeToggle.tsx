@@ -1,29 +1,29 @@
-'use client';
-import { useTheme } from 'next-themes';
-import { MoonIcon, SunIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
+"use client";
+import { useTheme } from "next-themes";
+import { MoonIcon, SunIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const ThemeToggle = () => {
-	const [docTheme, setDocTheme] = useState('light');
-	const { setTheme } = useTheme();
+  const [docTheme, setDocTheme] = useState("light");
+  const { setTheme } = useTheme();
 
-	const toggleTheme = () => {
-		if (docTheme === 'light') {
-			setDocTheme('dark');
-		} else {
-			setDocTheme('light');
-		}
-	};
+  const toggleTheme = () => {
+    if (docTheme === "light") {
+      setDocTheme("dark");
+    } else {
+      setDocTheme("light");
+    }
+  };
 
-	useEffect(() => {
-		setTheme(docTheme);
-	}, [docTheme, setTheme]);
+  useEffect(() => {
+    setTheme(docTheme);
+  }, [docTheme, setTheme]);
 
-	return (
-		<button onClick={toggleTheme}>
-			{docTheme === 'light' ? <MoonIcon size={16} /> : <SunIcon size={16} />}
-		</button>
-	);
+  return (
+    <button onClick={toggleTheme} className="hover:-rotate-[10deg]">
+      {docTheme === "light" ? <MoonIcon size={20} /> : <SunIcon size={20} />}
+    </button>
+  );
 };
 
 export default ThemeToggle;

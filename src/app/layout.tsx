@@ -6,7 +6,7 @@ import Providers from './providers';
 import { Toaster } from '@/components/ui/toaster';
 import { Suspense } from 'react';
 import ComponentLoader from '@/components/Utilities/ComponentLoader';
-import { Dancing_Script } from 'next/font/google';
+import { Dancing_Script, Open_Sans } from 'next/font/google';
 
 export const metadata: Metadata = {
 	title: 'anon.',
@@ -16,6 +16,10 @@ export const metadata: Metadata = {
 const dancingScript = Dancing_Script({
 	subsets: ['latin'],
 	variable: '--font-dancingscript',
+});
+
+const openSans = Open_Sans({
+	subsets: ['latin'],
 });
 
 export default function RootLayout({
@@ -28,7 +32,9 @@ export default function RootLayout({
 			lang="en"
 			suppressHydrationWarning
 		>
-			<body className={`${dancingScript.variable} antialiased`}>
+			<body
+				className={`${dancingScript.variable} ${openSans.className} antialiased`}
+			>
 				<Providers>
 					<Navbar />
 					<Suspense fallback={<ComponentLoader />}>{children}</Suspense>
