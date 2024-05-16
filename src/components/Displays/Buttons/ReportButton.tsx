@@ -1,4 +1,4 @@
-import { reportPost } from "@/lib/postFetch";
+import { reportPost } from "@/lib/post.fetch";
 import { createClient } from "@/utils/supabase/client";
 import { Flag } from "lucide-react";
 import {

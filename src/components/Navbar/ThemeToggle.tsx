@@ -8,11 +8,7 @@ const ThemeToggle = () => {
   const { setTheme } = useTheme();
 
   const toggleTheme = () => {
-    if (docTheme === "light") {
-      setDocTheme("dark");
-    } else {
-      setDocTheme("light");
-    }
+    docTheme === "light" ? setDocTheme("dark") : setDocTheme("light");
   };
 
   useEffect(() => {

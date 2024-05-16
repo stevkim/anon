@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { likePost, unlikePost } from "@/lib/postFetch";
+import { likePost, unlikePost } from "@/lib/post.fetch";
 import { createClient } from "@/utils/supabase/client";
 import { Heart } from "lucide-react";
 import { useToast } from "../../ui/use-toast";
@@ -53,7 +53,7 @@ const LikeButton = ({ liked, likes, postId }: Props) => {
       >
         {like ? <Heart size="16" fill="currentColor" /> : <Heart size="16" />}
       </button>
-      <span className="ml-2">{likeCount}</span>
+      <span className="ml-2 text-xs text-[gray]">{likeCount}</span>
     </div>
   );
 };

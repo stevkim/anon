@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Providers from "./providers";
 import { Toaster } from "@/components/ui/toaster";
 import { Suspense } from "react";
-import ComponentLoader from "@/components/Utilities/ComponentLoader";
+import ComponentLoader from "@/components/Loaders/ComponentLoader";
 import { Dancing_Script, Open_Sans, Inter } from "next/font/google";
 
 export const metadata: Metadata = {

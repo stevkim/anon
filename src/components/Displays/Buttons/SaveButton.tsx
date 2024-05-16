@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useToast } from "../../ui/use-toast";
-import { savePost, unsavePost } from "@/lib/userFetch";
+import { savePost, unsavePost } from "@/lib/user.fetch";
 import { Bookmark, BookmarkX } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
-import ButtonLoader from "@/components/Utilities/ButtonLoader";
+import ButtonLoader from "@/components/Loaders/ButtonLoader";
 
 interface Props {
   postId: string;

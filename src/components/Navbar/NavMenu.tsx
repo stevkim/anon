@@ -17,8 +17,8 @@ const NAVS = [
     icon: Pencil,
   },
   {
-    name: "Account",
-    link: "/account",
+    name: "Profile",
+    link: "/profile",
     icon: CircleUser,
   },
 ];
@@ -39,7 +39,7 @@ const NavMenu = ({ children }: Props) => {
       <MenuIcon open={open} setOpen={handleClick} />
       {open ? (
         <div
-          className="absolute left-[5%] top-[50px] z-[10] flex w-full flex-col gap-2 rounded-[--radius] border bg-popover p-4 text-lg shadow-md md:left-[9%] md:w-[200px]"
+          className="absolute left-[5%] top-[50px] z-[51] flex w-full flex-col gap-2 rounded-[--radius] border bg-popover p-4 text-lg shadow-md md:left-[9%] md:w-[200px]"
           onClick={handleClick}
         >
           {NAVS.map((nav) => {

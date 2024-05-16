@@ -1,5 +1,5 @@
 import { createClient } from "@/utils/supabase/client";
-import { deletePost } from "@/lib/postFetch";
+import { deletePost } from "@/lib/post.fetch";
 import { useToast } from "../../ui/use-toast";
 import {
   AlertDialog,

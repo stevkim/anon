@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Editor from "./Editor";
-import { createPost } from "@/lib/postFetch";
+import { createPost } from "@/lib/post.fetch";
 import { Button } from "../ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
@@ -9,7 +9,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { useQueryClient } from "@tanstack/react-query";
 import defaultValue from "./defaultValue";
 import validateContent from "@/lib/validateContent";
-import ButtonLoader from "../Utilities/ButtonLoader";
+import ButtonLoader from "../Loaders/ButtonLoader";
 
 const EditorContainer = () => {
   const [content, setContent] = useLocalStorage("content", defaultValue);

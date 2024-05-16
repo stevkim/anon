@@ -1,23 +1,17 @@
-'use client';
-import Display from '@/components/Displays/Display';
-import { fetchPosts } from '@/lib/postFetch';
-import { useContext } from 'react';
-import { MenuContext } from './providers';
+"use client";
+import Display from "@/components/Displays/Display";
+import { fetchPosts } from "@/lib/post.fetch";
+import { useContext } from "react";
+import { MenuContext } from "./providers";
 
 const HomePage = () => {
-	const { setMenu } = useContext(MenuContext);
+  const { setMenu } = useContext(MenuContext);
 
-	return (
-		<section
-			className="page"
-			onClick={() => setMenu('')}
-		>
-			<Display
-				queryKey={'posts'}
-				fetchFn={fetchPosts}
-			/>
-		</section>
-	);
+  return (
+    <section className="page" onClick={() => setMenu("")}>
+      <Display queryKey={"posts"} fetchFn={fetchPosts} />
+    </section>
+  );
 };
 
 export default HomePage;
