@@ -9,14 +9,14 @@ import ComponentLoader from '../Utilities/ComponentLoader';
 import NoMorePosts from '../Utilities/NoMorePosts';
 
 interface Props {
-	qKey: string;
+	queryKey: string;
 	fetchFn: (pageParam: number) => Promise<any[]>;
 }
 
-const Display = ({ qKey, fetchFn }: Props) => {
+const Display = ({ queryKey, fetchFn }: Props) => {
 	const contentRef = useRef<HTMLDivElement>(null);
 	const { posts, getNextPage, hasNextPage, isLoading, isFetching } = usePosts(
-		qKey,
+		queryKey,
 		fetchFn
 	);
 

@@ -1,12 +1,12 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 const usePosts = (
-	qKey: string,
+	queryKey: string,
 	fetchFn: (pageParam: number) => Promise<any[]>
 ) => {
 	const { data, fetchNextPage, hasNextPage, isLoading, isFetching } =
 		useInfiniteQuery({
-			queryKey: [qKey],
+			queryKey: [queryKey],
 			queryFn: ({ pageParam }) => fetchFn(pageParam),
 			initialPageParam: 0,
 			getNextPageParam: (lastPage, allPages) => {

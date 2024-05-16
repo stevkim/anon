@@ -1,6 +1,6 @@
 'use client';
 import { createClient } from '@/utils/supabase/client';
-import google_logo from '../../../public/google_logo.svg';
+import google_logo from '@/../public/google_logo.svg';
 import Image from 'next/image';
 import { Button } from '../ui/button';
 

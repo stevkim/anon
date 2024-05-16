@@ -30,7 +30,7 @@ const Navbar = async () => {
 		<nav className="flex flex-row px-[10%] bg-secondary">
 			<Link
 				href={'/'}
-				className="mr-auto text-xl"
+				className="mr-auto text-3xl font-logo"
 			>
 				anon.
 			</Link>

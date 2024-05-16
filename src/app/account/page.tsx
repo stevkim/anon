@@ -20,13 +20,13 @@ const AccountPage = () => {
 				</TabsList>
 				<TabsContent value="user">
 					<Display
-						qKey="userPosts"
+						queryKey="userPosts"
 						fetchFn={fetchUserPosts}
 					/>
 				</TabsContent>
 				<TabsContent value="saved">
 					<Display
-						qKey="savedPosts"
+						queryKey="savedPosts"
 						fetchFn={fetchSavedPosts}
 					/>
 				</TabsContent>

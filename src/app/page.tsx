@@ -13,7 +13,7 @@ const HomePage = () => {
 			onClick={() => setMenu('')}
 		>
 			<Display
-				qKey={'posts'}
+				queryKey={'posts'}
 				fetchFn={fetchPosts}
 			/>
 		</section>
