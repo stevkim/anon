@@ -1,0 +1,22 @@
+@tailwind components;
+
+@layer components {
+  .gradient-loader {
+    background-image: linear-gradient(
+      150deg,
+      hsl(var(--muted)),
+      hsl(var(--background)),
+      hsl(var(--muted))
+    );
+    background-size: 300%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    animation: loading 1.5s alternate infinite;
+  }
+
+  @keyframes loading {
+    to {
+      background-position: 100% 0;
+    }
+  }
+}

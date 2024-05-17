@@ -49,7 +49,7 @@ const EditorContainer = () => {
   };
 
   return (
-    <>
+    <div className="py-4">
       <Editor initialContent={content} onChange={setContent} />
       <div className="float-right mt-4">
         {loading ? (
@@ -60,7 +60,7 @@ const EditorContainer = () => {
           <Button onClick={submit}>Submit</Button>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

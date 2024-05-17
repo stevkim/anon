@@ -1,0 +1,30 @@
+@tailwind components;
+
+@layer components {
+  .quote::before {
+    content: '"';
+    position: absolute;
+    width: auto;
+    height: 1rem;
+    font-size: 100px;
+    top: 15px;
+    left: -30px;
+    color: lightgray;
+    z-index: -10;
+    font-family: var(--font-dancingscript);
+  }
+
+  .quote::after {
+    content: '"';
+    position: absolute;
+    width: auto;
+    height: 1rem;
+    font-size: 100px;
+    bottom: 20px;
+    right: -30px;
+    color: lightgray;
+    z-index: -10;
+    font-family: var(--font-dancingscript);
+    transform: rotate(180deg);
+  }
+}

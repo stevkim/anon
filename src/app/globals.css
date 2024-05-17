@@ -62,52 +62,6 @@
   .page {
     @apply mt-4 w-full px-[5%] md:px-[20%];
   }
-
-  .gradient-loader {
-    background-image: linear-gradient(
-      150deg,
-      hsl(var(--muted)),
-      hsl(var(--background)),
-      hsl(var(--muted))
-    );
-    background-size: 300%;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    animation: loading 1.5s alternate infinite;
-  }
-
-  @keyframes loading {
-    to {
-      background-position: 100% 0;
-    }
-  }
-
-  .quote::before {
-    content: '"';
-    position: absolute;
-    width: auto;
-    height: 1rem;
-    font-size: 100px;
-    top: 15px;
-    left: -20px;
-    color: lightgray;
-    z-index: -10;
-    font-family: var(--font-dancingscript);
-  }
-
-  .quote::after {
-    content: '"';
-    position: absolute;
-    width: auto;
-    height: 1rem;
-    font-size: 100px;
-    bottom: 20px;
-    right: -20px;
-    color: lightgray;
-    z-index: -10;
-    font-family: var(--font-dancingscript);
-    transform: rotate(180deg);
-  }
 }
 
 @layer utilities {

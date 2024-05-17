@@ -6,11 +6,11 @@ import Providers from "./providers";
 import { Toaster } from "@/components/ui/toaster";
 import { Suspense } from "react";
 import ComponentLoader from "@/components/Loaders/ComponentLoader";
-import { Dancing_Script, Open_Sans, Inter } from "next/font/google";
+import { Dancing_Script, Inter } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "anon.",
-  description: "",
+  description: "Read and share literature anonymously",
 };
 
 const dancingScript = Dancing_Script({
