@@ -3,6 +3,8 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { getQuote } from "@/lib/quote.fetch";
 import Quote from "@/components/Widgets/Quote";
+import { Suspense } from "react";
+import ComponentLoader from "@/components/Loaders/ComponentLoader";
 
 const ProfileLayout = async ({ children }: { children: ReactNode }) => {
   const supabase = createClient();
@@ -20,7 +22,7 @@ const ProfileLayout = async ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Quote quote={quote} />
-      {children}
+      <Suspense fallback={<ComponentLoader />}>{children}</Suspense>
     </>
   );
 };

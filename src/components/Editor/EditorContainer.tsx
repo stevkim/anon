@@ -44,7 +44,7 @@ const EditorContainer = () => {
       title: "Post Created",
       description: "Redirecting you to the main page",
     });
-    queryClient.invalidateQueries({ queryKey: ["userPosts"] });
+    queryClient.invalidateQueries();
     push("/");
   };
 

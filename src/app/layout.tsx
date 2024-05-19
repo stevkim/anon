@@ -4,8 +4,6 @@ import "./prosemirror.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Providers from "./providers";
 import { Toaster } from "@/components/ui/toaster";
-import { Suspense } from "react";
-import ComponentLoader from "@/components/Loaders/ComponentLoader";
 import { Dancing_Script, Inter } from "next/font/google";
 
 export const metadata: Metadata = {
@@ -34,7 +32,7 @@ export default function RootLayout({
       >
         <Providers>
           <Navbar />
-          <Suspense fallback={<ComponentLoader />}>{children}</Suspense>
+          {children}
           <Toaster />
         </Providers>
       </body>
