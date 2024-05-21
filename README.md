@@ -55,6 +55,7 @@ Anon is a platform that provides features similar to those of social media platf
 - Custom Infinite scroll - Tanstack Query, React Hooks
 - Light/Dark theme - next-themes
 - SSR for improved performance - Nextjs
+- Custom hooks (localstorage, throttle) - React
 
 ## Endpoint Design
 <div id='endpoints'></div>
