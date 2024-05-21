@@ -46,7 +46,15 @@ Anon is a platform that provides features similar to those of social media platf
 
 ## Features
 <div id='features'></div>
-TODO
+
+- Complete user account and user authentication process - Supabase
+- Google OAuth - Supabase
+- Custom content validation and data integrity - Prisma, Zod
+- Mutli-layer caching for improved performance - Nextjs, Tanstack Query
+- Notion-style Rich text editor - novel.sh & Tiptap
+- Custom Infinite scroll - Tanstack Query, React Hooks
+- Light/Dark theme - next-themes
+- SSR for improved performance - Nextjs
 
 ## Endpoint Design
 <div id='endpoints'></div>
