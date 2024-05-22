@@ -6,6 +6,7 @@ interface Props {
 const MenuIcon = ({ open, setOpen }: Props) => {
   return (
     <button
+      data-testId="nav-menu-button"
       className="flex flex-col items-center justify-center"
       onClick={setOpen}
     >

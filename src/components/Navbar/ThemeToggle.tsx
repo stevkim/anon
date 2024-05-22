@@ -16,7 +16,11 @@ const ThemeToggle = () => {
   }, [docTheme, setTheme]);
 
   return (
-    <button onClick={toggleTheme} className="hover:-rotate-[10deg]">
+    <button
+      data-testId="theme-button"
+      onClick={toggleTheme}
+      className="hover:-rotate-[10deg]"
+    >
       {docTheme === "light" ? <MoonIcon size={20} /> : <SunIcon size={20} />}
     </button>
   );

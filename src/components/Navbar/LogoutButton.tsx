@@ -17,6 +17,7 @@ const LogoutButton = () => {
 
   return (
     <button
+      data-testid="logout-button"
       className="flex items-center text-left text-[#717E8E] hover:text-popover-foreground"
       onClick={logout}
     >

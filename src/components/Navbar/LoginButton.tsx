@@ -7,6 +7,7 @@ const LoginButton = () => {
 
   return (
     <button
+      data-testid="login-button"
       className="flex items-center text-left text-[#717E8E] hover:text-popover-foreground"
       onClick={() => push("/login")}
     >

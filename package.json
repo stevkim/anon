@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test:e2e": "npx playwright test",
     "lint": "next lint",
     "db:push": "npx prisma db push",
     "db:pull": "npx prisma db pull"
@@ -47,10 +48,12 @@
     "zod": "^3.23.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.44.0",
     "@tailwindcss/typography": "^0.5.12",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.0",
     "postcss": "^8",
