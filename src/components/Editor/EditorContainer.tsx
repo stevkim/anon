@@ -50,7 +50,12 @@ const EditorContainer = () => {
 
   return (
     <div className="py-4">
-      <Editor initialContent={content} onChange={setContent} />
+      <Editor
+        initialContent={
+          content && content.content.length > 1 ? content : defaultValue
+        }
+        onChange={setContent}
+      />
       <div className="float-right mt-4">
         {loading ? (
           <Button disabled>

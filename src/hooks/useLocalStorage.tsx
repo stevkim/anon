@@ -8,9 +8,6 @@ const getStorageValue = (key: string, defaultValue: any) => {
     if (savedContent) {
       const parsed = JSON.parse(savedContent);
 
-      if (parsed.content.length === 0) {
-        return defaultValue;
-      }
       return parsed;
     }
     return defaultValue;

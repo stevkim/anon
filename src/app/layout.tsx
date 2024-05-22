@@ -9,6 +9,9 @@ import { Dancing_Script, Inter } from "next/font/google";
 export const metadata: Metadata = {
   title: "anon.",
   description: "Read and share literature anonymously",
+  icons: {
+    icon: "/icon.ico",
+  },
 };
 
 const dancingScript = Dancing_Script({
