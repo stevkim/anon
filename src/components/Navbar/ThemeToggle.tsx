@@ -17,7 +17,7 @@ const ThemeToggle = () => {
 
   return (
     <button
-      data-testId="theme-button"
+      data-testid="theme-button"
       onClick={toggleTheme}
       className="hover:-rotate-[10deg]"
     >

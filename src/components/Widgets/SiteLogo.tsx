@@ -12,7 +12,7 @@ interface Props {
 const SiteLogo = ({ size }: Props) => {
   return (
     <span
-      data-testId={size === "sm" ? "title-logo" : "form-header"}
+      data-testid={size === "sm" ? "title-logo" : "form-header"}
       className={cn(
         "flex items-center font-logo",
         size === "sm" ? "text-[36px]" : "text-[72px]",

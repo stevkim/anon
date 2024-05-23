@@ -47,7 +47,7 @@ const Display = ({ queryKey, fetchFn }: Props) => {
 
   return (
     <div
-      data-testId={`content-display-${queryKey}`}
+      data-testid={`content-display-${queryKey}`}
       className="no-scrollbar relative flex h-[90vh] w-full flex-col gap-4 overflow-auto pb-4"
       ref={contentRef}
       onScroll={throttled}

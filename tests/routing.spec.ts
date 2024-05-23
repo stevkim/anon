@@ -71,15 +71,17 @@ test.describe("Navigation and Routing", () => {
 
     // Navigate to publish
     await NavButton.click();
-    await page.waitForSelector("[href='/publish']");
-    await page.locator("[href='/publish']").click();
+    const PublishNav = page.locator("[href='/publish']");
+    await PublishNav.waitFor();
+    await PublishNav.click();
     await expect(page).toHaveURL("http://localhost:3000/publish");
     await expect(page.getByTestId("editor")).toBeVisible();
 
     // Navigate to profile
     await NavButton.click();
-    await page.waitForSelector("[href='/profile']");
-    await page.locator("[href='/profile']").click();
+    const ProfileNav = page.locator("[href='/profile']");
+    await ProfileNav.waitFor();
+    await ProfileNav.click();
     await expect(page).toHaveURL("http://localhost:3000/profile");
     await expect(page.getByTestId("content-display-userPosts")).toBeVisible();
   });

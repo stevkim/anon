@@ -39,7 +39,7 @@ const NavMenu = ({ children }: Props) => {
       <MenuIcon open={open} setOpen={handleClick} />
       {open ? (
         <div
-          data-testId="nav-menu"
+          data-testid="nav-menu"
           className="absolute left-0 top-[50px] z-[51] flex w-full flex-col gap-2 rounded-[--radius] border bg-popover p-4 text-lg shadow-md md:left-[9%] md:w-[200px]"
           onClick={handleClick}
         >
