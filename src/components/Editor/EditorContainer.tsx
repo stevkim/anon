@@ -49,7 +49,7 @@ const EditorContainer = () => {
   };
 
   return (
-    <div className="py-4">
+    <div className="py-4" data-testid="editor">
       <Editor
         initialContent={
           content && content.content.length > 1 ? content : defaultValue

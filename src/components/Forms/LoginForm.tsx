@@ -43,7 +43,7 @@ const LoginForm = () => {
       <Input
         type="email"
         id="email"
-        placeholder="email"
+        placeholder="example@email.com"
         {...register("email")}
       />
       <PasswordField register={register} />
