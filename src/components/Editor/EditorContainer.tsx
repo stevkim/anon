@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Editor from "./Editor";
 import { createPost } from "@/lib/post.fetch";
 import { Button } from "../ui/button";

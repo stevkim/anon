@@ -55,11 +55,11 @@ test.describe("Navigation and Routing", () => {
     const password = process.env.TEST_PASS || "";
 
     // Log in first
-    await page.waitForSelector("input#email");
+    await page.locator("input#email").waitFor();
     await page.fill("input#email", email);
     expect(await page.locator("input#email").inputValue()).toBe(email);
 
-    await page.waitForSelector("input#password");
+    await page.locator("input#password").waitFor();
     await page.fill("input#password", password);
     expect(await page.locator("input#password").inputValue()).toBe(password);
 

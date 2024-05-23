@@ -65,7 +65,7 @@ const SignupForm = () => {
         {...register("email")}
       />
       <PasswordField register={register} />
-      <Label htmlFor="firstName">Confirm Password:</Label>
+      <Label htmlFor="confirmPassword">Confirm Password:</Label>
       <Input
         type="password"
         id="confirmPassword"
