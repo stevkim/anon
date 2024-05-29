@@ -44,6 +44,7 @@ const LikeButton = ({ liked, likes, postId }: Props) => {
   return (
     <div className="flex items-center">
       <button
+        data-testid="like-button"
         type="button"
         disabled={loading}
         className="hover:animate-ping-fast"

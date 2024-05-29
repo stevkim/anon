@@ -48,7 +48,10 @@ const ReportButton = ({ postId }: Props) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button className="flex flex-row items-center text-[#717E8E] hover:text-popover-foreground">
+        <button
+          data-testid="report-button"
+          className="flex flex-row items-center text-[#717E8E] hover:text-popover-foreground"
+        >
           <Flag size={12} />
           <span className="ml-2 whitespace-nowrap">Report Post</span>
         </button>

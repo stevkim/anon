@@ -1,6 +1,18 @@
 import { test, expect } from "@playwright/test";
+import { mockPostsData } from "./mockData";
 
 test.beforeEach(async ({ page }) => {
+  await page.route("http://localhost:3000/api/**", async (route) => {
+    const URL = route.request().url();
+    if (URL.includes("post?page=0")) {
+      await route.fulfill({ status: 200, json: mockPostsData });
+    }
+
+    if (URL.includes("user?page=0")) {
+      await route.fulfill({ status: 200, json: mockPostsData });
+    }
+  });
+
   await page.goto("http://localhost:3000");
 });
 
@@ -51,17 +63,27 @@ test.describe("Navigation and Routing", () => {
   test("Navigate paths if logged in", async ({ page }) => {
     await page.goto("http://localhost:3000/login");
 
-    const email = process.env.TEST_EMAIL || "";
-    const password = process.env.TEST_PASS || "";
+    const EMAIL = process.env.TEST_EMAIL;
+    const PASSWORD = process.env.TEST_PASS;
 
     // Log in first
-    await page.locator("input#email").waitFor();
-    await page.fill("input#email", email);
-    expect(await page.locator("input#email").inputValue()).toBe(email);
+    await page
+      .locator("input#email")
+      .waitFor({ state: "attached", timeout: 5000 });
+    await page
+      .locator("input#email")
+      .waitFor({ state: "visible", timeout: 5000 });
+    await page.fill("input#email", EMAIL!);
+    expect(await page.locator("input#email").inputValue()).toBe(EMAIL);
 
-    await page.locator("input#password").waitFor();
-    await page.fill("input#password", password);
-    expect(await page.locator("input#password").inputValue()).toBe(password);
+    await page
+      .locator("input#password")
+      .waitFor({ state: "attached", timeout: 5000 });
+    await page
+      .locator("input#password")
+      .waitFor({ state: "visible", timeout: 5000 });
+    await page.fill("input#password", PASSWORD!);
+    expect(await page.locator("input#password").inputValue()).toBe(PASSWORD);
 
     await page.getByText("Login").click();
 

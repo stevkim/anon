@@ -29,7 +29,7 @@ const ButtonMenu = ({ postId, saved, authorId }: Props) => {
       className="relative flex items-center "
       onClick={(e) => e.stopPropagation()}
     >
-      <button onClick={handleToggle}>
+      <button onClick={handleToggle} data-testid="button-menu">
         <EllipsisVertical
           size={16}
           className={`transition-all ${

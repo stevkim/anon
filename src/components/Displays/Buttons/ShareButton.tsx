@@ -34,7 +34,10 @@ const ShareButton = ({ postId }: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="flex flex-row items-center text-[#717E8E] hover:text-popover-foreground">
+        <button
+          data-testid="share-button"
+          className="flex flex-row items-center text-[#717E8E] hover:text-popover-foreground"
+        >
           <Share2 size={12} />
           <span className="ml-2 whitespace-nowrap">Share Post</span>
         </button>

@@ -55,6 +55,7 @@ const SaveButton = ({ postId, saved }: Props) => {
   return (
     <>
       <button
+        data-testid="save-button"
         disabled={loading}
         onClick={() => {
           save ? handleSave("unsave") : handleSave("save");
