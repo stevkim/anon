@@ -32,7 +32,7 @@ test.describe("Navigation and Routing", () => {
 
     // Nav button click should show the menu
     await page.getByTestId("nav-menu-button").click();
-    await expect(page.getByTestId("nav-menu")).toBeVisible({ timeout: 10000 });
+    await expect(page.getByTestId("nav-menu")).toBeVisible({ timeout: 5000 });
   });
 
   test("Redirects to Login if not logged in", async ({ page }) => {

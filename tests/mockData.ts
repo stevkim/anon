@@ -70,6 +70,78 @@ const contentTwo = {
   ],
 };
 
+const contentThree = {
+  type: "doc",
+  content: [
+    {
+      type: "heading",
+      attrs: {
+        level: 1,
+      },
+      content: [
+        {
+          type: "text",
+          text: "User Mock Data",
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      content: [
+        {
+          type: "text",
+          text: "User posts mock data - testing only.",
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      content: [
+        {
+          type: "text",
+          text: "This is for testing only.",
+        },
+      ],
+    },
+  ],
+};
+
+const contentFour = {
+  type: "doc",
+  content: [
+    {
+      type: "heading",
+      attrs: {
+        level: 1,
+      },
+      content: [
+        {
+          type: "text",
+          text: "Saved Mock Data",
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      content: [
+        {
+          type: "text",
+          text: "Saved posts mock data - testing only.",
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      content: [
+        {
+          type: "text",
+          text: "This is for testing only.",
+        },
+      ],
+    },
+  ],
+};
+
 export const mockPostsData = {
   data: [
     {
@@ -91,13 +163,28 @@ export const mockPostsData = {
   ],
 };
 
-// {
-//    id: string,
-//    createdAt: Date,
-//    content: JsonValue(object),
-//    likes: number,
-//    reports: number,
-//    authorId: string,
-//    liked?: string | null,
-//    saved?: string | null
-// }[]
+export const mockUserData = {
+  data: [
+    {
+      id: "test1",
+      createdAt: "2024-05-03 22:38:42.36",
+      content: contentThree,
+      likes: 10,
+      reports: 2,
+      authorId: "tester",
+    },
+  ],
+};
+
+export const mockSavedData = {
+  data: [
+    {
+      id: "test1",
+      createdAt: "2024-05-03 22:38:42.36",
+      content: contentFour,
+      likes: 10,
+      reports: 2,
+      authorId: "tester",
+    },
+  ],
+};
