@@ -1,7 +1,13 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { mockPostsData } from "./mockData";
 
-test.beforeEach(async ({ page }) => {
+test.describe.configure({ mode: "serial" });
+
+let page: Page;
+
+test.beforeAll("Set up API routes", async ({ browser }) => {
+  page = await browser.newPage();
+
   await page.route("http://localhost:3000/api/**", async (route) => {
     const URL = route.request().url();
 
@@ -13,7 +19,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe("Home Page", () => {
-  test("Correctly renders content", async ({ page }) => {
+  test("Correctly renders content", async () => {
     // Make sure display is visible in the DOM
     await expect(page.getByTestId("content-display-posts")).toBeVisible();
 
@@ -21,7 +27,7 @@ test.describe("Home Page", () => {
     await expect(page.getByText("Mock Data 2", { exact: true })).toBeVisible();
   });
 
-  test("All buttons for posts visible", async ({ page }) => {
+  test("All buttons for posts visible", async () => {
     // Make sure display is visible in the DOM
     await expect(page.getByTestId("content-display-posts")).toBeVisible();
 

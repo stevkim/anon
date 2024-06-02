@@ -77,6 +77,11 @@ test.describe("Basic Authentication", () => {
 
     // Successful login will redirect to home
     await expect(page).toHaveURL("http://localhost:3000");
+
+    // Login button is now logout
+    await page.getByTestId("nav-menu-button").click();
+
+    await expect(page.getByText("Log out", { exact: true })).toBeVisible();
   });
 
   test("Navigate to Sign up", async ({ page }) => {
