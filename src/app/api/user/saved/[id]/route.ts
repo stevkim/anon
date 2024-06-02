@@ -15,8 +15,6 @@ export async function POST(request: NextRequest) {
 
   const postId = request.nextUrl.pathname.split("/")[4];
 
-  console.log(postId);
-
   try {
     const record = await prisma.saved.create({
       data: {
@@ -24,8 +22,6 @@ export async function POST(request: NextRequest) {
         userId: user?.id as string,
       },
     });
-
-    console.log(record);
 
     revalidatePath("/saved");
 
