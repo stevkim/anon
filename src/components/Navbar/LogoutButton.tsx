@@ -22,7 +22,7 @@ const LogoutButton = () => {
       onClick={logout}
     >
       <LogOut size={16} className="mr-2" />
-      logout
+      Log out
     </button>
   );
 };
