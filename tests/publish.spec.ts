@@ -9,9 +9,21 @@ test.beforeAll("Set up and log in", async ({ browser }) => {
   page = await browser.newPage();
 
   await page.route("http://localhost:3000/api/**", async (route) => {
-    const URL = route.request().url();
+    const request = route.request();
+    const URL = request.url();
+    const method = request.method();
+
     if (URL.includes("post?page=0")) {
       await route.fulfill({ status: 200, json: mockPostsData });
+    }
+
+    if (method === "POST" && URL.includes("post")) {
+      const PostData = JSON.stringify(await request.postDataJSON());
+      expect(PostData).toContain("Testing a single line");
+      expect(PostData).toContain("Line two");
+      expect(PostData).toContain("Line three");
+
+      await route.fulfill({ status: 201 });
     }
   });
 
@@ -68,9 +80,6 @@ test.describe("Publish Page", () => {
   });
 
   test("Allows user to edit the editor", async () => {
-    // Wait for load
-    await page.getByTestId("editor").waitFor();
-
     // The editor element
     const Editor = page.locator("div.ProseMirror");
 
@@ -79,5 +88,32 @@ test.describe("Publish Page", () => {
     // Remove default text
     await expect(page.getByText("Writing on anon...")).not.toBeVisible();
     await expect(page.getByText("Testing")).toBeVisible();
+  });
+
+  test("Editor validates length of content on Submit", async () => {
+    // The editor element
+    const Editor = page.locator("div.ProseMirror");
+
+    await Editor.fill("Testing a single line");
+    await page.getByText("Submit", { exact: true }).click();
+
+    // Error posting
+    await expect(page.getByText("Error Posting").first()).toBeAttached();
+    await expect(page.getByText("Error Posting").first()).toBeVisible();
+
+    // Add two more lines
+    await Editor.focus();
+    await page.keyboard.press("Enter");
+    await page.keyboard.type("Line two");
+    await page.keyboard.press("Enter");
+    await page.keyboard.type("Line three");
+
+    await page.getByText("Submit", { exact: true }).click();
+
+    // Redirects to home page
+    await expect(page).toHaveURL("http://localhost:3000");
+
+    // Confirmation of post being published
+    await expect(page.getByText("Post Created", { exact: true })).toBeVisible();
   });
 });
