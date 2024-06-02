@@ -28,7 +28,7 @@ test.beforeAll("Set up and log in", async ({ browser }) => {
   });
 
   // Log in and navigate to publish page
-  await page.goto("http://localhost:3000/publish");
+  await page.goto("http://localhost:3000/login");
 
   const EMAIL = process.env.TEST_EMAIL;
   const PASSWORD = process.env.TEST_PASS;
@@ -52,6 +52,7 @@ test.beforeAll("Set up and log in", async ({ browser }) => {
   expect(await page.locator("input#password").inputValue()).toBe(PASSWORD);
 
   await page.getByText("Login").click();
+
   await page.waitForURL("http://localhost:3000/", {
     timeout: 10000,
   });
