@@ -15,6 +15,7 @@ import { Label } from "../../ui/label";
 import { Button } from "../../ui/button";
 import { FormEvent, useState } from "react";
 import { useToast } from "../../ui/use-toast";
+import { validateReport } from "@/lib/validateReport";
 
 interface Props {
   postId: string;
@@ -33,6 +34,17 @@ const ReportButton = ({ postId }: Props) => {
 
     if (error) {
       return toast({ description: "Must be logged in to report posts" });
+    }
+
+    // Validate the input for the report
+    const validated = validateReport(input);
+
+    if (!validated.success) {
+      return toast({
+        title: "Validation error",
+        description: validated.error.issues[0].message,
+        variant: "destructive",
+      });
     }
 
     const response = await reportPost(postId, { reason: input });

@@ -46,6 +46,9 @@ export const RouteScript = async (page: Page) => {
       await route.fulfill({ status: 200 });
       return;
     }
+    // else if (URL.includes("report")) {
+    //   await route.fulfill({ status: 200 });
+    // }
   });
 
   // Handle DELETE Requests

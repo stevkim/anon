@@ -8,7 +8,7 @@ import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import { passwordLogin } from "@/actions/auth.actions";
 import { useRouter } from "next/navigation";
-import { loginSchema } from "@/lib/validateSchema";
+import { loginSchema } from "@/lib/validateAuth";
 import PasswordField from "./Fields/PasswordField";
 import { useQueryClient } from "@tanstack/react-query";
 

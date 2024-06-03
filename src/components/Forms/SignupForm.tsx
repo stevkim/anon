@@ -5,7 +5,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signupSchema } from "@/lib/validateSchema";
+import { signupSchema } from "@/lib/validateAuth";
 import PasswordField from "./Fields/PasswordField";
 import { useRouter } from "next/navigation";
 

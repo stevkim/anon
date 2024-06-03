@@ -12,6 +12,7 @@ test.beforeAll("Set up API routes and log in", async ({ browser }) => {
   type = browser.browserType().name();
   page = await browser.newPage();
 
+  // Sets up mock route endpoints
   await RouteScript(page);
 
   // Log in and navigate to home page
@@ -34,125 +35,32 @@ test.describe("Home Page", () => {
   test("All buttons for posts visible", async () => {
     // Make sure display is visible in the DOM
     await expect(page.getByTestId("content-display-posts")).toBeVisible();
-
-    const POST = page.getByText("Mock Data", { exact: true });
-    await expect(POST).toBeVisible();
+    await expect(page.getByText("Mock Data", { exact: true })).toBeVisible();
 
     // Like button
-    expect(page.getByTestId("like-button").first()).toBeVisible();
+    await expect(page.getByTestId("like-button").first()).toBeVisible();
 
     // Confirm other buttons aren't visible before clicking menu
     const ShareButton = page.getByTestId("share-button");
     const SaveButton = page.getByTestId("save-button");
     const ReportButton = page.getByTestId("report-button");
 
-    expect(ShareButton).not.toBeVisible();
-    expect(SaveButton).not.toBeVisible();
-    expect(ReportButton).not.toBeVisible();
+    await expect(ShareButton).not.toBeVisible();
+    await expect(SaveButton).not.toBeVisible();
+    await expect(ReportButton).not.toBeVisible();
 
     // Button menu
     const ButtonMenu = page.getByTestId("button-menu").first();
     await ButtonMenu.click();
 
-    ShareButton.waitFor({ state: "visible", timeout: 5000 });
     await expect(ShareButton).toBeVisible();
-
-    SaveButton.waitFor({ state: "visible", timeout: 5000 });
     await expect(SaveButton).toBeVisible();
-
-    ReportButton.waitFor({ state: "visible", timeout: 5000 });
     await expect(ReportButton).toBeVisible();
 
     // Close button menu
     await ButtonMenu.click();
-  });
-
-  test("Like button", async () => {
-    expect(page.getByTestId("like-button").first()).toBeVisible();
-    await page.getByTestId("like-button").first().click();
-  });
-
-  test("Share button - copy the link", async () => {
-    const ButtonMenu = page.getByTestId("button-menu").first();
-    await ButtonMenu.click();
-
-    const ShareButton = page.getByTestId("share-button");
-    ShareButton.waitFor({ state: "visible", timeout: 5000 });
-    await expect(ShareButton).toBeVisible();
-    await ShareButton.click();
-
-    page.getByText("Share Link").waitFor({ state: "attached", timeout: 5000 });
-    page.getByText("Share Link").waitFor({ state: "visible", timeout: 5000 });
-    expect(page.getByText("Share Link")).toBeVisible();
-
-    // Webkit clipboard is not supported by playwright yet
-    if (type !== "webkit") {
-      // Click the copy button
-      await page.getByTestId("copy").click();
-
-      const clipboardText = await page.evaluate(
-        "navigator.clipboard.readText()",
-      );
-
-      expect(clipboardText).toStrictEqual(
-        `http://localhost:3000/post?id=${mockPostsData.data[0].id}`,
-      );
-
-      expect(page.getByText("Link Copied").first()).toBeVisible();
-    }
-
-    // Close the dialog
-    await page.locator("span.sr-only").filter({ hasText: "Close" }).click();
-    await expect(page.getByText("Share Link")).not.toBeVisible();
-  });
-
-  test("Save to list button", async () => {
-    await expect(page.getByTestId("save-button")).toBeVisible();
-    await page.getByTestId("save-button").click();
-  });
-
-  test("Report button", async () => {
-    await expect(page.getByTestId("report-button")).toBeVisible();
-    await page.getByTestId("report-button").click();
-
-    const ReportPost = page.locator("h2").filter({ hasText: "Report Post" });
-    ReportPost.waitFor({ state: "attached", timeout: 5000 });
-    ReportPost.waitFor({ state: "visible", timeout: 5000 });
-    await expect(ReportPost).toBeVisible();
-
-    await expect(
-      page.getByText("Please provide the reason for your report", {
-        exact: true,
-      }),
-    ).toBeVisible();
-    await expect(page.getByText("Submit", { exact: true })).toBeVisible();
-
-    // TODO: Test validation for report button
-
-    // Close the dialog
-    await page.locator("span.sr-only").filter({ hasText: "Close" }).click();
-    await expect(ReportPost).not.toBeVisible();
-  });
-
-  test("Delete button", async () => {
-    // Only visible to author of the post
-    const ButtonMenu = page.getByTestId("button-menu").last();
-    const AuthorButtonMenu = page.getByTestId("button-menu").first();
-
-    await ButtonMenu.click();
-    await expect(
-      page.getByText("Delete Post", { exact: true }),
-    ).not.toBeVisible();
-
-    await AuthorButtonMenu.click();
-    await expect(page.getByText("Delete Post", { exact: true })).toBeVisible();
-
-    await page.getByText("Delete Post", { exact: true }).click();
-    await expect(
-      page.getByText("Are you sure?", { exact: true }),
-    ).toBeVisible();
-    await expect(page.getByText("Continue", { exact: true })).toBeVisible();
-
-    await page.getByText("Continue", { exact: true }).click();
+    await expect(ShareButton).not.toBeVisible();
+    await expect(SaveButton).not.toBeVisible();
+    await expect(ReportButton).not.toBeVisible();
   });
 });

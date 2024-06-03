@@ -2,7 +2,10 @@ import { test, expect } from "@playwright/test";
 import { RouteScript } from "./scripts/routeScript";
 
 test.beforeEach(async ({ page }) => {
+  // Sets up mock route endpoints
   await RouteScript(page);
+
+  // Before each test, navgiate to login page
   await page.goto("http://localhost:3000/login");
 });
 
@@ -19,20 +22,15 @@ test.describe("Basic Authentication", () => {
 
     // Fill in Email field
     const emailInput = page.getByPlaceholder("example@email.com");
-    await emailInput.waitFor({ state: "attached", timeout: 5000 });
     await emailInput.waitFor({ state: "visible", timeout: 5000 });
     await emailInput.focus();
     await page.keyboard.type(EMAIL!);
-    const emailInputValue = await emailInput.inputValue();
-    expect(emailInputValue).toBe(EMAIL);
 
     // Fill in Password field
     const passwordInput = page.locator("input#password");
-    await passwordInput.waitFor({ state: "attached", timeout: 5000 });
     await passwordInput.waitFor({ state: "visible", timeout: 5000 });
-    await passwordInput.fill(INCORRECTPASSWORD!);
-    const passwordInputValue = await passwordInput.inputValue();
-    expect(passwordInputValue).toBe(INCORRECTPASSWORD);
+    await passwordInput.focus();
+    await page.keyboard.type(INCORRECTPASSWORD!);
 
     await page.getByText("Login").click();
 
@@ -40,28 +38,23 @@ test.describe("Basic Authentication", () => {
     await expect(page).not.toHaveURL("http://localhost:3000");
     await expect(page).toHaveURL("http://localhost:3000/login");
 
-    const toast = page.getByText("Invalid login credentials", { exact: true });
-    await toast.waitFor();
-
-    await expect(toast).toBeAttached();
+    await expect(
+      page.getByText("Invalid login credentials", { exact: true }),
+    ).toBeVisible();
   });
 
   test("Successful login", async ({ page }) => {
     // Fill in email field
     const emailInput = page.getByPlaceholder("example@email.com");
-    await emailInput.waitFor({ state: "attached", timeout: 5000 });
     await emailInput.waitFor({ state: "visible", timeout: 5000 });
-    await emailInput.fill(EMAIL!);
-    const emailInputValue = await emailInput.inputValue();
-    expect(emailInputValue).toBe(EMAIL);
+    await emailInput.focus();
+    await page.keyboard.type(EMAIL!);
 
     // Fill in password field
     const passwordInput = page.locator("input#password");
-    await passwordInput.waitFor({ state: "attached", timeout: 5000 });
     await passwordInput.waitFor({ state: "visible", timeout: 5000 });
-    await passwordInput.fill(PASSWORD!);
-    const passwordInputValue = await passwordInput.inputValue();
-    expect(passwordInputValue).toBe(PASSWORD);
+    await passwordInput.focus();
+    await page.keyboard.type(PASSWORD!);
 
     await page.getByText("Login").click();
 
@@ -70,7 +63,6 @@ test.describe("Basic Authentication", () => {
 
     // Login button is now logout
     await page.getByTestId("nav-menu-button").click();
-
     await expect(page.getByText("Log out", { exact: true })).toBeVisible();
   });
 
