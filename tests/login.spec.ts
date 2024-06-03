@@ -19,26 +19,20 @@ test.describe("Basic Authentication", () => {
     const INCORRECTPASSWORD = "incorrect";
 
     // Fill in Email field
-    await page
-      .locator("input#email")
-      .waitFor({ state: "attached", timeout: 5000 });
-    await page
-      .locator("input#email")
-      .waitFor({ state: "visible", timeout: 5000 });
-    await page.fill("input#email", EMAIL!);
-    expect(await page.locator("input#email").inputValue()).toBe(EMAIL);
+    const emailInput = page.getByPlaceholder("example@email.com");
+    await emailInput.waitFor({ state: "attached", timeout: 5000 });
+    await emailInput.waitFor({ state: "visible", timeout: 5000 });
+    await emailInput.fill(EMAIL!);
+    const emailInputValue = await emailInput.inputValue();
+    expect(emailInputValue).toBe(EMAIL);
 
     // Fill in Password field
-    await page
-      .locator("input#password")
-      .waitFor({ state: "attached", timeout: 5000 });
-    await page
-      .locator("input#password")
-      .waitFor({ state: "visible", timeout: 5000 });
-    await page.fill("input#password", INCORRECTPASSWORD);
-    expect(await page.locator("input#password").inputValue()).toBe(
-      INCORRECTPASSWORD,
-    );
+    const passwordInput = page.locator("input#password");
+    await passwordInput.waitFor({ state: "attached", timeout: 5000 });
+    await passwordInput.waitFor({ state: "visible", timeout: 5000 });
+    await passwordInput.fill(INCORRECTPASSWORD!);
+    const passwordInputValue = await passwordInput.inputValue();
+    expect(passwordInputValue).toBe(INCORRECTPASSWORD);
 
     await page.getByText("Login").click();
 
@@ -53,25 +47,21 @@ test.describe("Basic Authentication", () => {
   });
 
   test("Successful login", async ({ page }) => {
-    // Fill in Email field
-    await page
-      .locator("input#email")
-      .waitFor({ state: "attached", timeout: 5000 });
-    await page
-      .locator("input#email")
-      .waitFor({ state: "visible", timeout: 5000 });
-    await page.fill("input#email", EMAIL!);
-    expect(await page.locator("input#email").inputValue()).toBe(EMAIL);
+    // Fill in email field
+    const emailInput = page.getByPlaceholder("example@email.com");
+    await emailInput.waitFor({ state: "attached", timeout: 5000 });
+    await emailInput.waitFor({ state: "visible", timeout: 5000 });
+    await emailInput.fill(EMAIL!);
+    const emailInputValue = await emailInput.inputValue();
+    expect(emailInputValue).toBe(EMAIL);
 
-    // Fill in Password field
-    await page
-      .locator("input#password")
-      .waitFor({ state: "attached", timeout: 5000 });
-    await page
-      .locator("input#password")
-      .waitFor({ state: "visible", timeout: 5000 });
-    await page.fill("input#password", PASSWORD!);
-    expect(await page.locator("input#password").inputValue()).toBe(PASSWORD);
+    // Fill in password field
+    const passwordInput = page.locator("input#password");
+    await passwordInput.waitFor({ state: "attached", timeout: 5000 });
+    await passwordInput.waitFor({ state: "visible", timeout: 5000 });
+    await passwordInput.fill(PASSWORD!);
+    const passwordInputValue = await passwordInput.inputValue();
+    expect(passwordInputValue).toBe(PASSWORD);
 
     await page.getByText("Login").click();
 

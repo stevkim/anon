@@ -33,23 +33,20 @@ test.beforeAll("Set up and log in", async ({ browser }) => {
   const EMAIL = process.env.TEST_EMAIL;
   const PASSWORD = process.env.TEST_PASS;
 
-  await page
-    .locator("input#email")
-    .waitFor({ state: "attached", timeout: 5000 });
-  await page
-    .locator("input#email")
-    .waitFor({ state: "visible", timeout: 5000 });
-  await page.fill("input#email", EMAIL!);
-  expect(await page.locator("input#email").inputValue()).toBe(EMAIL);
+  const emailInput = page.getByPlaceholder("example@email.com");
+  await emailInput.waitFor({ state: "attached", timeout: 5000 });
+  await emailInput.waitFor({ state: "visible", timeout: 5000 });
+  await emailInput.focus();
+  await page.keyboard.type(EMAIL!);
+  const emailInputValue = await emailInput.inputValue();
+  expect(emailInputValue).toBe(EMAIL);
 
-  await page
-    .locator("input#password")
-    .waitFor({ state: "attached", timeout: 5000 });
-  await page
-    .locator("input#password")
-    .waitFor({ state: "visible", timeout: 5000 });
-  await page.fill("input#password", PASSWORD!);
-  expect(await page.locator("input#password").inputValue()).toBe(PASSWORD);
+  const passwordInput = page.locator("input#password");
+  await passwordInput.waitFor({ state: "attached", timeout: 5000 });
+  await passwordInput.waitFor({ state: "visible", timeout: 5000 });
+  await passwordInput.fill(PASSWORD!);
+  const passwordInputValue = await passwordInput.inputValue();
+  expect(passwordInputValue).toBe(PASSWORD);
 
   await page.getByText("Login").click();
 
