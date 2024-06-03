@@ -38,7 +38,7 @@ const ButtonMenu = ({ postId, saved, authorId }: Props) => {
         />
       </button>
       {menu === postId ? (
-        <div className="absolute bottom-[20px] right-[-1rem] z-[100] flex flex-col gap-2 rounded-[--radius] bg-popover px-4 py-2 text-sm shadow-md">
+        <div className="absolute bottom-[20px] right-[-1rem] z-[40] flex flex-col gap-2 rounded-[--radius] bg-popover px-4 py-2 text-sm shadow-md">
           <ShareButton postId={postId} />
           <SaveButton postId={postId} saved={saved} />
           <ReportButton postId={postId} />
