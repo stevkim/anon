@@ -1,6 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
-import { mockPostsData } from "./mockData";
-import { LoginScript } from "./loginScript";
+import { LoginScript } from "./scripts/loginScript";
+import { RouteScript } from "./scripts/routeScript";
 
 test.describe.configure({ mode: "serial" });
 
@@ -9,16 +9,7 @@ let page: Page;
 test.beforeAll("Get up Mocks for API routes", async ({ browser }) => {
   page = await browser.newPage();
 
-  await page.route("http://localhost:3000/api/**", async (route) => {
-    const URL = route.request().url();
-    if (URL.includes("post?page=0")) {
-      await route.fulfill({ status: 200, json: mockPostsData });
-    }
-
-    if (URL.includes("user?page=0")) {
-      await route.fulfill({ status: 200, json: mockPostsData });
-    }
-  });
+  await RouteScript(page);
 
   await page.goto("http://localhost:3000");
 });
@@ -71,7 +62,8 @@ test.describe("Navigation and Routing", () => {
   });
 
   test("Navigate paths if logged in", async () => {
-    await LoginScript(page, expect);
+    // Log in
+    await LoginScript(page);
 
     // Ensure nav button is available
     const NavButton = page.getByTestId("nav-menu-button");

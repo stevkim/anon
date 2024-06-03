@@ -1,6 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
 import { mockPostsData } from "./mockData";
-import { LoginScript } from "./loginScript";
+import { LoginScript } from "./scripts/loginScript";
+import { RouteScript } from "./scripts/routeScript";
 
 test.describe.configure({ mode: "serial" });
 
@@ -9,27 +10,10 @@ let page: Page;
 test.beforeAll("Set up and log in", async ({ browser }) => {
   page = await browser.newPage();
 
-  await page.route("http://localhost:3000/api/**", async (route) => {
-    const request = route.request();
-    const URL = request.url();
-    const method = request.method();
-
-    if (URL.includes("post?page=0")) {
-      await route.fulfill({ status: 200, json: mockPostsData });
-    }
-
-    if (method === "POST" && URL.includes("post")) {
-      const PostData = JSON.stringify(await request.postDataJSON());
-      expect(PostData).toContain("Testing a single line");
-      expect(PostData).toContain("Line two");
-      expect(PostData).toContain("Line three");
-
-      await route.fulfill({ status: 201 });
-    }
-  });
+  await RouteScript(page);
 
   // Log in and navigate to publish page
-  await LoginScript(page, expect);
+  await LoginScript(page);
 
   await page.waitForURL("http://localhost:3000/", {
     timeout: 10000,

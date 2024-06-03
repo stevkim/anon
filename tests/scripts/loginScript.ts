@@ -1,6 +1,6 @@
-import { type Page, type Expect } from "@playwright/test";
+import { type Page, expect } from "@playwright/test";
 
-export const LoginScript = async (page: Page, expect: Expect) => {
+export const LoginScript = async (page: Page) => {
   await page.goto("http://localhost:3000/login");
 
   const EMAIL = process.env.TEST_EMAIL;

@@ -1,6 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 import { mockPostsData } from "./mockData";
-import { LoginScript } from "./loginScript";
+import { LoginScript } from "./scripts/loginScript";
+import { RouteScript } from "./scripts/routeScript";
 
 test.describe.configure({ mode: "serial" });
 
@@ -11,17 +12,10 @@ test.beforeAll("Set up API routes and log in", async ({ browser }) => {
   type = browser.browserType().name();
   page = await browser.newPage();
 
-  await page.route("http://localhost:3000/api/**", async (route) => {
-    const request = route.request();
-    const URL = request.url();
-
-    if (URL.includes("post?page=0")) {
-      await route.fulfill({ status: 200, json: mockPostsData });
-    }
-  });
+  await RouteScript(page);
 
   // Log in and navigate to profile page
-  await LoginScript(page, expect);
+  await LoginScript(page);
 
   await page.waitForURL("http://localhost:3000/", {
     timeout: 10000,
@@ -75,20 +69,6 @@ test.describe("Home Page", () => {
   });
 
   test("Like button", async () => {
-    await page.route("http://localhost:3000/api/**", async (route) => {
-      const request = route.request();
-      const URL = request.url();
-      const method = request.method();
-
-      if (method === "POST" && URL.includes("like")) {
-        // URL has to have the post id
-        expect(URL.includes(mockPostsData.data[0].id)).toBeTruthy();
-        await route.fulfill({ status: 200 });
-      } else {
-        await route.fallback();
-      }
-    });
-
     expect(page.getByTestId("like-button").first()).toBeVisible();
     await page.getByTestId("like-button").first().click();
   });
@@ -128,37 +108,11 @@ test.describe("Home Page", () => {
   });
 
   test("Save to list button", async () => {
-    await page.route("http://localhost:3000/api/**", async (route) => {
-      const request = route.request();
-      const URL = request.url();
-      const method = request.method();
-
-      if (method === "POST" && URL.includes("saved")) {
-        expect(URL.includes(mockPostsData.data[0].id)).toBeTruthy();
-        await route.fulfill({ status: 200 });
-      } else {
-        await route.fallback();
-      }
-    });
-
     await expect(page.getByTestId("save-button")).toBeVisible();
     await page.getByTestId("save-button").click();
   });
 
   test("Report button", async () => {
-    await page.route("http://localhost:3000/api/**", async (route) => {
-      const request = route.request();
-      const URL = request.url();
-      const method = request.method();
-
-      if (method === "POST" && URL.includes("saved")) {
-        expect(URL.includes(mockPostsData.data[0].id)).toBeTruthy();
-        await route.fulfill({ status: 200 });
-      } else {
-        await route.fallback();
-      }
-    });
-
     await expect(page.getByTestId("report-button")).toBeVisible();
     await page.getByTestId("report-button").click();
 
@@ -182,19 +136,6 @@ test.describe("Home Page", () => {
   });
 
   test("Delete button", async () => {
-    await page.route("http://localhost:3000/api/**", async (route) => {
-      const request = route.request();
-      const URL = request.url();
-      const method = request.method();
-
-      if (method === "DELETE" && URL.includes("post")) {
-        expect(URL.includes(mockPostsData.data[0].id)).toBeTruthy();
-        await route.fulfill({ status: 204 });
-      } else {
-        await route.fallback();
-      }
-    });
-
     // Only visible to author of the post
     const ButtonMenu = page.getByTestId("button-menu").last();
     const AuthorButtonMenu = page.getByTestId("button-menu").first();

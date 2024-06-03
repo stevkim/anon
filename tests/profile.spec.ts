@@ -1,6 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
-import { mockPostsData, mockSavedData, mockUserData } from "./mockData";
-import { LoginScript } from "./loginScript";
+import { LoginScript } from "./scripts/loginScript";
+import { RouteScript } from "./scripts/routeScript";
 
 test.describe.configure({ mode: "serial" });
 
@@ -9,23 +9,10 @@ let page: Page;
 test.beforeAll("Set up routes and log in", async ({ browser }) => {
   page = await browser.newPage();
 
-  await page.route("http://localhost:3000/api/**", async (route) => {
-    const URL = route.request().url();
-    if (URL.includes("post?page=0")) {
-      await route.fulfill({ status: 200, json: mockPostsData });
-    }
-
-    if (URL.includes("user?page=0")) {
-      await route.fulfill({ status: 200, json: mockUserData });
-    }
-
-    if (URL.includes("user/saved?page=0")) {
-      await route.fulfill({ status: 200, json: mockSavedData });
-    }
-  });
+  await RouteScript(page);
 
   // Log in and navigate to profile page
-  await LoginScript(page, expect);
+  await LoginScript(page);
 
   await page.waitForURL("http://localhost:3000/", {
     timeout: 10000,

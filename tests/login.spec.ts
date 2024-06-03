@@ -1,13 +1,8 @@
 import { test, expect } from "@playwright/test";
-import { mockPostsData } from "./mockData";
+import { LoginScript } from "./scripts/loginScript";
 
 test.beforeEach(async ({ page }) => {
-  await page.route("http://localhost:3000/api/**", async (route) => {
-    const URL = route.request().url();
-    if (URL.includes("post?page=0")) {
-      await route.fulfill({ status: 200, json: mockPostsData });
-    }
-  });
+  await LoginScript(page);
   await page.goto("http://localhost:3000/login");
 });
 
@@ -22,7 +17,8 @@ test.describe("Basic Authentication", () => {
     const emailInput = page.getByPlaceholder("example@email.com");
     await emailInput.waitFor({ state: "attached", timeout: 5000 });
     await emailInput.waitFor({ state: "visible", timeout: 5000 });
-    await emailInput.fill(EMAIL!);
+    await emailInput.focus();
+    await page.keyboard.type(EMAIL!);
     const emailInputValue = await emailInput.inputValue();
     expect(emailInputValue).toBe(EMAIL);
 
