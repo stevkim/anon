@@ -14,20 +14,12 @@ test.beforeAll("Set up routes and log in", async ({ browser }) => {
   // Log in and navigate to profile page
   await LoginScript(page);
 
-  await page.waitForURL("http://localhost:3000/", {
-    timeout: 10000,
-  });
-
-  await page.getByTestId("nav-menu-button").waitFor();
-  await page.getByTestId("nav-menu-button").click();
-  const ProfileNav = page.locator("[href='/profile']");
-  await ProfileNav.waitFor();
-  await ProfileNav.click();
-  await expect(page).toHaveURL("http://localhost:3000/profile");
+  await page.goto("http://localhost:3000/profile");
 });
 
 test.describe("Profile Page", () => {
   test("Correctly displays the quote", async () => {
+    await page.screenshot({ path: "testing.png" });
     await page
       .getByTestId("quote")
       .waitFor({ state: "attached", timeout: 5000 });

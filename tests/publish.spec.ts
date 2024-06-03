@@ -15,22 +15,14 @@ test.beforeAll("Set up and log in", async ({ browser }) => {
   // Log in and navigate to publish page
   await LoginScript(page);
 
-  await page.waitForURL("http://localhost:3000/", {
-    timeout: 10000,
-  });
-
-  await page.getByTestId("nav-menu-button").waitFor();
-  await page.getByTestId("nav-menu-button").click();
-  const PublishNav = page.locator("[href='/publish']");
-
-  await PublishNav.waitFor({ timeout: 5000 });
-  await PublishNav.click();
-
-  await page.waitForURL("http://localhost:3000/publish", { waitUntil: "load" });
-  await expect(page).toHaveURL("http://localhost:3000/publish");
+  await page.goto("http://localhost:3000/publish");
 });
 
 test.describe("Publish Page", () => {
+  test("Correct URL", async () => {
+    await expect(page).toHaveURL("http://localhost:3000/publish");
+  });
+
   test("Loads the content of the page", async () => {
     // Editor
     await page.getByTestId("editor").waitFor();

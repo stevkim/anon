@@ -1,5 +1,4 @@
 import { test, expect } from "@playwright/test";
-import { LoginScript } from "./scripts/loginScript";
 import { RouteScript } from "./scripts/routeScript";
 
 test.beforeEach(async ({ page }) => {
@@ -10,6 +9,10 @@ test.beforeEach(async ({ page }) => {
 test.describe("Basic Authentication", () => {
   const EMAIL = process.env.TEST_EMAIL;
   const PASSWORD = process.env.TEST_PASS;
+
+  test("Correct URL", async ({ page }) => {
+    await expect(page).toHaveURL("http://localhost:3000/login");
+  });
 
   test("Invalid credentials", async ({ page }) => {
     const INCORRECTPASSWORD = "incorrect";

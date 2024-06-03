@@ -17,6 +17,7 @@ test.beforeAll("Get up Mocks for API routes", async ({ browser }) => {
 test.describe("Navigation and Routing", () => {
   test("Page load", async () => {
     await expect(page).toHaveTitle(/anon./);
+    await expect(page).toHaveURL("http://localhost:3000/");
 
     await expect(page.getByTestId("title-logo")).toHaveText("anon");
     await expect(page.getByTestId("nav-menu-button")).toBeVisible();

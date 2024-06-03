@@ -14,16 +14,15 @@ test.beforeAll("Set up API routes and log in", async ({ browser }) => {
 
   await RouteScript(page);
 
-  // Log in and navigate to profile page
+  // Log in and navigate to home page
   await LoginScript(page);
-
-  await page.waitForURL("http://localhost:3000/", {
-    timeout: 10000,
-  });
-  await expect(page).toHaveURL("http://localhost:3000/");
 });
 
 test.describe("Home Page", () => {
+  test("Correct URL", async () => {
+    await expect(page).toHaveURL("http://localhost:3000/");
+  });
+
   test("Correctly renders content", async () => {
     // Make sure display is visible in the DOM
     await expect(page.getByTestId("content-display-posts")).toBeVisible();
@@ -74,10 +73,10 @@ test.describe("Home Page", () => {
   });
 
   test("Share button - copy the link", async () => {
-    const ShareButton = page.getByTestId("share-button");
     const ButtonMenu = page.getByTestId("button-menu").first();
     await ButtonMenu.click();
 
+    const ShareButton = page.getByTestId("share-button");
     ShareButton.waitFor({ state: "visible", timeout: 5000 });
     await expect(ShareButton).toBeVisible();
     await ShareButton.click();
