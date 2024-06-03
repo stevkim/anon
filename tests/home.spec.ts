@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { mockPostsData } from "./mockData";
+import { LoginScript } from "./loginScript";
 
 test.describe.configure({ mode: "serial" });
 
@@ -20,28 +21,8 @@ test.beforeAll("Set up API routes and log in", async ({ browser }) => {
   });
 
   // Log in and navigate to profile page
-  await page.goto("http://localhost:3000/login");
+  await LoginScript(page, expect);
 
-  const EMAIL = process.env.TEST_EMAIL;
-  const PASSWORD = process.env.TEST_PASS;
-
-  const emailInput = page.getByPlaceholder("example@email.com");
-  await emailInput.waitFor({ state: "attached", timeout: 5000 });
-  await emailInput.waitFor({ state: "visible", timeout: 5000 });
-  // Using fill here seems to break the test, a race condition maybe?
-  await emailInput.focus();
-  await page.keyboard.type(EMAIL!);
-  const emailInputValue = await emailInput.inputValue();
-  expect(emailInputValue).toBe(EMAIL);
-
-  const passwordInput = page.locator("input#password");
-  await passwordInput.waitFor({ state: "attached", timeout: 5000 });
-  await passwordInput.waitFor({ state: "visible", timeout: 5000 });
-  await passwordInput.fill(PASSWORD!);
-  const passwordInputValue = await passwordInput.inputValue();
-  expect(passwordInputValue).toBe(PASSWORD);
-
-  await page.getByText("Login").click();
   await page.waitForURL("http://localhost:3000/", {
     timeout: 10000,
   });

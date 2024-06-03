@@ -1,5 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
 import { mockPostsData } from "./mockData";
+import { LoginScript } from "./loginScript";
 
 test.describe.configure({ mode: "serial" });
 
@@ -70,27 +71,7 @@ test.describe("Navigation and Routing", () => {
   });
 
   test("Navigate paths if logged in", async () => {
-    await page.goto("http://localhost:3000/login");
-
-    const EMAIL = process.env.TEST_EMAIL;
-    const PASSWORD = process.env.TEST_PASS;
-
-    // Log in first
-    const emailInput = page.getByPlaceholder("example@email.com");
-    await emailInput.waitFor({ state: "attached", timeout: 5000 });
-    await emailInput.waitFor({ state: "visible", timeout: 5000 });
-    await emailInput.fill(EMAIL!);
-    const emailInputValue = await emailInput.inputValue();
-    expect(emailInputValue).toBe(EMAIL);
-
-    const passwordInput = page.locator("input#password");
-    await passwordInput.waitFor({ state: "attached", timeout: 5000 });
-    await passwordInput.waitFor({ state: "visible", timeout: 5000 });
-    await passwordInput.fill(PASSWORD!);
-    const passwordInputValue = await passwordInput.inputValue();
-    expect(passwordInputValue).toBe(PASSWORD);
-
-    await page.getByText("Login").click();
+    await LoginScript(page, expect);
 
     // Ensure nav button is available
     const NavButton = page.getByTestId("nav-menu-button");

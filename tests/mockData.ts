@@ -150,7 +150,6 @@ export const mockPostsData = {
       content: contentOne,
       likes: 10,
       reports: 2,
-      // Below is the id of the test user
       authorId: "author",
     },
     {
