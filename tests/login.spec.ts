@@ -1,8 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { LoginScript } from "./scripts/loginScript";
+import { RouteScript } from "./scripts/routeScript";
 
 test.beforeEach(async ({ page }) => {
-  await LoginScript(page);
+  await RouteScript(page);
   await page.goto("http://localhost:3000/login");
 });
 
