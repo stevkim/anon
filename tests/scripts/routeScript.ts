@@ -1,5 +1,5 @@
 import { type Page, expect } from "@playwright/test";
-import { mockPostsData, mockSavedData, mockUserData } from "../mockData";
+import { mockPostsData, mockSavedData, mockUserData } from "../mockE2EData";
 
 export const RouteScript = async (page: Page) => {
   // Handle GET Requests
