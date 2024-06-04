@@ -1,4 +1,4 @@
-import defaultValue from "../components/Editor/defaultValue";
+import type { TContent } from "@/types/content";
 
 const defaultStringList = new Set([
   "Writing on ",
@@ -20,7 +20,7 @@ const defaultStringList = new Set([
 */
 
 // returns true if valid, false if not valid
-export default function validateContent(content: typeof defaultValue): boolean {
+export default function validateContent(content: TContent): boolean {
   // content must have at least 2 lines
   if (content.content.length < 2) {
     return false;
@@ -42,7 +42,7 @@ export default function validateContent(content: typeof defaultValue): boolean {
 }
 
 // iterates the content and returns the string list
-function getList(content: typeof defaultValue): string[] {
+export function getList(content: TContent): string[] {
   const textList: string[] = [];
 
   let stack: any[] = [...content.content];
