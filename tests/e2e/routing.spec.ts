@@ -62,7 +62,7 @@ test.describe("Navigation and Routing", () => {
     // Log in
     await LoginScript(page);
 
-    // Navigatio button
+    // Navigation button
     const NavButton = page.getByTestId("nav-menu-button");
 
     // Navigate to publish

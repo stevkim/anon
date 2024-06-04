@@ -22,7 +22,7 @@ test.describe("Publish Page", () => {
     await expect(page).toHaveURL("http://localhost:3000/publish");
   });
 
-  test("Loads the content of the page", async () => {
+  test("Load the contents of the page", async () => {
     // Editor
     await expect(page.getByTestId("editor")).toBeVisible();
     // Default display
@@ -50,9 +50,10 @@ test.describe("Publish Page", () => {
       "Should save content to localStorage if >= 2 lines",
     );
 
-    // Refresh page and test local storage
+    // Refresh page
     await page.reload();
 
+    // Editor content should be text saved in local storage
     await expect(page.getByText("Writing on anon...")).not.toBeVisible();
     await expect(page.getByText("Testing")).toBeVisible();
   });
@@ -61,8 +62,9 @@ test.describe("Publish Page", () => {
     // The editor element
     const Editor = page.locator("div.ProseMirror");
 
+    // Clear editor and add one line of text
     await Editor.fill("Testing a single line");
-    await page.getByText("Submit", { exact: true }).click();
+    await page.getByText("Submit", { exact: true }).click(); // should fail
 
     // Error posting
     await expect(page.getByText("Error Posting").first()).toBeVisible();
@@ -76,7 +78,7 @@ test.describe("Publish Page", () => {
 
     await page.getByText("Submit", { exact: true }).click();
 
-    // Redirects to home page
+    // Should redirect to home page on successful submission
     await expect(page).toHaveURL("http://localhost:3000");
 
     // Confirmation of post being published
