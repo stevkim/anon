@@ -40,10 +40,10 @@ const Card = ({ post }: Props) => {
   });
 
   return (
-    <div className="rounded-[--radius] border border-secondary p-4 shadow-sm">
+    <div className="border-bottom rounded-[--radius] border-secondary px-4 pb-4 shadow-sm">
       <EditorContent
         editor={editor}
-        className="prose-headings:font-title font-default prose prose-lg max-w-full dark:prose-invert focus:outline-none"
+        className="prose-headings:font-title font-default prose prose-lg dark:prose-invert focus:outline-none"
       />
       <div className="flex items-center gap-4">
         <span className="mr-auto text-xs text-[gray]">{date}</span>

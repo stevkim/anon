@@ -1,11 +1,15 @@
+import { ReactNode } from "react";
+
 interface Props {
   message?: string;
+  icon?: ReactNode;
 }
 
-const NoMorePosts = ({ message = "You've reached the end" }: Props) => {
+const NoMorePosts = ({ message = "You've reached the end", icon }: Props) => {
   return (
-    <div className="mx-auto my-5 max-w-lg rounded-md p-5 text-center">
-      <p className="font-logo text-lg text-gray-600">{message}</p>
+    <div className="mx-auto my-5 flex max-w-lg items-center justify-center rounded-md p-5 text-center text-gray-600">
+      <p className="mx-2 text-lg ">{message}</p>
+      {icon ? <>{icon}</> : null}
     </div>
   );
 };

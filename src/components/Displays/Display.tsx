@@ -8,6 +8,7 @@ import usePosts from "@/hooks/usePosts";
 import ComponentLoader from "../Loaders/ComponentLoader";
 import NoMorePosts from "../Widgets/NoMorePosts";
 import BackTotop from "./BackToTop";
+import { Frown } from "lucide-react";
 
 interface Props {
   queryKey: string;
@@ -45,10 +46,19 @@ const Display = ({ queryKey, fetchFn }: Props) => {
     return <MainFeedLoader />;
   }
 
+  if (content.length === 0) {
+    return (
+      <NoMorePosts
+        message="Uh oh, we couldn't find anything"
+        icon={<Frown size="16" />}
+      />
+    );
+  }
+
   return (
     <div
       data-testid={`content-display-${queryKey}`}
-      className="no-scrollbar relative flex h-[90vh] w-full flex-col gap-4 overflow-auto pb-4"
+      className="no-scrollbar relative flex h-[90vh] w-full flex-col gap-4 overflow-auto py-4"
       ref={contentRef}
       onScroll={throttled}
     >
