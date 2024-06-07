@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Providers from "./providers";
 import { Toaster } from "@/components/ui/toaster";
 import { Dancing_Script, Inter } from "next/font/google";
+import NavReset from "@/components/Navbar/NavReset";
 
 export const metadata: Metadata = {
   title: "anon.",
@@ -35,7 +36,7 @@ export default function RootLayout({
       >
         <Providers>
           <Navbar />
-          {children}
+          <NavReset>{children}</NavReset>
           <Toaster />
         </Providers>
       </body>

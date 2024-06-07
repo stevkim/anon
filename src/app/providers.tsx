@@ -5,15 +5,23 @@ import { ThemeProvider } from "next-themes";
 import { type ThemeProviderProps } from "next-themes/dist/types";
 import { createContext } from "react";
 
-const initialState = {
+const initialMenuState = {
   menu: "",
   setMenu: (id: string) => {},
 };
 
-export const MenuContext = createContext(initialState);
+const initialNavState = {
+  open: false,
+  setOpen: (input: boolean) => {},
+};
+
+export const MenuContext = createContext(initialMenuState);
+export const NavContext = createContext(initialNavState);
 
 const Providers = ({ children, ...props }: ThemeProviderProps) => {
   const [menu, setMenu] = useState("");
+  const [open, setOpen] = useState(false);
+
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -37,11 +45,13 @@ const Providers = ({ children, ...props }: ThemeProviderProps) => {
       disableTransitionOnChange
       {...props}
     >
-      <MenuContext.Provider value={{ menu, setMenu }}>
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
-      </MenuContext.Provider>
+      <NavContext.Provider value={{ open, setOpen }}>
+        <MenuContext.Provider value={{ menu, setMenu }}>
+          <QueryClientProvider client={queryClient}>
+            {children}
+          </QueryClientProvider>
+        </MenuContext.Provider>
+      </NavContext.Provider>
     </ThemeProvider>
   );
 };

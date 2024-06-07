@@ -1,9 +1,10 @@
 "use client";
-import { ReactNode, useState } from "react";
+import { ReactNode, useContext } from "react";
 import Link from "next/link";
 import { Home, Pencil, CircleUser } from "lucide-react";
 import MenuIcon from "./MenuIcon";
 import { Separator } from "../ui/separator";
+import { NavContext } from "@/app/providers";
 
 const NAVS = [
   {
@@ -28,9 +29,12 @@ interface Props {
 }
 
 const NavMenu = ({ children }: Props) => {
-  const [open, setOpen] = useState(false);
+  const { open, setOpen } = useContext(NavContext);
 
-  const handleClick = () => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
+  ) => {
+    e.stopPropagation();
     setOpen(!open);
   };
 
@@ -41,7 +45,7 @@ const NavMenu = ({ children }: Props) => {
         <div
           data-testid="nav-menu"
           className="absolute left-0 top-[50px] z-[51] flex w-full flex-col gap-2 rounded-[--radius] border bg-popover p-4 text-lg shadow-md md:left-[9%] md:w-[200px]"
-          onClick={handleClick}
+          onClick={(e) => handleClick(e)}
         >
           {NAVS.map((nav) => {
             return (

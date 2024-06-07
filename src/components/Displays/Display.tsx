@@ -8,7 +8,7 @@ import usePosts from "@/hooks/usePosts";
 import ComponentLoader from "../Loaders/ComponentLoader";
 import NoMorePosts from "../Widgets/NoMorePosts";
 import BackTotop from "./BackToTop";
-import { Frown } from "lucide-react";
+import { Frown, PartyPopper } from "lucide-react";
 
 interface Props {
   queryKey: string;
@@ -63,7 +63,11 @@ const Display = ({ queryKey, fetchFn }: Props) => {
       onScroll={throttled}
     >
       {content}
-      {isFetching ? <ComponentLoader /> : <NoMorePosts />}
+      {isFetching ? (
+        <ComponentLoader />
+      ) : (
+        <NoMorePosts icon={<PartyPopper size={20} />} />
+      )}
       {backToTop ? <BackTotop scrollToTop={scrollToTop} /> : null}
     </div>
   );

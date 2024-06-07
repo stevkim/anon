@@ -76,12 +76,18 @@ const config = {
             opacity: "90%",
           },
         },
+        "flip-horizontal": {
+          "50%": {
+            transform: "rotateY(180deg)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "spin-slow": "spin 2s linear infinite",
         "ping-fast": "ping .2s ease-in-out 2",
+        "flip-h": "flip-horizontal .5s linear",
       },
     },
   },
