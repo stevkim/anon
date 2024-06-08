@@ -16,12 +16,14 @@ import { Button } from "../../ui/button";
 import { FormEvent, useState } from "react";
 import { useToast } from "../../ui/use-toast";
 import { validateReport } from "@/lib/validateReport";
+import ButtonLoader from "@/components/Loaders/ButtonLoader";
 
 interface Props {
   postId: string;
 }
 
 const ReportButton = ({ postId }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
@@ -30,16 +32,17 @@ const ReportButton = ({ postId }: Props) => {
     e.preventDefault();
     const supabase = createClient();
 
-    const { error } = await supabase.auth.getUser();
+    const user = (await supabase.auth.getSession()).data.session?.user;
 
-    if (error) {
+    if (!user) {
       return toast({ description: "Must be logged in to report posts" });
     }
-
+    setIsLoading(true);
     // Validate the input for the report
     const validated = validateReport(input);
 
     if (!validated.success) {
+      setIsLoading(false);
       return toast({
         title: "Validation error",
         description: validated.error.issues[0].message,
@@ -49,11 +52,12 @@ const ReportButton = ({ postId }: Props) => {
 
     const response = await reportPost(postId, { reason: input });
 
-    if (!response.ok) {
-      toast({ title: "Internal server error", variant: "destructive" });
+    if (response.error) {
+      toast({ title: response.error, variant: "destructive" });
     } else {
       toast({ description: "Thank you for your report." });
     }
+    setIsLoading(false);
     setOpen(false);
   };
 
@@ -82,8 +86,8 @@ const ReportButton = ({ postId }: Props) => {
           <Input id="reason" onChange={(e) => setInput(e.target.value)} />
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleReport}>
-            Submit
+          <Button type="submit" onClick={handleReport} disabled={isLoading}>
+            {isLoading ? <ButtonLoader message="Posting" /> : "Submit"}
           </Button>
         </DialogFooter>
       </DialogContent>

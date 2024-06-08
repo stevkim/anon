@@ -19,9 +19,9 @@ const LikeButton = ({ liked, likes, postId }: Props) => {
   const handleLike = async (type: string) => {
     const supabase = createClient();
 
-    const { error } = await supabase.auth.getUser();
+    const user = (await supabase.auth.getSession()).data.session?.user;
 
-    if (error) {
+    if (!user) {
       return toast({ description: "Must be logged in to like posts" });
     }
 

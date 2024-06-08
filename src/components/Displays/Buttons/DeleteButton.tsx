@@ -25,9 +25,7 @@ const DeleteButton = ({ postId }: Props) => {
   const handleDelete = async () => {
     const supabase = createClient();
 
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    const user = (await supabase.auth.getSession()).data.session?.user;
 
     if (!user) {
       return toast({
