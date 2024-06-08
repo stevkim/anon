@@ -65,5 +65,5 @@ export const reportPost = async (postId: string, data: { reason: string }) => {
       "content-type": "application/json",
     },
   });
-  return results;
+  return await results.json();
 };
