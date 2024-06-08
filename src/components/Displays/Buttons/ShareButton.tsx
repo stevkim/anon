@@ -21,7 +21,7 @@ const ShareButton = ({ postId }: Props) => {
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
 
-  const url = `${process.env.URL}/post?id=${postId}`;
+  const url = `${window.location.origin}/post?id=${postId}`;
 
   const copyLink = () => {
     navigator.clipboard.writeText(url);
