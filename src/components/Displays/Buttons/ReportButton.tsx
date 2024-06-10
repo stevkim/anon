@@ -23,7 +23,7 @@ interface Props {
 }
 
 const ReportButton = ({ postId }: Props) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
@@ -37,12 +37,12 @@ const ReportButton = ({ postId }: Props) => {
     if (!user) {
       return toast({ description: "Must be logged in to report posts" });
     }
-    setIsLoading(true);
+    setLoading(true);
     // Validate the input for the report
     const validated = validateReport(input);
 
     if (!validated.success) {
-      setIsLoading(false);
+      setLoading(false);
       return toast({
         title: "Validation error",
         description: validated.error.issues[0].message,
@@ -57,7 +57,7 @@ const ReportButton = ({ postId }: Props) => {
     } else {
       toast({ description: "Thank you for your report." });
     }
-    setIsLoading(false);
+    setLoading(false);
     setOpen(false);
   };
 
@@ -86,8 +86,8 @@ const ReportButton = ({ postId }: Props) => {
           <Input id="reason" onChange={(e) => setInput(e.target.value)} />
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={handleReport} disabled={isLoading}>
-            {isLoading ? <ButtonLoader message="Posting" /> : "Submit"}
+          <Button type="submit" onClick={handleReport} disabled={loading}>
+            {loading ? <ButtonLoader message="Posting" /> : "Submit"}
           </Button>
         </DialogFooter>
       </DialogContent>

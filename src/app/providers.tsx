@@ -19,8 +19,8 @@ export const MenuContext = createContext(initialMenuState);
 export const NavContext = createContext(initialNavState);
 
 const Providers = ({ children, ...props }: ThemeProviderProps) => {
-  const [menu, setMenu] = useState("");
-  const [open, setOpen] = useState(false);
+  const [menu, setMenu] = useState(""); // Post Option Menu
+  const [open, setOpen] = useState(false); // Nav Menu
 
   const [queryClient] = useState(
     () =>

@@ -8,7 +8,7 @@ import { Dancing_Script, Inter } from "next/font/google";
 import NavReset from "@/components/Navbar/NavReset";
 
 export const metadata: Metadata = {
-  title: "anon.",
+  title: "anon. | Share Literature Anonymously",
   description: "Read and share literature anonymously",
   icons: {
     icon: "/icon.ico",
