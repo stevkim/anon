@@ -9,7 +9,8 @@ import NavReset from "@/components/Navbar/NavReset";
 
 export const metadata: Metadata = {
   title: "anon. | Share Literature Anonymously",
-  description: "Read and share literature anonymously",
+  description:
+    "Read, write, and share literature anonymously. Immerse yourself in a world where creativity knows no bounds.",
   icons: {
     icon: "/icon.ico",
   },
