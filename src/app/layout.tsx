@@ -6,6 +6,7 @@ import Providers from "./providers";
 import { Toaster } from "@/components/ui/toaster";
 import { Dancing_Script, Inter } from "next/font/google";
 import NavReset from "@/components/Navbar/NavReset";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "anon. | Share Literature Anonymously",
@@ -40,6 +41,7 @@ export default function RootLayout({
           <NavReset>{children}</NavReset>
           <Toaster />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
