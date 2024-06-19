@@ -8,6 +8,7 @@ import Underline from "@tiptap/extension-underline";
 import LikeButton from "./Buttons/LikeButton";
 import ButtonMenu from "./ButtonMenu";
 import type { TPost } from "@/types/posts";
+import { formatDate } from "@/lib/formatDate";
 
 interface Props {
   post: TPost;
@@ -15,17 +16,6 @@ interface Props {
 
 const Card = ({ post }: Props) => {
   const { content, liked, likes, id, saved, authorId, createdAt } = post;
-  // format the date
-  const date = useMemo(() => {
-    const time = new Date(createdAt);
-    return time.toLocaleString([], {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  }, [createdAt]);
 
   // content to be displayed - not editable
   const editor = useEditor({
@@ -46,7 +36,12 @@ const Card = ({ post }: Props) => {
         className="prose-headings:font-title font-default prose prose-lg dark:prose-invert focus:outline-none"
       />
       <div className="flex items-center gap-4">
-        <span className="mr-auto text-xs text-[gray]">{date}</span>
+        <span
+          aria-label="Post creation date"
+          className="mr-auto text-xs text-[gray]"
+        >
+          {formatDate(createdAt)}
+        </span>
         <LikeButton liked={liked!} likes={likes!} postId={id} />
         <ButtonMenu postId={id} authorId={authorId} saved={saved!} />
       </div>

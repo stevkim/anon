@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import prisma from "@/db/client";
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
-import { createReport, updatePostReports } from "@/db/methods";
+import { createReport, updatePostReports } from "@/db/Controllers";
 import { Prisma } from "@prisma/client";
 
 // creates a report for a post
@@ -13,14 +13,15 @@ export async function POST(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const postId = request.nextUrl.pathname.split("/")[4];
-  const data = await request.json();
+  const reportData = await request.json();
 
   try {
     await prisma.$transaction([
-      createReport(postId, data, user!.id),
+      createReport(postId, reportData, user!.id),
       updatePostReports(postId),
     ]);
 
+    // Revalidates to refetch on next load
     revalidatePath("/", "layout");
 
     return NextResponse.json({}, { status: 200 });
@@ -34,6 +35,7 @@ export async function POST(request: NextRequest) {
         { status: 403 },
       );
     }
+
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 },

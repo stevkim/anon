@@ -12,7 +12,7 @@ interface Props {
 }
 
 const SaveButton = ({ postId, saved }: Props) => {
-  const [save, setSave] = useState<string | null>(saved);
+  const [savedId, setSavedId] = useState<string | null>(saved);
   const [loading, setLoading] = useState(false);
   const queryClient = useQueryClient();
   const { toast } = useToast();
@@ -29,12 +29,12 @@ const SaveButton = ({ postId, saved }: Props) => {
     setLoading(true);
     if (type === "save") {
       await savePost(postId).then((res) => {
-        setSave(res.data.id);
+        setSavedId(res.data.id);
       });
       toast({ title: "Added to your list" });
     } else {
-      setSave(null);
-      await unsavePost(postId, save!);
+      setSavedId(null);
+      await unsavePost(postId, savedId!);
       toast({ title: "Removed from your list" });
     }
     queryClient.invalidateQueries({ queryKey: ["savedPosts"] });
@@ -44,9 +44,9 @@ const SaveButton = ({ postId, saved }: Props) => {
   const SaveButtonContent = () => {
     return (
       <>
-        {save ? <BookmarkX size={12} /> : <Bookmark size={12} />}
+        {savedId ? <BookmarkX size={12} /> : <Bookmark size={12} />}
         <span className="ml-2 whitespace-nowrap">
-          {save ? "Remove from List" : "Save to List"}
+          {savedId ? "Remove from List" : "Save to List"}
         </span>
       </>
     );
@@ -58,7 +58,7 @@ const SaveButton = ({ postId, saved }: Props) => {
         data-testid="save-button"
         disabled={loading}
         onClick={() => {
-          save ? handleSave("unsave") : handleSave("save");
+          savedId ? handleSave("unsave") : handleSave("save");
         }}
         className="flex flex-row items-center text-[#717E8E] hover:text-popover-foreground"
       >

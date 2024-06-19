@@ -11,7 +11,7 @@ interface Props {
 }
 
 const LikeButton = ({ liked, likes, postId }: Props) => {
-  const [like, setLike] = useState<string | null>(liked);
+  const [likeId, setLikeId] = useState<string | null>(liked);
   const [likeCount, setLikeCount] = useState<number>(likes);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
@@ -27,16 +27,16 @@ const LikeButton = ({ liked, likes, postId }: Props) => {
 
     setLoading(true);
     if (type === "like") {
-      setLike("loading...");
-      setLikeCount(likeCount + 1);
+      setLikeId("loading...");
+      setLikeCount((state) => state + 1);
 
       await likePost(postId).then((res) => {
-        setLike(res.data.id);
+        setLikeId(res.data.id);
       });
     } else {
-      setLike(null);
-      setLikeCount(likeCount - 1);
-      await unlikePost(postId, like!);
+      setLikeId(null);
+      setLikeCount((state) => state - 1);
+      await unlikePost(postId, likeId!);
     }
     setLoading(false);
   };
@@ -49,10 +49,10 @@ const LikeButton = ({ liked, likes, postId }: Props) => {
         disabled={loading}
         className="hover:animate-ping-fast"
         onClick={() => {
-          like ? handleLike("unlike") : handleLike("like");
+          likeId ? handleLike("unlike") : handleLike("like");
         }}
       >
-        {like ? <Heart size="16" fill="currentColor" /> : <Heart size="16" />}
+        {likeId ? <Heart size="16" fill="currentColor" /> : <Heart size="16" />}
       </button>
       <span className="ml-2 text-xs text-[gray]">{likeCount}</span>
     </div>

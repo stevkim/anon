@@ -1,3 +1,4 @@
+// JSON value type for Tiptap content
 export type TContent = {
   type: string;
   content: TInnerContent[];

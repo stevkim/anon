@@ -10,7 +10,7 @@ const BackTotop = ({ scrollToTop }: Props) => {
 
   return (
     <span
-      className={`fixed bottom-8 right-4 z-[100] flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full border-2 md:right-[5%] xl:right-[15%] ${hover ? "animate-flip-h scale-105 border-primary" : ""}`}
+      className={`fixed bottom-8 right-4 z-[100] flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full border-2 md:right-[5%] xl:right-[15%] ${hover ? "scale-105 animate-flip-h border-primary" : ""}`}
       onClick={scrollToTop}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
@@ -19,5 +19,5 @@ const BackTotop = ({ scrollToTop }: Props) => {
     </span>
   );
 };
-// ${hover ? "animate-ping-fast" : ""}
+
 export default BackTotop;

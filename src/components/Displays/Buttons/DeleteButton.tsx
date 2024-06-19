@@ -22,6 +22,7 @@ interface Props {
 const DeleteButton = ({ postId }: Props) => {
   const queryCLient = useQueryClient();
   const { toast } = useToast();
+
   const handleDelete = async () => {
     const supabase = createClient();
 
@@ -35,10 +36,9 @@ const DeleteButton = ({ postId }: Props) => {
     }
 
     await deletePost(postId);
+
     queryCLient.invalidateQueries({ queryKey: ["posts"] });
-    toast({
-      title: "Post Deleted",
-    });
+    toast({ title: "Post Deleted" });
   };
 
   return (

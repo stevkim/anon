@@ -3,6 +3,11 @@ import { createClient } from "@/utils/supabase/server";
 import prisma from "@/db/client";
 import { type TPost } from "@/types/posts";
 import Card from "@/components/Displays/Card";
+import {
+  getPostById,
+  findLikeRecordByIds,
+  findSavedRecordByIds,
+} from "@/db/Controllers";
 
 const getData = async (id: string) => {
   const supabase = createClient();
@@ -10,42 +15,29 @@ const getData = async (id: string) => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const data = await prisma.post.findFirst({
-    where: {
-      id,
-    },
-  });
+  const data = await getPostById(id);
 
   if (!data) {
     redirect("/");
   }
 
-  let withFlags: TPost = data;
+  let post: TPost = data;
 
   if (user?.id) {
+    // user?.id: userId, id: postId
     const [liked, saved] = await Promise.all([
-      prisma.likes.findFirst({
-        where: {
-          userId: user?.id,
-          postId: id,
-        },
-      }),
-      prisma.saved.findFirst({
-        where: {
-          userId: user?.id,
-          postId: id,
-        },
-      }),
+      findLikeRecordByIds(user?.id, id),
+      findSavedRecordByIds(user?.id, id),
     ]);
 
-    withFlags = {
+    post = {
       ...data,
       liked: liked?.id,
       saved: saved?.id,
     };
   }
 
-  return withFlags;
+  return post;
 };
 
 interface Props {

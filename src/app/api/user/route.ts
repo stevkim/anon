@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import prisma from "@/db/client";
 import { createClient } from "@/utils/supabase/server";
-import { getUserPosts, getLikes, getSaved } from "@/db/methods";
+import { getUserPosts, getLikes, getSaved } from "@/db/Controllers";
 
 // get Posts that the user has written
 // expects the pages from searchParams - /api/saved?page={PAGE}

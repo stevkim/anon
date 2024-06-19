@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import prisma from "@/db/client";
 import { revalidatePath } from "next/cache";
+import { savePost, unsavePost } from "@/db/Controllers";
 
 // saves a post for a user
 // postId comes from the path - /api/saved/{postId}
@@ -16,12 +17,7 @@ export async function POST(request: NextRequest) {
   const postId = request.nextUrl.pathname.split("/")[4];
 
   try {
-    const record = await prisma.saved.create({
-      data: {
-        postId,
-        userId: user?.id as string,
-      },
-    });
+    const record = await savePost(postId, user?.id as string);
 
     revalidatePath("/saved");
 
@@ -40,11 +36,7 @@ export async function DELETE(request: NextRequest) {
   const record = request.nextUrl.searchParams.get("record") as string;
 
   try {
-    await prisma.saved.delete({
-      where: {
-        id: record,
-      },
-    });
+    await unsavePost(record);
 
     revalidatePath("/saved");
 

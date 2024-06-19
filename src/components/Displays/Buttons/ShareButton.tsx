@@ -54,7 +54,12 @@ const ShareButton = ({ postId }: Props) => {
             Link
           </Label>
           <Input id="link" defaultValue={url} readOnly />
-          <Button data-testid="copy" onClick={copyLink} size={"icon"}>
+          <Button
+            data-testid="copy"
+            onClick={copyLink}
+            size={"icon"}
+            disabled={copied}
+          >
             {copied ? <Check size={16} /> : <Copy size={16} />}
           </Button>
         </div>

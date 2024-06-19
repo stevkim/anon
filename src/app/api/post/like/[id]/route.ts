@@ -6,7 +6,7 @@ import {
   createLikeRecord,
   updatePostLikes,
   deleteLikeRecord,
-} from "@/db/methods";
+} from "@/db/Controllers";
 
 /*
 	POST request - like a post, tied to the user
@@ -31,7 +31,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ data: record }, { status: 200 });
   } catch (error) {
-    console.log(error);
     return NextResponse.error();
   } finally {
     await prisma.$disconnect();

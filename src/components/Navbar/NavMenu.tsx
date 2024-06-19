@@ -1,28 +1,10 @@
 "use client";
 import { ReactNode, useContext } from "react";
 import Link from "next/link";
-import { Home, Pencil, CircleUser } from "lucide-react";
 import MenuIcon from "./MenuIcon";
 import { Separator } from "../ui/separator";
 import { NavContext } from "@/app/providers";
-
-const NAVS = [
-  {
-    name: "Home",
-    link: "/",
-    icon: Home,
-  },
-  {
-    name: "Publish",
-    link: "/publish",
-    icon: Pencil,
-  },
-  {
-    name: "Profile",
-    link: "/profile",
-    icon: CircleUser,
-  },
-];
+import { NAVS } from "./navData";
 
 interface Props {
   children: ReactNode;
