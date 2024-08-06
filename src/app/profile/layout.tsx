@@ -5,6 +5,11 @@ import { getQuote } from "@/lib/quote.fetch";
 import Quote from "@/components/Widgets/Quote";
 import { Suspense } from "react";
 import ComponentLoader from "@/components/Loaders/ComponentLoader";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "anon. | Your Profile",
+};
 
 const ProfileLayout = async ({ children }: { children: ReactNode }) => {
   const supabase = createClient();
